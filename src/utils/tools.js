@@ -157,10 +157,11 @@ function actScroll(endScroll, time) {
  * @return {string}
  */
 function getScrollPercent() {
-    let scrollTo = $(window).scrollTop(),
-        docHeight = $(document).height(),
-        windowHeight = $(window).height(),
-        scrollPercent = (scrollTo / (docHeight - windowHeight)) * 100;
+    const windowHeight = $(window).height();
+    const docHeight = $(document).height();
+    if (docHeight === windowHeight) return '0';
+    const scrollTo = $(window).scrollTop();
+    const scrollPercent = (scrollTo / (docHeight - windowHeight)) * 100;
     return scrollPercent.toFixed(0);
 }
 
