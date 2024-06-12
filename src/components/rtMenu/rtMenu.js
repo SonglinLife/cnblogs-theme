@@ -18,24 +18,33 @@ export default function main() {
     (() => {
         rightMenu.find('i').on({
             mouseover: function () {
-                typeof $(this).attr('banmv') === 'undefined' && $(this).rotate({
-                    animateTo: -60, duration: 250, callback: function () {
-                        $(this).rotate({
-                            animateTo: 60, duration: 250, callback: function () {
-                                $(this).rotate({
-                                    animateTo: -30, duration: 150, callback: function () {
-                                        $(this).rotate({
-                                            animateTo: 30, duration: 150, callback: function () {
-                                                $(this).rotate({animateTo: 0, duration: 100});
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
+                typeof $(this).attr('banmv') === 'undefined' &&
+                    $(this).rotate({
+                        animateTo: -60,
+                        duration: 250,
+                        callback: function () {
+                            $(this).rotate({
+                                animateTo: 60,
+                                duration: 250,
+                                callback: function () {
+                                    $(this).rotate({
+                                        animateTo: -30,
+                                        duration: 150,
+                                        callback: function () {
+                                            $(this).rotate({
+                                                animateTo: 30,
+                                                duration: 150,
+                                                callback: function () {
+                                                    $(this).rotate({ animateTo: 0, duration: 100 });
+                                                },
+                                            });
+                                        },
+                                    });
+                                },
+                            });
+                        },
+                    });
+            },
         });
 
         rightMenu.find('.rightMenuItem').on({
@@ -44,7 +53,7 @@ export default function main() {
             },
             mouseout: function () {
                 $(this).find('.rightMenuSpan').stop().fadeOut(300);
-            }
+            },
         });
     })();
 
@@ -57,34 +66,34 @@ export default function main() {
             let ac = $(this).attr('data');
             if (ac === 'down') {
                 let downScroll;
-                if ( $.__config.rtMenu.downScrollDom && $( $.__config.rtMenu.downScrollDom).length > 0) {
-                    downScroll = $( $.__config.rtMenu.downScrollDom).offset().top + 10;
+                if ($.__config.rtMenu.downScrollDom && $($.__config.rtMenu.downScrollDom).length > 0) {
+                    downScroll = $($.__config.rtMenu.downScrollDom).offset().top + 10;
                 } else {
                     let docHeight = $(document).height();
                     let windowHeight = $(window).height();
                     downScroll = docHeight - windowHeight;
                 }
 
-                $.__tools.actScroll(downScroll, 900)
+                $.__tools.actScroll(downScroll, 900);
             } else {
-                $.__tools.actScroll(0, 900)
+                $.__tools.actScroll(0, 900);
             }
         });
         // 滚动事件
         $.__event.scroll.handle.push(() => {
-            let toUpDown = $("#toUpDown"),
-                toUpDownI = $("#toUpDownI"),
+            let toUpDown = $('#toUpDown'),
+                toUpDownI = $('#toUpDownI'),
                 toUpDownSpan = $('.toUpDownSpan');
 
             $.__event.scroll.docScroll = $(document).scrollTop(); // 当前滚动位置
             $.__event.scroll.homeScroll = $('#home').offset().top - 40; // 主体滚动
 
-            if ( $.__event.scroll.homeScroll <= $.__event.scroll.docScroll) {
-                toUpDownI.rotate({animateTo: 0});
+            if ($.__event.scroll.homeScroll <= $.__event.scroll.docScroll) {
+                toUpDownI.rotate({ animateTo: 0 });
                 toUpDown.attr('data', 'up');
                 toUpDownSpan.text('返回顶部');
             } else {
-                toUpDownI.rotate({animateTo: -180});
+                toUpDownI.rotate({ animateTo: -180 });
                 toUpDown.attr('data', 'down');
                 toUpDownSpan.text('跳至底部');
             }
@@ -126,12 +135,11 @@ export default function main() {
                 let clickStr = followObj.text() !== '' ? $('#p_b_follow a').attr('onclick') : '';
                 if (clickStr && !!clickStr.indexOf('unfollow') > 0) {
                     let attention = $('#attention');
-                    attention.attr('onclick', clickStr.replace('unfollow', 'follow'))
-                        .attr('clickflg', 'false');
+                    attention.attr('onclick', clickStr.replace('unfollow', 'follow')).attr('clickflg', 'false');
                     attention.find('.rightMenuSpan').text('关注');
                     attention.find('i').removeClass('icon-follower').addClass('icon-unfollower');
                 }
-                $.__tools.clearIntervalTimeId( $.__timeIds.followTId);
+                $.__tools.clearIntervalTimeId($.__timeIds.followTId);
             }
         }, 1000);
     })();
@@ -143,15 +151,16 @@ export default function main() {
         if ($.__config.rtMenu.qrCode) $('#rightGzh').show().find('.ds-gzh img').attr('src', $.__config.rtMenu.qrCode);
     })();
 
-
     /**
      * 打赏
      */
     (() => {
-        if ( $.__config.rtMenu.reward.alipay || $.__config.rtMenu.reward.wechatpay) {
+        if ($.__config.rtMenu.reward.alipay || $.__config.rtMenu.reward.wechatpay) {
             $('#rightDashang').show();
-            ($.__config.rtMenu.reward.alipay) && $('#rightDashang .ds-alipay').show().find('img').attr('src', $.__config.rtMenu.reward.alipay);
-            ($.__config.rtMenu.reward.wechatpay) && $('#rightDashang .ds-wecat').show().find('img').attr('src', $.__config.rtMenu.reward.wechatpay);
+            $.__config.rtMenu.reward.alipay &&
+                $('#rightDashang .ds-alipay').show().find('img').attr('src', $.__config.rtMenu.reward.alipay);
+            $.__config.rtMenu.reward.wechatpay &&
+                $('#rightDashang .ds-wecat').show().find('img').attr('src', $.__config.rtMenu.reward.wechatpay);
         }
     })();
 
@@ -161,81 +170,98 @@ export default function main() {
     (() => {
         // 顶
         $.__timeIds.diggitTId = window.setInterval(() => {
-            let diggit = $(".diggit");
+            let diggit = $('.diggit');
             if (diggit.length > 0) {
                 diggit.prepend('<i class="iconfont icon-dianzan"></i>');
 
                 let rightDiggit = $('#rightDiggit');
                 let rightMenuSpan = rightDiggit.find('.rightMenuSpan');
-                ($.__config.articleContent.diggit) && $.__tools.dynamicLoadingJs($.__config.default.mojs).then(() => {
-                    const RADIUS = 28;
-                    const circle = new mojs.Shape({
-                        left: 0, top: 0,
-                        stroke:   '#FF9C00',
-                        strokeWidth: { [2*RADIUS] : 0 },
-                        fill:     'none',
-                        scale:    { 0: 1, easing: 'quad.out' },
-                        radius:   RADIUS,
-                        duration:  450
-                    });
+                $.__config.articleContent.diggit &&
+                    $.__tools
+                        .dynamicLoadingJs($.__config.default.mojs)
+                        .then(() => {
+                            const RADIUS = 28;
+                            const circle = new mojs.Shape({
+                                left: 0,
+                                top: 0,
+                                stroke: '#FF9C00',
+                                strokeWidth: { [2 * RADIUS]: 0 },
+                                fill: 'none',
+                                scale: { 0: 1, easing: 'quad.out' },
+                                radius: RADIUS,
+                                duration: 450,
+                            });
 
-                    const burst = new mojs.Burst({
-                        left: 0, top: 0,
-                        radius: {0: 50},
-                        easing:  mojs.easing.bezier(0.1, 1, 0.3, 1),
-                        delay: 300,
-                        children: {
-                            duration: 750,
-                            radius: {0: 'rand(5, 25)'},
-                            shape: ['circle','rect','polygon'],
-                            fill: ['#1abc9c', '#2ecc71', '#00cec9', '#3498db', '#9b59b6', '#fdcb6e', '#f1c40f', '#e67e22', '#e74c3c', '#e84393'],
-                            degreeShift: 'rand(-90, 90)',
-                            delay: 'stagger(0, 40)',
-                        },
-                        opacity: 0.6,
-                        count: 10,
-                    });
+                            const burst = new mojs.Burst({
+                                left: 0,
+                                top: 0,
+                                radius: { 0: 50 },
+                                easing: mojs.easing.bezier(0.1, 1, 0.3, 1),
+                                delay: 300,
+                                children: {
+                                    duration: 750,
+                                    radius: { 0: 'rand(5, 25)' },
+                                    shape: ['circle', 'rect', 'polygon'],
+                                    fill: [
+                                        '#1abc9c',
+                                        '#2ecc71',
+                                        '#00cec9',
+                                        '#3498db',
+                                        '#9b59b6',
+                                        '#fdcb6e',
+                                        '#f1c40f',
+                                        '#e67e22',
+                                        '#e74c3c',
+                                        '#e84393',
+                                    ],
+                                    degreeShift: 'rand(-90, 90)',
+                                    delay: 'stagger(0, 40)',
+                                },
+                                opacity: 0.6,
+                                count: 10,
+                            });
 
-                    burst.el.style.zIndex = 999999;
-                    const timeline = new mojs.Timeline({ speed: 1.5 });
+                            burst.el.style.zIndex = 999999;
+                            const timeline = new mojs.Timeline({ speed: 1.5 });
 
-                    timeline.add( burst, circle );
+                            timeline.add(burst, circle);
 
-                    $(document).on("click touchend", ".diggit, #rightDiggit", function (e) {
-                        const coords = { x: e.pageX, y: e.pageY };
-                        burst.tune(coords);
-                        circle.tune(coords);
-                        timeline.replay();
-                    });
-                }).catch(e => console.error('rtMenu-mo.js: ', e))
-                rightDiggit.attr('onclick', diggit.attr("onclick"));
+                            $(document).on('click touchend', '.diggit, #rightDiggit', function (e) {
+                                const coords = { x: e.pageX, y: e.pageY };
+                                burst.tune(coords);
+                                circle.tune(coords);
+                                timeline.replay();
+                            });
+                        })
+                        .catch((e) => console.error('rtMenu-mo.js: ', e));
+                rightDiggit.attr('onclick', diggit.attr('onclick'));
                 rightMenuSpan.text($('#digg_count').text());
 
                 rightDiggit.show().click(function () {
                     clickHdl($(this), rightMenuSpan, $('#digg_count').text());
                 });
 
-                $.__tools.clearIntervalTimeId( $.__timeIds.diggitTId);
+                $.__tools.clearIntervalTimeId($.__timeIds.diggitTId);
             }
         }, 1000);
 
         // 踩
         $.__timeIds.buryitTId = window.setInterval(() => {
-            let buryit = $(".buryit");
+            let buryit = $('.buryit');
             if (buryit.length > 0) {
                 buryit.prepend('<i class="iconfont icon-buzan"></i>');
 
                 let rightBuryit = $('#rightBuryit');
                 let rightMenuSpan = rightBuryit.find('.rightMenuSpan');
 
-                rightBuryit.attr('onclick', buryit.attr("onclick"));
+                rightBuryit.attr('onclick', buryit.attr('onclick'));
                 rightMenuSpan.text($('#bury_count').text());
 
                 rightBuryit.show().click(function () {
                     clickHdl($(this), rightMenuSpan, $('#bury_count').text());
                 });
 
-                $.__tools.clearIntervalTimeId( $.__timeIds.buryitTId);
+                $.__tools.clearIntervalTimeId($.__timeIds.buryitTId);
             }
         }, 1000);
 
@@ -243,27 +269,18 @@ export default function main() {
         function clickHdl(obj, subObj, cun) {
             if (obj.attr('clickflg') === 'false') {
                 obj.attr('clickflg', 'true');
-                subObj.text('提交中.');
+                subObj.text('提交中');
+                let counter = 0;
+                const intervalId = setInterval(() => {
+                    subObj.text(`${counter % 2 === 0 ? '提交中' : '更新中'}.${'.'.repeat(counter % 3)}`);
 
-                setTimeout(() => {
-                    subObj.text('提交中..')
+                    counter++;
+                    if (counter >= 6) {
+                        clearInterval(intervalId);
+                        subObj.text(finalText);
+                        obj.attr('clickflg', 'false');
+                    }
                 }, 300);
-                setTimeout(() => {
-                    subObj.text('提交中...')
-                }, 600);
-                setTimeout(() => {
-                    subObj.text('更新中.')
-                }, 900);
-                setTimeout(() => {
-                    subObj.text('更新中..')
-                }, 1200);
-                setTimeout(() => {
-                    subObj.text('更新中...')
-                }, 1500);
-                setTimeout(() => {
-                    subObj.text(cun);
-                    obj.attr('clickflg', 'false');
-                }, 1800);
             }
         }
     })();
@@ -272,7 +289,7 @@ export default function main() {
      * 文章目录
      */
     (() => {
-        if ( $.__status.pageType !== 'home') {
+        if ($.__status.pageType !== 'home') {
             let rtaDirectory = $('#rtaDirectory');
             rtaDirectory.show();
 
@@ -290,7 +307,7 @@ export default function main() {
      * 主页
      */
     (() => {
-        if ( $.__status.pageType !== 'home') {
+        if ($.__status.pageType !== 'home') {
             let rightMenuHome = $('#rightMenuHome');
             rightMenuHome.show();
 
@@ -304,14 +321,21 @@ export default function main() {
     /**
      * 更新
      */
-    (()=> {
-        if (window.isBlogOwner && window.isLogined &&  $.__tools.getVersion()) {
+    (() => {
+        if (window.isBlogOwner && window.isLogined && $.__tools.getVersion()) {
             $('#update').show();
             $('#update').click(function () {
-                window.open(localStorage.getItem('repoUrl'))
+                window.open(localStorage.getItem('repoUrl'));
             });
-            console.log('\n  🎉%c新版本已经发布了,快点击下方链接查看吧~ \n', 'color: #fefefe;text-shadow: 0 0 0.5em #0ae642, 0 0 0.2em #5c5c5c;')
-            console.log('\n' + ' %c '+(localStorage.getItem('version'))+' %c '+(localStorage.getItem('repoUrl'))+' ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; color:#000;padding:5px 0;');
+            console.log(
+                '\n  🎉%c新版本已经发布了,快点击下方链接查看吧~ \n',
+                'color: #fefefe;text-shadow: 0 0 0.5em #0ae642, 0 0 0.2em #5c5c5c;'
+            );
+            console.log(
+                '\n' + ' %c ' + localStorage.getItem('version') + ' %c ' + localStorage.getItem('repoUrl') + ' ' + '\n',
+                'color: #fadfa3; background: #030307; padding:5px 0;',
+                'background: #fadfa3; color:#000;padding:5px 0;'
+            );
         }
     })();
 }
