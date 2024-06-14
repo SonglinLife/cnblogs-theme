@@ -505,19 +505,22 @@
                 circle: { type: 'circle', color: 'red' },
                 box: { type: 'box', color: 'orange' },
                 highlight: { type: 'highlight', color: 'yellow', iterations: 1, multiline: true },
-                bracket: { type: 'bracket', color: 'red', padding: [2, 10], brackets: ['left', 'right'], strokeWidth: 3 },
+                bracket: {
+                    type: 'bracket',
+                    color: 'red',
+                    padding: [2, 10],
+                    brackets: ['left', 'right'],
+                    strokeWidth: 3,
+                },
                 strikeThrough: { type: 'strike-through', color: 'red' },
                 crossedOff: { type: 'crossed-off', color: 'red' },
-            }
+            },
         },
         hide: {
             recommendPosts: false,
             readingRanking: false,
-        }
+        },
     },
-
-    // -- 钩子 --
-    hooks: {},
 
     // -- 缺省配置 --
     default: {
