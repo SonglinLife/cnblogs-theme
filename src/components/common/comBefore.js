@@ -6,15 +6,16 @@
  * ----------------------------------------------
  * @describe: 前置公共处理
  */
-import sidebar from "../sidebar/sidebar";
-import banner from "../banner/banner";
-import event from "../event/event";
-await $.__tools.dynamicLoadingJs($.__config.default.jqueryrotate).catch(e => console.error('jqueryrotate.js', e))
-import loading from "../loading/loading";
+import sidebar from '../sidebar/sidebar';
+import banner from '../banner/banner';
+import event from '../event/event';
+await $.__tools.dynamicLoadingJs($.__config.default.jqueryrotate).catch((e) => console.error('jqueryrotate.js', e));
+import loading from '../loading/loading';
 
 export default function main() {
+    let loadingObject = loading();
 
-    let loadingObject = loading()
+    loadingObject.start();
 
     // 默认字体图标库
     import(/* webpackChunkName: "iconfont" */ /* webpackPreload: true */ '../../style/iconfont.css');
@@ -22,59 +23,26 @@ export default function main() {
     // 谷歌字体
     import(/* webpackChunkName: "google-fonts" */ /* webpackPreload: true */ '../../style/google-fonts.css');
 
-    // 开启loading
-    (() => {
-        loadingObject.start()
-    })();
+    // 国家公祭日和自定义重要的缅怀的日子
+    const today = $.__tools.getTodayDate();
+    if (today == '12-13' || $.__config.memorialDays.includes(today)) $('html').addClass('htmlGray');
 
-    /**
-     * 国家公祭日和自定义重要的缅怀的日子
-     */
-    (() => {
-        if ($.__tools.getTodayDate() == '12-13' || $.__config.memorialDays.includes($.__tools.getTodayDate())) $('html').addClass('htmlGray')
-    })();
+    // 定时清除全部计时器
+    setTimeout(() => {
+        Object.values($.__timeIds).forEach((id) => id && clearInterval(id));
+    }, 30000);
 
-    /**
-     * 定时清除全部计时器
-     */
-    (() => {
-        setTimeout(() => {
-            $.each($.__timeIds, (e) => {
-                null != $.__timeIds[e] && window.clearInterval($.__timeIds[e]);
-            });
-        }, 30000);
-    })();
+    // 事件绑定
+    event.init();
 
-    /**
-     * 事件绑定
-     */
-    (() => {
-        event.init();
-    })();
+    // 侧边栏
+    sidebar();
 
-    /**
-     * 侧边栏
-     */
-    (() => {
-        sidebar();
-    })();
+    // 头图
+    banner();
 
-    /**
-     * 头图
-     */
-    (() => {
-        banner();
-    })();
+    // 添加扩展字体图标库;
+    if ($.__config.fontIconExtend !== '') $.__tools.dynamicLoadingCss($.__config.fontIconExtend, 1);
 
-    /**
-     * 添加扩展字体图标库
-     */
-    (() => {
-        if ($.__config.fontIconExtend !== '') $.__tools.dynamicLoadingCss($.__config.fontIconExtend, 1);
-    })();
-
-    // 关闭loading
-    (() => {
-        loadingObject.stop()
-    })()
+    loadingObject.stop();
 }
