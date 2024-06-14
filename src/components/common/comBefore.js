@@ -10,12 +10,12 @@ import sidebar from '../sidebar/sidebar';
 import banner from '../banner/banner';
 import event from '../event/event';
 await $.__tools.dynamicLoadingJs($.__config.default.jqueryrotate).catch((e) => console.error('jqueryrotate.js', e));
-import loading from '../loading/loading';
+// import loading from '../loading/loading';
 
 export default function main() {
-    let loadingObject = loading();
+    // let loadingObject = loading();
 
-    loadingObject.start();
+    // loadingObject.start();
 
     // 默认字体图标库
     import(/* webpackChunkName: "iconfont" */ /* webpackPreload: true */ '../../style/iconfont.css');
@@ -44,5 +44,5 @@ export default function main() {
     // 添加扩展字体图标库;
     if ($.__config.fontIconExtend !== '') $.__tools.dynamicLoadingCss($.__config.fontIconExtend, 1);
 
-    loadingObject.stop();
+    // loadingObject.stop();
 }
