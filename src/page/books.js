@@ -1,6 +1,5 @@
 import '../style/books.css';
 import booksTemp from '../template/books.html';
-import articleDirectory from '../components/articleDirectory/articleDirectory';
 import comArticle from './common/com-article';
 
 export default function main() {
@@ -57,5 +56,4 @@ export default function main() {
         });
         articleSuffixFlg.length ? articleSuffixFlg.before(html) : postBody.append(html);
     }
-    articleDirectory();
 }
