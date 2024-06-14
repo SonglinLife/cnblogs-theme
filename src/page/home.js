@@ -113,7 +113,6 @@ export default function main() {
         .map((i) => {
             let obj = $(desc[i]),
                 img = obj.find('img.desc_img');
-
             if (img.length > 0 && img.attr('src')) {
                 let src = img.attr('src');
                 img.hide();
