@@ -6,34 +6,22 @@
  * ----------------------------------------------
  * @describe: 文章页处理
  */
-import comArticle from "./common/com-article";
-import imgBox from "../components/imgBox/imgBox";
-await $.__tools.dynamicLoadingJs($.__config.default.iconfont).catch(e => console.error('iconfont.js', e))
+import comArticle from './common/com-article';
+import imgBox from '../components/imgBox/imgBox';
+await $.__tools.dynamicLoadingJs($.__config.default.iconfont).catch((e) => console.error('iconfont.js', e));
 
 export default function main() {
+    // 文章页公共处理
+    comArticle();
 
-    /**
-     * 文章页公共处理
-     */
-    (() => {
-        comArticle();
-    })();
-
-    /**
-     * 代码高亮处理
-     */
-    (() => {
-        // 异步处理防止影响loading结束
-        import(/* webpackChunkName: "article-code" */  /* webpackPrefetch: true */ '../components/code/code').then(module => {
+    // 代码高亮处理 | 异步处理防止影响loading结束
+    import(/* webpackChunkName: "article-code" */ /* webpackPrefetch: true */ '../components/code/code').then(
+        (module) => {
             const code = module.default;
             code();
-        });
-    })();
+        }
+    );
 
-    /**
-     * 图片灯箱处理
-     */
-    (() => {
-        imgBox();
-    })();
+    // 图片灯箱处理
+    imgBox();
 }
