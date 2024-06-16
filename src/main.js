@@ -11,7 +11,8 @@ import defaultConfig from './components/config/config.json5';
 import status from './components/status/status';
 import tools from './utils/tools';
 import event from './components/event/event';
-
+$.__loading = loading();
+$.__loading.start();
 $(document).ready(function () {
     // 初始化
     $.__config = $.extend(true, defaultConfig, window?.cnblogsConfig || {}); // 配置信息
@@ -20,8 +21,6 @@ $(document).ready(function () {
     $.__timeIds = {}; // 定时器
     $.__event = {}; // 事件
     $.__config.info.name ||= $.__status.user;
-    $.__loading = loading();
-    $.__loading.start();
     $.__tools
         .dynamicLoadingJs($.__config.default.moment)
         .then((r) => {

@@ -11,7 +11,27 @@ import { rebound, Spinner } from 'exports-loader?exports=rebound,Spinner!../../v
 export default function main() {
     let loading = function () {
         let that = this;
-        this.config = $.__config.loading;
+        this.config = $?.__config?.loading || {
+            rebound: {
+                tension: 16,
+                friction: 5,
+            },
+            spinner: {
+                id: 'spinner',
+                radius: 90,
+                sides: 3,
+                depth: 4,
+                colors: {
+                    background: '#f0f0f0',
+                    stroke: '#272633',
+                    base: null,
+                    child: '#272633',
+                },
+                alwaysForward: true,
+                restAt: 0.5,
+                renderBase: false,
+            },
+        };
         this.spring = null;
         this.spinner = null;
         this.initRebound = () => {
