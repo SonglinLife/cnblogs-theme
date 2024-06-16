@@ -7,80 +7,76 @@
  * @describe: banner背景切换处理
  */
 
-await $.__tools.dynamicLoadingJs($.__config.default.gsap).catch(e => console.error('gsap.js', e))
-export default function main(id, images, cols, time, sort, current) {
+await $.__tools.dynamicLoadingJs($.__config.default.gsap).catch((e) => console.error('gsap.js', e));
+export default function main(id, images, cols, time, sortDirection, startIndex) {
+    const bgMain = document.getElementById(id);
+    const parts = [];
+    let isAnimating = false;
+    const animOptions = { duration: 2.3, ease: Power4.easeInOut };
+    const imgPreload = images.map((src) => new Image()).forEach((img) => (img.src = src));
 
-    let bgMain = document.getElementById(id);
-    let parts = []; // 列容器对象
-    let playing = false; // 是否执行动画
-
-    // 生成图片对象
-    for (let i in images) { new Image().src = images[i]; }
-
-    // 生成列dom
+    // 创建列DOM结构
     for (let col = 0; col < cols; col++) {
-        let part = document.createElement('div');
-        part.className = 'part';
-        let el = document.createElement('div');
-        el.className = "section";
-        let img = document.createElement('img');
-        img.src = images[current];
-        el.appendChild(img);
-        part.style.setProperty('--x', -100 / cols * col + 'vw');
-        part.appendChild(el);
+        const part = createPartElement(images[startIndex]);
         bgMain.appendChild(part);
         parts.push(part);
     }
 
-    // 动画配置
-    let animOptions = {
-        duration: 2.3,
-        ease: Power4.easeInOut
-    };
+    function createPartElement(src) {
+        const part = document.createElement('div');
+        part.className = 'part';
+        const section = document.createElement('div');
+        section.className = 'section';
+        const img = document.createElement('img');
+        img.src = src;
+        section.appendChild(img);
+        part.style.setProperty('--x', `-${(100 / cols) * col}vw`);
+        part.appendChild(section);
+        return part;
+    }
 
-    function go(dir) {
-        if (!playing) {
-            playing = true;
-            if (current + dir < 0) current = images.length - 1;
-            else if (current + dir >= images.length) current = 0;
-            else current += dir;
+    function updateImageInPart(part, src) {
+        const nextSection = document.createElement('div');
+        nextSection.className = 'section';
+        const img = document.createElement('img');
+        img.src = src;
+        nextSection.appendChild(img);
+        return nextSection;
+    }
 
-            function up(part, next) {
-                part.appendChild(next);
-                gsap.to(part, {...animOptions, y: (document.getElementById(id).offsetHeight * -1)}).then(function () {
-                    part.children[0].remove();
-                    gsap.to(part, {duration: 0, y: 0});
-                });
-            }
+    function animatePart(part, next, directionUp) {
+        const animFunc = directionUp ? animateUp : animateDown;
+        animFunc(part, next);
+    }
 
-            function down(part, next) {
-                part.prepend(next);
-                gsap.to(part, {duration: 0, y: (document.getElementById(id).offsetHeight * -1)});
-                gsap.to(part, {...animOptions, y: 0}).then(function () {
-                    part.children[1].remove();
-                    playing = false;
-                });
-            }
+    function animateUp(part, next) {
+        part.appendChild(next);
+        gsap.to(part, { ...animOptions, y: `-${bgMain.offsetHeight}px` }).then(() => {
+            part.removeChild(part.firstChild);
+            gsap.to(part, { duration: 0, y: 0 });
+        });
+    }
 
-            for (let p in parts) {
-                let part = parts[p];
-                let next = document.createElement('div');
-                next.className = 'section';
-                let img = document.createElement('img');
-                img.src = images[current];
-                next.appendChild(img);
+    function animateDown(part, next) {
+        part.prepend(next);
+        gsap.set(part, { y: `-${bgMain.offsetHeight}px` });
+        gsap.to(part, { ...animOptions, y: 0 }).then(() => {
+            part.removeChild(part.lastChild);
+            isAnimating = false;
+        });
+    }
 
-                if ((p - Math.max(0, dir)) % 2) {
-                    down(part, next);
-                } else {
-                    up(part, next);
-                }
-            }
+    function advanceImage(dir) {
+        if (!isAnimating) {
+            isAnimating = true;
+            startIndex = (startIndex + dir + images.length) % images.length;
+            parts.forEach((part, index) => {
+                const nextSection = updateImageInPart(part, images[startIndex]);
+                animatePart(part, nextSection, (index - Math.max(0, dir)) % 2 === 0);
+            });
         }
     }
 
-    // 定时执行
-    window.setInterval(() => {
-        go(sort);
-    }, time);
+    // 定时执行动画
+    setInterval(() => advanceImage(sortDirection), time);
 }
