@@ -24,12 +24,11 @@ $(document).ready(function () {
         .dynamicLoadingJs($.__config.default.moment)
         .then((r) => {
             let loadingObject = loading();
-            loadingObject.start();
             import(
                 /* webpackChunkName: "page-[request]" */ /* webpackPrefetch: true */ `./page/${$.__status.pageType}`
             ).then((module) => {
                 const page = module.default;
-
+                loadingObject.start();
                 // 前置公共处理
                 import(
                     /* webpackChunkName: "com-before" */ /* webpackPrefetch: true */ './components/common/comBefore'
