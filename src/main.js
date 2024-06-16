@@ -6,7 +6,7 @@
  * ----------------------------------------------
  * @describe: 主程序文件
  */
-import loading from '../loading/loading';
+import loading from './components/loading/loading';
 import defaultConfig from './components/config/config.json5';
 import status from './components/status/status';
 import tools from './utils/tools';
