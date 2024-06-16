@@ -21,6 +21,7 @@ $(document).ready(function () {
     $.__event = {}; // 事件
     $.__config.info.name ||= $.__status.user;
     $.__loading = loading();
+    $.__loading.start();
     $.__tools
         .dynamicLoadingJs($.__config.default.moment)
         .then((r) => {
@@ -28,15 +29,12 @@ $(document).ready(function () {
                 /* webpackChunkName: "page-[request]" */ /* webpackPrefetch: true */ `./page/${$.__status.pageType}`
             ).then((module) => {
                 const page = module.default;
-                $.__loading.start();
                 // 前置公共处理
                 import(
                     /* webpackChunkName: "com-before" */ /* webpackPrefetch: true */ './components/common/comBefore'
                 ).then((beforeModule) => {
                     const comBefore = beforeModule.default;
                     comBefore();
-                    $.__loading.stop();
-
                     // 页面逻辑处理
                     page();
 

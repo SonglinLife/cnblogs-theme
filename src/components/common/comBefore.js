@@ -38,4 +38,6 @@ export default function main() {
 
     // 添加扩展字体图标库;
     if ($.__config.fontIconExtend !== '') $.__tools.dynamicLoadingCss($.__config.fontIconExtend, 1);
+
+    $.__loading.stop();
 }
