@@ -52,8 +52,8 @@ $(document).ready(function () {
                         })();
                     });
                 });
+                loadingObject.stop();
             });
-            loadingObject.stop();
         })
         .catch((e) => console.error('moment.js', e));
 });
