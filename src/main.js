@@ -20,6 +20,7 @@ $(document).ready(function () {
     $.__timeIds = {}; // 定时器
     $.__event = {}; // 事件
     $.__config.info.name ||= $.__status.user;
+    $.__loading = loading();
     $.__tools
         .dynamicLoadingJs($.__config.default.moment)
         .then((r) => {
@@ -27,14 +28,14 @@ $(document).ready(function () {
                 /* webpackChunkName: "page-[request]" */ /* webpackPrefetch: true */ `./page/${$.__status.pageType}`
             ).then((module) => {
                 const page = module.default;
-                let loadingObject = loading();
-                loadingObject.start();
+                $.__loading.start();
                 // 前置公共处理
                 import(
                     /* webpackChunkName: "com-before" */ /* webpackPrefetch: true */ './components/common/comBefore'
                 ).then((beforeModule) => {
                     const comBefore = beforeModule.default;
                     comBefore();
+                    $.__loading.stop();
 
                     // 页面逻辑处理
                     page();
@@ -52,7 +53,6 @@ $(document).ready(function () {
                         })();
                     });
                 });
-                loadingObject.stop();
             });
         })
         .catch((e) => console.error('moment.js', e));
