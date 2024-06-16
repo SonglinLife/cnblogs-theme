@@ -12,6 +12,7 @@ export default function main(id, images, cols, time, sort, current) {
     const bgMain = document.getElementById(id);
     const parts = [];
     let playing = false;
+    const animOptions = { duration: 2.3, ease: Power4.easeInOut };
 
     images.forEach((src) => {
         const img = new Image();
@@ -32,18 +33,11 @@ export default function main(id, images, cols, time, sort, current) {
         parts.push(part);
     }
 
-    const animOptions = {
-        duration: 2.3,
-        ease: Power4.easeInOut,
-    };
-
     function go(dir) {
         if (playing) return;
-
         playing = true;
         current = (current + dir + images.length) % images.length;
         const bgMainHeight = bgMain.offsetHeight;
-
         parts.forEach((part, p) => {
             const next = document.createElement('div');
             next.className = 'section';
@@ -51,11 +45,8 @@ export default function main(id, images, cols, time, sort, current) {
             img.src = images[current];
             next.appendChild(img);
 
-            if ((p - Math.max(0, dir)) % 2 === 0) {
-                up(part, next, bgMainHeight);
-            } else {
-                down(part, next, bgMainHeight);
-            }
+            if ((p - Math.max(0, dir)) % 2 === 0) up(part, next, bgMainHeight);
+            else down(part, next, bgMainHeight);
         });
     }
 
