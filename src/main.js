@@ -13,8 +13,6 @@ import tools from './utils/tools';
 import event from './components/event/event';
 
 $(document).ready(function () {
-    let loadingObject = loading();
-
     // 初始化
     $.__config = $.extend(true, defaultConfig, window?.cnblogsConfig || {}); // 配置信息
     $.__status = status; // 页面状态信息
@@ -25,6 +23,7 @@ $(document).ready(function () {
     $.__tools
         .dynamicLoadingJs($.__config.default.moment)
         .then((r) => {
+            let loadingObject = loading();
             loadingObject.start();
             import(
                 /* webpackChunkName: "page-[request]" */ /* webpackPrefetch: true */ `./page/${$.__status.pageType}`
