@@ -23,11 +23,11 @@ $(document).ready(function () {
     $.__tools
         .dynamicLoadingJs($.__config.default.moment)
         .then((r) => {
-            let loadingObject = loading();
             import(
                 /* webpackChunkName: "page-[request]" */ /* webpackPrefetch: true */ `./page/${$.__status.pageType}`
             ).then((module) => {
                 const page = module.default;
+                let loadingObject = loading();
                 loadingObject.start();
                 // 前置公共处理
                 import(
