@@ -133,76 +133,68 @@ export default function main() {
     /**
      * 设置文章引用 | 扩展markdown语法
      */
-    (() => {
+    $('.blogpost-body p').html((i, c) => {
+        if (/^\?&gt;/.test(c)) return `<p class="tip">${c.slice(5).trim()}</p>`;
+        if (/^!&gt;/.test(c)) return `<p class="warn">${c.slice(5).trim()}</p>`;
+    });
+
+    // 设置注释样式
+    const tokenMap = {
+        '~bk': '<mbk>',
+        'bk~': '</mbk>',
+        '~b': '<mbox>',
+        'b~': '</mbox>',
+        '~c': '<mc>',
+        'c~': '</mc>',
+        '~u': '<mu>',
+        'u~': '</mu>',
+        '~h': '<mhl>',
+        'h~': '</mhl>',
+        '~s': '<mst>',
+        's~': '</mst>',
+        '~x': '<mco>',
+        'x~': '</mco>',
+    };
+
+    const configMap = {
+        mu: options.underline,
+        mc: options.circle,
+        mbox: options.box,
+        mhl: options.highlight,
+        mbk: options.bracket,
+        mst: options.strikeThrough,
+        mco: options.crossedOff,
+    };
+
+    function safeReplaceHtml(selector, replacement) {
+        return replacement.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    const init = async () => {
+        await $.__tools.dynamicLoadingJs($.__config.default.roughNotation);
         $('.blogpost-body p').html((i, c) => {
-            if (/^\?&gt;/.test(c)) return '<p class="tip">' + c.slice(5).trim() + '</p>';
-            if (/^!&gt;/.test(c)) return '<p class="warn">' + c.slice(5).trim() + '</p>';
+            let replacedText = c.replace(/~[a-z]{1,2}|[a-z]{1,2}~/g, (match) => {
+                if (tokenMap.hasOwnProperty(match)) {
+                    return safeReplaceHtml(match, tokenMap[match]);
+                }
+                console.warn(`No mapping found for token: ${match}`);
+                return match;
+            });
+            return replacedText;
         });
-    })();
-
-    /**
-     * 设置文章手绘效果
-     */
-    (() => {
-        if (!$.__config.articleContent.roughNotation.enable) return;
-        const tokenMap = {
-            '~bk': '<mbk>',
-            'bk~': '</mbk>',
-            '~b': '<mbox>',
-            'b~': '</mbox>',
-            '~c': '<mc>',
-            'c~': '</mc>',
-            '~u': '<mu>',
-            'u~': '</mu>',
-            '~h': '<mhl>',
-            'h~': '</mhl>',
-            '~s': '<mst>',
-            's~': '</mst>',
-            '~x': '<mco>',
-            'x~': '</mco>',
-        };
-
-        const { options } = $.__config.articleContent.roughNotation;
-
-        const configMap = {
-            mu: options.underline,
-            mc: options.circle,
-            mbox: options.box,
-            mhl: options.highlight,
-            mbk: options.bracket,
-            mst: options.strikeThrough,
-            mco: options.crossedOff,
-        };
-
-        const annotateElements = () => {
-            const { annotate } = window.RoughNotation;
-            Object.keys(configMap).forEach((selector) => {
-                const elements = document.querySelectorAll(selector);
-                elements.forEach((el) => {
-                    annotate(el, configMap[selector]).show();
-                });
-            });
-        };
-
-        const init = async () => {
-            await $.__tools.dynamicLoadingJs($.__config.default.roughNotation);
-
-            $('.blogpost-body p').html((i, c) => {
-                return c.replace(/~[a-z]{1,2}|[a-z]{1,2}~/g, (match) => tokenMap[match]);
-            });
-
+        const needAnnotation = document.querySelectorAll(Object.keys(configMap).join(','));
+        if (needAnnotation.length) {
             setTimeout(() => {
                 annotateElements();
             }, 2000);
-        };
-        init();
-    })();
+        }
+    };
+
+    if ($.__config.articleContent.roughNotation.enable) init();
 
     /**
      * 是否隐藏底部的编辑推荐和阅读排行
      */
-    (() => {
-        if ($.__config.articleContent.hide.recommendPosts) $('#under_post_card1').hide();
-        if ($.__config.articleContent.hide.readingRanking) $('#under_post_card2').hide();
-    })();
+    if ($.__config.articleContent.hide.recommendPosts) $('#under_post_card1').hide();
+    if ($.__config.articleContent.hide.readingRanking) $('#under_post_card2').hide();
 }

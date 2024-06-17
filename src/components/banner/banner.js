@@ -79,26 +79,15 @@ export default function main() {
 
     // 添加事件监听
     $.__event.scroll.handle.push(() => {
-        let openButton = $('#open-button');
+        const openButton = $('#open-button');
+        const { temScroll, docScroll, homeScroll } = $.__event.scroll;
+        const isScrolledDown = temScroll < docScroll && homeScroll <= docScroll;
+        const isScrolledUp = temScroll > docScroll && homeScroll >= docScroll;
+        const shouldToggleClass = openButton.hasClass('menu-button-scroll');
 
-        if (
-            $.__event.scroll.temScroll < $.__event.scroll.docScroll &&
-            $.__event.scroll.homeScroll <= $.__event.scroll.docScroll &&
-            !openButton.hasClass('menu-button-scroll')
-        ) {
-            // 向下滚动
-            openButton.addClass('menu-button-scroll');
-            openButton.text('');
-        }
-
-        if (
-            $.__event.scroll.temScroll > $.__event.scroll.docScroll &&
-            $.__event.scroll.homeScroll >= $.__event.scroll.docScroll &&
-            openButton.hasClass('menu-button-scroll')
-        ) {
-            // 滚入头图
-            openButton.removeClass('menu-button-scroll');
-            openButton.text('MENU');
+        // 根据滚动方向和当前状态切换按钮样式
+        if ((isScrolledDown && !shouldToggleClass) || (isScrolledUp && shouldToggleClass)) {
+            openButton.toggleClass('menu-button-scroll', isScrolledDown).text(isScrolledDown ? '' : 'MENU');
         }
     });
 }
