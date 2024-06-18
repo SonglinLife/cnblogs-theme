@@ -100,35 +100,30 @@ export default function main() {
     /**
      * 设置文章信息-链接icon
      */
-    (() => {
-        if ($.__config.articleContent.link) {
-            $('#cnblogs_post_body a').addClass('iconfont icon-fenxiang');
-            $('.footnote-ref a').removeClass('iconfont icon-fenxiang');
-            $('.footnotes-list a').removeClass('iconfont icon-fenxiang');
-        }
-    })();
-
+    if ($.__config.articleContent.link) {
+        $('#cnblogs_post_body a').addClass('iconfont icon-fenxiang');
+        $('.footnote-ref a').removeClass('iconfont icon-fenxiang');
+        $('.footnotes-list a').removeClass('iconfont icon-fenxiang');
+    }
     /**
      * 设置文章标题-iconfont
      */
-    (() => {
-        let titleInfo = $('#cnblogs_post_body').find(':header');
-        if ($.__config.articleContent.iconfont && titleInfo.length > 0) {
-            let iconfonts = $.__config.articleContent.iconfontArr;
-            titleInfo.html((i, c) => {
-                let arr = [];
-                let num = Math.floor(Math.random() * (iconfonts.length - i) + i);
-                if (arr.indexOf(num) == -1) {
-                    arr.push(num);
-                    $('<svg class="icon"> <use xlink:href="#icon-' + iconfonts[num] + '"></use></svg>').prependTo(
-                        titleInfo[i]
-                    );
-                } else {
-                    i--;
-                }
-            });
-        }
-    })();
+    let titleInfo = $('#cnblogs_post_body').find(':header');
+    if ($.__config.articleContent.iconfont && titleInfo.length > 0) {
+        let iconfonts = $.__config.articleContent.iconfontArr;
+        titleInfo.html((i, c) => {
+            let arr = [];
+            let num = Math.floor(Math.random() * (iconfonts.length - i) + i);
+            if (arr.indexOf(num) == -1) {
+                arr.push(num);
+                $('<svg class="icon"> <use xlink:href="#icon-' + iconfonts[num] + '"></use></svg>').prependTo(
+                    titleInfo[i]
+                );
+            } else {
+                i--;
+            }
+        });
+    }
 
     /**
      * 设置文章引用 | 扩展markdown语法
