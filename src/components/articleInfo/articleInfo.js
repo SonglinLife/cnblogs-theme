@@ -85,17 +85,15 @@ export default function main() {
     /**
      * 设置文章信息-标签
      */
-    (() => {
-        $.__timeIds.articleInfoTagTId = window.setInterval(() => {
-            let obj = $('#EntryTag').find('a');
-            if (obj.length > 0) {
-                $.__tools.htmlReplace('#EntryTag', /,/g, '');
-                $.__tools.articleInfo(obj, 2);
-                $.__tools.setDomHomePosition();
-                $.__tools.clearIntervalTimeId($.__timeIds.articleInfoTagTId);
-            }
-        }, 1000);
-    })();
+    $.__timeIds.articleInfoTagTId = window.setInterval(() => {
+        let obj = $('#EntryTag').find('a');
+        if (obj.length > 0) {
+            $.__tools.htmlReplace('#EntryTag', /,/g, '');
+            $.__tools.articleInfo(obj, 2);
+            $.__tools.setDomHomePosition();
+            $.__tools.clearIntervalTimeId($.__timeIds.articleInfoTagTId);
+        }
+    }, 1000);
 
     /**
      * 设置文章信息-链接icon
