@@ -70,30 +70,22 @@ export default function main() {
     /**
      * 设置文章信息-分类
      */
-    (() => {
-        $.__timeIds.articleInfoClassTId = window.setInterval(() => {
-            let obj = $('#BlogPostCategory').find('a');
-            if (obj.length > 0) {
-                $.__tools.htmlReplace('#BlogPostCategory', /,/g, '');
-                $.__tools.articleInfo(obj, 1);
-                $.__tools.setDomHomePosition();
-                $.__tools.clearIntervalTimeId($.__timeIds.articleInfoClassTId);
-            }
-        }, 1000);
-    })();
+    const articleCategoryLinks = $('#BlogPostCategory').find('a');
+    if (articleCategoryLinks.length > 0) {
+        $.__tools.htmlReplace('#BlogPostCategory', /,/g, '');
+        $.__tools.articleInfo(articleCategoryLinks, 1);
+        $.__tools.setDomHomePosition();
+    }
 
     /**
      * 设置文章信息-标签
      */
-    $.__timeIds.articleInfoTagTId = window.setInterval(() => {
-        let obj = $('#EntryTag').find('a');
-        if (obj.length > 0) {
-            $.__tools.htmlReplace('#EntryTag', /,/g, '');
-            $.__tools.articleInfo(obj, 2);
-            $.__tools.setDomHomePosition();
-            $.__tools.clearIntervalTimeId($.__timeIds.articleInfoTagTId);
-        }
-    }, 1000);
+    let articleTag = $('#EntryTag').find('a');
+    if (articleTag.length > 0) {
+        $.__tools.htmlReplace('#EntryTag', /,/g, '');
+        $.__tools.articleInfo(articleTag, 2);
+        $.__tools.setDomHomePosition();
+    }
 
     /**
      * 设置文章信息-链接icon
