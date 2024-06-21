@@ -13,16 +13,14 @@ export default function main() {
     /**
      * 设置文章标题
      */
-    (() => {
-        const sbTitle = $('#cb_post_title_url').text().trim();
-        if ($.__config.animate.articleTitle.enable) {
-            consoleText([...sbTitle], 'sbTitleText', 'sbTitleConsole', false);
-        } else {
-            $('#sbTitleText').text(sbTitle).css('color', '#fff');
-        }
-        $('.inner').css('max-width', '100vw');
-        $.__tools.setDomHomePosition();
-    })();
+    const sbTitle = $('#cb_post_title_url').text().trim();
+    if ($.__config.animate.articleTitle.enable) {
+        consoleText([...sbTitle], 'sbTitleText', 'sbTitleConsole', false);
+    } else {
+        $('#sbTitleText').text(sbTitle).css('color', '#fff');
+    }
+    $('.inner').css('max-width', '100vw');
+    $.__tools.setDomHomePosition();
 
     /**
      * 设置文章信息
