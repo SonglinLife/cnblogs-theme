@@ -20,7 +20,7 @@ export default function main() {
 
     // 国家公祭日和自定义重要的缅怀的日子
     const today = $.__tools.getTodayDate();
-    if (today == '12-13' || $.__config.memorialDays.includes(today)) $('html').addClass('htmlGray');
+    if (today == '12-13' || $.__config.memorialDays.includes(today)) $('html').css('filter', 'grayscale(100%)');
 
     // 定时清除全部计时器
     setTimeout(() => {
