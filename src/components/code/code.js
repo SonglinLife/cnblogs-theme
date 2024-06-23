@@ -86,32 +86,28 @@ export default function main() {
     /**
      * 限制代码框高度
      */
-    (() => {
-        if ($.__config.code.options.maxHeight) $('code-box pre').css('max-height', $.__config.code.options.maxHeight);
-    })();
+    if ($.__config.code.options.maxHeight) $('code-box pre').css('max-height', $.__config.code.options.maxHeight);
 
     /**
      * 渲染代码
      */
-    (() => {
-        let codeType = $.__config.code.type.toLowerCase();
-        if (codeType === 'hljs') {
-            import(/* webpackChunkName: "code-hljs" */ /* webpackPrefetch: true */ './lib/hljs').then((module) => {
-                const codeMain = module.default;
-                codeMain(setCodeLine);
-            });
-        } else {
-            preList.css('background', '#f5f5fa');
-            $('code-box .code-tools').css('background', '#f5f5fa');
-            $('pre .hljs').css({
-                background: 'none',
-                border: '0',
-                'border-radius': '0',
-                padding: '0',
-            });
-            setCodeLine();
-        }
-    })();
+    const codeType = $.__config.code.type.toLowerCase();
+    if (codeType === 'hljs') {
+        import(/* webpackChunkName: "code-hljs" */ /* webpackPrefetch: true */ './lib/hljs').then((module) => {
+            const codeMain = module.default;
+            codeMain(setCodeLine);
+        });
+    } else {
+        preList.css('background', '#f5f5fa');
+        $('code-box .code-tools').css('background', '#f5f5fa');
+        $('pre .hljs').css({
+            background: 'none',
+            border: '0',
+            'border-radius': '0',
+            padding: '0',
+        });
+        setCodeLine();
+    }
 
     /**
      * 设置代码行号
