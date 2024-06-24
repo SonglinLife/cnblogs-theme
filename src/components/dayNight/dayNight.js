@@ -51,23 +51,17 @@ export default function main() {
     /**
      * 判断是否强制夜间
      */
-    (() => {
-        if ($.__config.switchDayNight.nightMode) daySwitch = '';
-    })();
+    if ($.__config.switchDayNight.nightMode) daySwitch = '';
 
     /**
      * 设置基础模版
      */
-    (() => {
-        $('body').prepend($.__tools.tempReplacement(dayNightTemp, 'daySwitch', daySwitch));
-    })();
+    $('body').prepend($.__tools.tempReplacement(dayNightTemp, 'daySwitch', daySwitch));
 
     /**
      * 初始化样式
      */
-    (() => {
-        if (!daySwitch) loadDarkCss();
-    })();
+    if (!daySwitch) loadDarkCss();
 
     /**
      * 设置评论框背景
