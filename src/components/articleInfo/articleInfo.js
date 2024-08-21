@@ -121,6 +121,8 @@ export default function main() {
         if (/^!&gt;/.test(c)) return `<p class="warn">${c.slice(5).trim()}</p>`;
     });
 
+    const options = $.__config.articleContent.roughNotation.options;
+
     // 设置注释样式
     const tokenMap = {
         '~bk': '<mbk>',
