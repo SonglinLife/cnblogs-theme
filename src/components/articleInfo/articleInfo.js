@@ -121,61 +121,54 @@ export default function main() {
         if (/^!&gt;/.test(c)) return `<p class="warn">${c.slice(5).trim()}</p>`;
     });
 
-    const options = $.__config.articleContent.roughNotation.options;
-
-    // 设置注释样式
-    const tokenMap = {
-        '~bk': '<mbk>',
-        'bk~': '</mbk>',
-        '~b': '<mbox>',
-        'b~': '</mbox>',
-        '~c': '<mc>',
-        'c~': '</mc>',
-        '~u': '<mu>',
-        'u~': '</mu>',
-        '~h': '<mhl>',
-        'h~': '</mhl>',
-        '~s': '<mst>',
-        's~': '</mst>',
-        '~x': '<mco>',
-        'x~': '</mco>',
-    };
-
-    const configMap = {
-        mu: options.underline,
-        mc: options.circle,
-        mbox: options.box,
-        mhl: options.highlight,
-        mbk: options.bracket,
-        mst: options.strikeThrough,
-        mco: options.crossedOff,
-    };
-
-    function safeReplaceHtml(selector, replacement) {
-        return replacement.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
-    const init = async () => {
-        await $.__tools.dynamicLoadingJs($.__config.default.roughNotation);
+    /**
+     * 设置文章手绘效果
+     */
+    (() => {
         $('.blogpost-body p').html((i, c) => {
-            let replacedText = c.replace(/~[a-z]{1,2}|[a-z]{1,2}~/g, (match) => {
-                if (tokenMap.hasOwnProperty(match)) {
-                    return safeReplaceHtml(match, tokenMap[match]);
-                }
-                console.warn(`No mapping found for token: ${match}`);
-                return match;
+            return c.replace(/~bk|bk~|~b|b~|~c|c~|~u|u~|~h|h~|~s|s~|~x|x~/g, function (matchStr) {
+                let tokenMap = {
+                    '~bk': '<mbk>',
+                    'bk~': '</mbk>',
+                    '~b': '<mbox>',
+                    'b~': '</mbox>',
+                    '~c': '<mc>',
+                    'c~': '</mc>',
+                    '~u': '<mu>',
+                    'u~': '</mu>',
+                    '~h': '<mhl>',
+                    'h~': '</mhl>',
+                    '~s': '<mst>',
+                    's~': '</mst>',
+                    '~x': '<mco>',
+                    'x~': '</mco>',
+                };
+                return tokenMap[matchStr];
             });
-            return replacedText;
         });
-        const needAnnotation = document.querySelectorAll(Object.keys(configMap).join(','));
-        if (needAnnotation.length) {
+        $.__tools.dynamicLoadingJs($.__config.default.roughNotation).then((r) => {
             setTimeout(() => {
-                annotateElements();
-            }, 2000);
-        }
-    };
+                const { annotate, annotationGroup } = window.RoughNotation;
+                const n1 = document.querySelector('mu') || '';
+                const n2 = document.querySelector('mc') || '';
+                const n3 = document.querySelector('mbox') || '';
+                const n4 = document.querySelector('mhl') || '';
+                const n5 = document.querySelector('mbk') || '';
+                const n6 = document.querySelector('mst') || '';
+                const n7 = document.querySelector('mco') || '';
 
-    if ($.__config.articleContent.roughNotation.enable) init();
+                const a1 = annotate(n1, $.__config.articleContent.roughNotation.underline);
+                const a2 = annotate(n2, $.__config.articleContent.roughNotation.circle);
+                const a3 = annotate(n3, $.__config.articleContent.roughNotation.box);
+                const a4 = annotate(n4, $.__config.articleContent.roughNotation.highlight);
+                const a5 = annotate(n5, $.__config.articleContent.roughNotation.bracket);
+                const a6 = annotate(n6, $.__config.articleContent.roughNotation.strikeThrough);
+                const a7 = annotate(n7, $.__config.articleContent.roughNotation.crossedOff);
+                const ag = annotationGroup([a1, a2, a3, a4, a5, a6, a7]);
+                ag.show();
+            }, 2000);
+        });
+    })();
 
     /**
      * 是否隐藏底部的编辑推荐和阅读排行
