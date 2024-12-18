@@ -90,7 +90,7 @@ export default function main() {
         }
     });
     function postMetaHtml(postDescText) {
-        let info = postMeta(postDescText); // 假设此函数根据文本提取所需信息
+        let info = postMeta(postDescText);
         return `
         <span class="postMeta">
             <i class="iconfont icon-schedule"></i>发表于 ${info.date}
@@ -109,8 +109,8 @@ export default function main() {
         if ($img.length) {
             const src = $img.attr('src');
             $img.hide();
-            $obj.addClass('desc-width-60'); // 假设我们在CSS中定义了.desc-width-60类
-            $obj.parent('div').addClass('desc-parent-minheight-150'); // 假设我们在CSS中定义了.desc-parent-minheight-150类
+            $obj.addClass('desc-width-60');
+            $obj.parent('div').addClass('desc-parent-minheight-150');
             const $newDiv = $('<div class="c_b_p_desc_img"><div></div></div>');
             $newDiv.find('div').css({
                 background: `url('${src}') center center / contain no-repeat`,

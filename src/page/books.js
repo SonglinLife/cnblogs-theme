@@ -4,14 +4,10 @@ import articleDirectory from '../components/articleDirectory/articleDirectory';
 import comArticle from './common/com-article';
 
 export default function main() {
-    /**
-     * 文章页公共处理
-     */
+    // 文章页公共处理
     comArticle();
 
-    /**
-     * 书单页处理
-     */
+    // 书单页处理
     if ($.__config.bookList.length) {
         import(/* webpackChunkName: "gf-blink" */ '../style/gf-blink.css');
 
@@ -73,8 +69,6 @@ export default function main() {
         articleSuffixFlg.length ? articleSuffixFlg.before(html) : postBody.append(html);
     }
 
-    /**
-     * 设置文章目录
-     */
+    // 设置文章目录
     articleDirectory();
 }
