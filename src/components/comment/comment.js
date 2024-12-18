@@ -1,7 +1,7 @@
 /**
  * UPDATES AND DOCS AT: https://github.com/wangyang0210
  * https://www.cnblogs.com/wangyang0210/
- * @author: WangYang, wangyang.0210@foxmail.com
+ * @author: WangYang, i@oyo.cool
  * @Date 2022-08-25 15:20
  * ----------------------------------------------
  * @describe: 评论处理
@@ -10,68 +10,66 @@
 export default function main() {
     // 评论框打字特效
     if ($.__config.articleContent.commentTyping.enable) {
-        const POWERMODE = require('./commentTyping/commentTyping')
-        POWERMODE.colorful = $.__config.articleContent.commentTyping.options.colorful
-        POWERMODE.shake = $.__config.articleContent.commentTyping.options.shake
-        document.body.addEventListener('input', POWERMODE)
+        const POWERMODE = require('./commentTyping/commentTyping');
+        POWERMODE.colorful = $.__config.articleContent.commentTyping.options.colorful;
+        POWERMODE.shake = $.__config.articleContent.commentTyping.options.shake;
+        document.body.addEventListener('input', POWERMODE);
     }
 
     let setComment = () => {
-        let feedbackItem = $('.feedbackItem')
+        let feedbackItem = $('.feedbackItem');
         if (feedbackItem.length > 0) {
-            $.each(feedbackItem, i => {
+            $.each(feedbackItem, (i) => {
                 let obj = $(feedbackItem[i]),
                     feedbackCon = obj.find('.feedbackCon'),
                     feedbackListSubtitle = obj.find('.feedbackListSubtitle'),
                     commentBody = feedbackCon.length ? feedbackCon.find('.blog_comment_body') : [],
                     avatarHtml = '',
-                    idInfo = commentBody.length ? commentBody.attr('id').split('_') : undefined
+                    idInfo = commentBody.length ? commentBody.attr('id').split('_') : undefined;
 
                 if (idInfo && idInfo.length > 0) {
                     let id = idInfo[idInfo.length - 1],
-                        idTmp = id.toString().match(/\d/g)
+                        idTmp = id.toString().match(/\d/g);
 
-                    if ($.isArray(idTmp)) id = idTmp.join('')
+                    if ($.isArray(idTmp)) id = idTmp.join('');
 
                     let op = $('#comment_' + id + '_avatar'),
-                        patch = op.length > 0 ? op.text().trim() : $.__config.default.avatar
+                        patch = op.length > 0 ? op.text().trim() : $.__config.default.avatar;
 
                     let ac = $('#a_comment_author_' + id),
-                        ah = ac.length ? ac.attr('href') : 'javascropt:void(0);'
+                        ah = ac.length ? ac.attr('href') : 'javascropt:void(0);';
 
                     avatarHtml =
                         '<div class="feedbackAvatar"><a href="' +
                         ah +
                         '" target="_blank"><img src="' +
                         patch +
-                        '"/></a></div>'
-                    obj.prepend(avatarHtml)
+                        '"/></a></div>';
+                    obj.prepend(avatarHtml);
                 }
 
                 if (feedbackListSubtitle.length && feedbackListSubtitle.find('.louzhu').length)
-                    feedbackListSubtitle.addClass('feedbackListSubtitle-louzhu')
-            })
-            $(feedbackItem[0]).css('padding-top', '0')
-            $(feedbackItem[feedbackItem.length - 1]).css('padding-bottom', '0')
-
+                    feedbackListSubtitle.addClass('feedbackListSubtitle-louzhu');
+            });
+            $(feedbackItem[0]).css('padding-top', '0');
+            $(feedbackItem[feedbackItem.length - 1]).css('padding-bottom', '0');
         }
-    }
+    };
 
-     let addComment = () => {
-        let userBlogAddress = $(".comment_my_posted a").attr('href'),
-            userName = $(".comment_my_posted a").text(),
-            commentInfo = $(".bq_post_comment").text();
+    let addComment = () => {
+        let userBlogAddress = $('.comment_my_posted a').attr('href'),
+            userName = $('.comment_my_posted a').text(),
+            commentInfo = $('.bq_post_comment').text();
 
-
-       let comment =  `<div class="feedbackItem" style="padding-bottom: 0px;">
+        let comment = `<div class="feedbackItem" style="padding-bottom: 0px;">
                         <div class="feedbackAvatar">
                             <a href="${userBlogAddress}" target="_blank">
                                 <img src="${$.__config.default.avatar}">
                             </a>
                         </div>
-                        <div class="feedbackListSubtitle ${ window.isBlogOwner && 'feedbackListSubtitle-louzhu'}">
-                            ${ window.isBlogOwner && `[<span class="louzhu">楼主</span>]`}
-                            <span class="comment_date">${(new Date).toLocaleString().replace(/\//g,'-')}</span>
+                        <div class="feedbackListSubtitle ${window.isBlogOwner && 'feedbackListSubtitle-louzhu'}">
+                            ${window.isBlogOwner && `[<span class="louzhu">楼主</span>]`}
+                            <span class="comment_date">${new Date().toLocaleString().replace(/\//g, '-')}</span>
                             <a id="a_comment_author_5168811" href="${userBlogAddress}" target="_blank">${userName}</a>
                         </div>
                         <div class="feedbackCon">
@@ -79,13 +77,13 @@ export default function main() {
                                 <p>${commentInfo}</p>
                             </div>
                         </div>
-                    </div>`
+                    </div>`;
 
-        $("#blog-comments-placeholder").append(comment)
-        $(".comment_my_posted").remove()
-    }
+        $('#blog-comments-placeholder').append(comment);
+        $('.comment_my_posted').remove();
+    };
 
-    $.__timeIds.commentTId = window.setInterval(() =>{
+    $.__timeIds.commentTId = window.setInterval(() => {
         if ($('.feedbackItem').length > 0) {
             setComment();
             $.__tools.clearIntervalTimeId($.__timeIds.commentTId);
@@ -95,18 +93,18 @@ export default function main() {
     $(document).ajaxSuccess(function (event, xhr, settings) {
         // 评论重新排序
         if (settings.url.includes('GetComments.aspx')) {
-             $.__tools.clearIntervalTimeId($.__timeIds.commentTId);
-            setComment()
+            $.__tools.clearIntervalTimeId($.__timeIds.commentTId);
+            setComment();
         }
 
         // 新增评论
-        if (settings.url.includes('PostComment/Add.aspx')) addComment()
+        if (settings.url.includes('PostComment/Add.aspx')) addComment();
 
         // 删除评论
         if (settings.url.includes('comment/DeleteComment.aspx')) {
             let commentId = JSON.parse(settings?.data)?.commentId;
-            $(`#comment_body_${commentId}`).parent().parent().remove()
-            $(".feedbackItem:last").css("padding-bottom", "0")
+            $(`#comment_body_${commentId}`).parent().parent().remove();
+            $('.feedbackItem:last').css('padding-bottom', '0');
         }
     });
 }

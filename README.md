@@ -19,7 +19,7 @@
 
 # Silence
 
-📖 本主题以阅读为核心，美化博客园的显示效果，提高用户体验。 
+📖 本主题以阅读为核心，美化博客园的显示效果，提高用户体验。
 
 🍰 基于博皮“SimpleMemory”进行的修改；[页面效果](https://www.cnblogs.com/wangyang0210/)
 
@@ -38,7 +38,7 @@
 
 **Cnblogs-Theme** © [wangyang0210](https://github.com/wangyang0210), Released under the [MIT](./LICENSE) License.<br>
 
-> Blog [@Blog](https://www.cnblogs.com/wangyang0210/) · GitHub [@GitHub](https://github.com/wangyang0210) · Email wangyang.0210@foxmail.com
+> Blog [@Blog](https://www.cnblogs.com/wangyang0210/) · GitHub [@GitHub](https://github.com/wangyang0210) · Email i@oyo.cool
 
 > **Cnblogs-Theme** from **Cnblogs-Theme-SimpleMemory** © [BNDong](https://github.com/BNDong)
 

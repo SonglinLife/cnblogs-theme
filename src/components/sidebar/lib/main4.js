@@ -1,15 +1,15 @@
 /**
  * UPDATES AND DOCS AT: https://github.com/wangyang0210
  * https://www.cnblogs.com/wangyang0210/
- * @author: WangYang, wangyang.0210@foxmail.com
+ * @author: WangYang, i@oyo.cool
  * @Date 2022-08-25 15:24
  * ----------------------------------------------
  * @describe: 侧边栏处理
  */
 import cla from './classie';
-await $.__tools.dynamicLoadingJs($.__config.default.snapsvg).catch(e => console.error('snapsvg-cjs.js', e))
-await $.__tools.dynamicLoadingJs($.__config.default.optiscroll).catch(e => console.log('optiscroll.js', e))
-await $.__tools.dynamicLoadingCss($.__config.default.optiscrollcss)
+await $.__tools.dynamicLoadingJs($.__config.default.snapsvg).catch((e) => console.error('snapsvg-cjs.js', e));
+await $.__tools.dynamicLoadingJs($.__config.default.optiscroll).catch((e) => console.log('optiscroll.js', e));
+await $.__tools.dynamicLoadingCss($.__config.default.optiscrollcss);
 export default function main() {
     let bodyEl = document.body,
         content = document.querySelector('.content-wrap'),
@@ -17,7 +17,6 @@ export default function main() {
         closebtn = document.getElementById('close-button'),
         isOpen = false,
         classie = cla(),
-
         morphEl = document.getElementById('morph-shape'),
         s = Snap(morphEl.querySelector('svg')),
         path = s.select('path'),
@@ -27,19 +26,18 @@ export default function main() {
     let myOptiscrollInstance;
 
     function init() {
-
         initEvents();
 
         // 初始化滚动条
         myOptiscrollInstance = new Optiscroll(document.querySelector('#menuWrap'), {
             preventParentScroll: true,
-            forceScrollbars: true
+            forceScrollbars: true,
         });
     }
 
     function initEvents() {
         openbtn.addEventListener('click', toggleMenu);
-        if (closebtn)  closebtn.addEventListener('click', toggleMenu);
+        if (closebtn) closebtn.addEventListener('click', toggleMenu);
 
         // close the menu element if the target it麓s not the menu element or one of its descendants..
         content.addEventListener('click', function (ev) {
@@ -52,12 +50,11 @@ export default function main() {
         $('.menu-wrap').show();
 
         if (isOpen) {
-
             $(bodyEl).removeClass('show-menu');
 
             $('#content-wrap').fadeOut(300);
             $(bodyEl).css('overflow', 'auto');
-            $("#mainContent").off("touchmove");
+            $('#mainContent').off('touchmove');
 
             path.attr('d', initialPath);
             isAnimating = false;
@@ -76,6 +73,6 @@ export default function main() {
     init();
 
     return {
-        myOptiscrollInstance: myOptiscrollInstance
-    }
+        myOptiscrollInstance: myOptiscrollInstance,
+    };
 }
