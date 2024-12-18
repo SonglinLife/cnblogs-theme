@@ -2385,8 +2385,10 @@ div#tbCommentBodyPreview {
 }
 
 #cnblogs_post_body img {
-    max-width: 700px;
+    max-width: 100%;
+    max-height: none !important;
     margin: 10px 0;
+    height: auto;
 }
 
 .main-header {

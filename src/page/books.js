@@ -52,7 +52,7 @@ export default function main() {
                 }
 
                 Object.entries(infoObj).forEach(([key, value]) => {
-                    if (book?.[key]) infoHtml += `<span title="${book?.[key]}">${value} ${book?.[key]}</span><br></br>`;
+                    if (book?.[key]) infoHtml += `<span title="${book?.[key]}">${value} ${book?.[key]}</span><br>`;
                 });
 
                 cardHtml = $.__tools.batchTempReplacement(cardHtml, [
@@ -61,7 +61,7 @@ export default function main() {
                     ['readDate', book?.readDate || ''],
                     ['readDateStyle', book?.readDate ? 'initial;' : 'none'],
                     ['readPercentage', book?.readPercentage || ''],
-                    ['readPercentageStyle', readPercentage ? 'initial;' : 'none'],
+                    ['readPercentageStyle', book?.readPercentage ? 'initial;' : 'none'],
                     ['scoreHtml', scoreHtml],
                     ['infoHtml', infoHtml],
                 ]);
