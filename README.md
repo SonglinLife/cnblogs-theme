@@ -36,7 +36,7 @@
 
 # Author
 
-**Cnblogs-Theme** © [wangyang0210](https://github.com/wangyang0210), Released under the [MIT](./LICENSE) License.<br>
+**Cnblogs-Theme** © [wangyang0210](https://github.com/wangyang0210), Released under the [ISC](./LICENSE) License.<br>
 
 > Blog [@Blog](https://www.cnblogs.com/wangyang0210/) · GitHub [@GitHub](https://github.com/wangyang0210) · Email i@oyo.cool
 

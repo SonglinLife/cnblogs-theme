@@ -1,19 +1,18 @@
-const path = require('path')
-const webpackMerge = require('webpack-merge')
-const webpackBaseConfig= require('./webpack.base.js')
-const terserPlugin = require("terser-webpack-plugin")
-const cssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
-const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const webpackMerge = require('webpack-merge');
+const webpackBaseConfig = require('./webpack.base.js');
+const terserPlugin = require('terser-webpack-plugin');
+const cssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 let webpackProdConfig = {
     mode: 'production',
     entry: './src/main.js',
     output: {
         filename: 'simple-memory.js',
-        chunkFilename:'script/[name].[contenthash:8].js',
+        chunkFilename: 'script/[name].[contenthash:8].js',
         path: path.resolve(__dirname, '../dist'),
-        clean: true
+        clean: true,
     },
     devtool: false,
     optimization: {
@@ -25,9 +24,11 @@ let webpackProdConfig = {
             }),
             new cssMinimizerPlugin({
                 minimizerOptions: {
-                    preset: ["default", {
-                        discardComments: { removeAll: true },
-                    },
+                    preset: [
+                        'default',
+                        {
+                            discardComments: { removeAll: true },
+                        },
                     ],
                 },
                 parallel: true,
@@ -38,9 +39,9 @@ let webpackProdConfig = {
                 minRatio: 1,
                 threshold: 10240,
                 deleteOriginalAssets: false,
-            })
+            }),
         ],
     },
 };
 
-module.exports = webpackMerge.merge(webpackBaseConfig, webpackProdConfig)
+module.exports = webpackMerge.merge(webpackBaseConfig, webpackProdConfig);
