@@ -6,7 +6,6 @@
  * ----------------------------------------------
  * @describe: 文章信息处理
  */
-import postMeta from '../../components/postMeta/postMeta';
 import consoleText from '../../vendor/consoleText/consoleText';
 
 export default function main() {
@@ -37,31 +36,17 @@ export default function main() {
         }, 1000);
 
         function postMetaHtml(postDescText) {
-            let info = postMeta(postDescText);
+            const { date, vnum, cnum, tnum } = $.__tools.handlePostDesc(postDescText);
             let textNum = $('#cnblogs_post_body').text().length;
-
-            return (
-                '<span class="postMeta"><i class="iconfont icon-schedule"></i>' +
-                info.date.replace(/-/g, '/') +
-                '' +
-                '<i class="iconfont icon-browse"></i>' +
-                info.vnum +
-                '' +
-                '<i class="iconfont icon-interactive"></i>' +
-                info.cnum +
-                '' +
-                '<i class="iconfont icon-hot"></i>' +
-                info.tnum +
-                '' +
-                '<br><i class="iconfont icon-article"></i>' +
-                textNum +
-                '' +
-                '<i class="iconfont icon-kafei"></i>' +
-                $.__tools.minToTime(textNum / 500) +
-                ' ~ ' +
-                $.__tools.minToTime(textNum / 300) +
-                '</span>'
-            );
+            return `<span class="postMeta">
+            <i class="iconfont icon-schedule"></i>${date.replace(/-/g, '/')}
+            <i class="iconfont icon-browse"></i>  ${vnum}
+            <i class="iconfont icon-interactive"></i> ${cnum}
+            <i class="iconfont icon-hot"></i> ${tnum}
+            <br><i class="iconfont icon-article"></i> ${textNum}
+            <i class="iconfont icon-kafei"></i> ${$.__tools.minToTime(textNum / 500)} ~
+            ${$.__tools.minToTime(textNum / 300)}
+            </span>`;
         }
     })();
 
