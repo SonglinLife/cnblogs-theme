@@ -9,6 +9,7 @@
 import comArticle from './common/com-article';
 import '../style/links.css';
 import linksTemp from '../template/links.html';
+import articleDirectory from '../components/articleDirectory/articleDirectory';
 
 export default function main() {
     // 文章页公共处理
@@ -24,7 +25,7 @@ export default function main() {
         // 生成友链的html
         const generateLinkHtml = (link, index) => {
             const { avatar = '', name = '', introduction = '', url = '' } = link;
-            const icons = ['icon-zhifeiji', 'icon-like_fill', 'icon-flashlight_fill'];
+            const icons = ['icon-zhifeiji', 'icon-like-fill', 'icon-flashlight-fill'];
             const icon = icons[index % icons.length];
             return $.__tools.batchTempReplacement(linksTemp, [
                 ['avatar', avatar],
@@ -48,4 +49,6 @@ export default function main() {
         // 插入模版
         articleSuffixFlg.length ? articleSuffixFlg.before(linksHtml) : postBody.append(linksHtml);
     }
+
+    articleDirectory();
 }
