@@ -7,134 +7,74 @@ export default function main() {
     /**
      * 文章页公共处理
      */
-    (() => {
-        comArticle();
-    })();
+    comArticle();
 
     /**
      * 书单页处理
      */
-    (() => {
-        if ($.__config.bookList.length) {
-            import(/* webpackChunkName: "gf-blink" */ '../style/gf-blink.css');
+    if ($.__config.bookList.length) {
+        import(/* webpackChunkName: "gf-blink" */ '../style/gf-blink.css');
 
-            let postBody = $('#cnblogs_post_body'),
-                html = '';
-            $.each($.__config.bookList, (i) => {
-                let list = $.__config.bookList[i];
-                if (list.title) html += '<h1 class=`iconfont ${list.icon}`>' + list.title + '</h1>';
+        let postBody = $('#cnblogs_post_body'),
+            html = '';
+        const infoObj = {
+            formerName: '原　名：',
+            author: '作　者：',
+            translator: '译　者：',
+            press: '出版社：',
+            year: '出版年：',
+            direct: '导　演: ',
+            scenarist: '编　剧: ',
+            star: '主　演: ',
+            type: '类　型: ',
+            productionCountry: '制片国家/地区: ',
+            language: '语　言: ',
+            releaseDate: '上映日期: ',
+            filmLength: '片　长: ',
+            alias: '别　名: ',
+        };
 
-                html += '<div class="book-cards">';
-                $.each(list.books, (j) => {
-                    let cardHtml = booksTemp,
-                        books = list.books[j];
+        $.__config.bookList.forEach((list) => {
+            if (list.title) html += `<h1 class="iconfont ${list.icon}">${list.title}</h1>`;
+            html += '<div class="book-cards">';
+            list.books.forEach((book) => {
+                let cardHtml = booksTemp,
+                    scoreHtml = '',
+                    infoHtml = '';
 
-                    // 评星
-                    let scoreHtml = '';
-                    if (typeof books.score !== 'undefined' && books.score > 0) {
-                        scoreHtml += '<i class="iconfont icon-star-full"></i>'.repeat(parseInt(books.score));
-                        if (books.score > parseInt(books.score)) {
-                            scoreHtml += '<i class="iconfont icon-star-half"></i>';
-                        }
-                        scoreHtml += '<i class="iconfont icon-icon-star"></i>'.repeat(parseInt(5 - books.score));
-                    } else {
-                        scoreHtml += '<i class="iconfont icon-icon-star"></i>'.repeat(5);
-                    }
+                if (book?.score > 0) {
+                    const fullStars = Math.floor(book.score);
+                    const halfStar = book.score > fullStars ? '<i class="iconfont icon-star-half"></i>' : '';
+                    const emptyStars = `<i class="iconfont icon-icon-star"></i>`.repeat(5 - fullStars);
+                    scoreHtml = `<i class="iconfont icon-star-full"></i>`.repeat(fullStars) + halfStar + emptyStars;
+                } else {
+                    scoreHtml = `<i class="iconfont icon-icon-star"></i>`.repeat(5);
+                }
 
-                    // 图书信息
-                    let infoHtml = '';
-                    const infoObj = {
-                        formerName: (formerName) => {
-                            infoHtml += `<span title="${formerName}">原　名：${formerName}</span><br>`;
-                        },
-                        author: (author) => {
-                            infoHtml += `<span title="${author}">作　者：${author}</span><br>`;
-                        },
-                        translator: (translator) => {
-                            infoHtml += `<span title="${translator}">译　者：${translator}</span><br>`;
-                        },
-                        press: (press) => {
-                            infoHtml += `<span title="${press}">出版社：${press}</span><br>`;
-                        },
-                        year: (year) => {
-                            infoHtml += `<span title="${year}">出版年：${year}</span><br>`;
-                        },
-                        direct: (direct) => {
-                            infoHtml += `<span title="${direct}">导　演: ${direct}</span><br>`;
-                        },
-                        scenarist: (scenarist) => {
-                            infoHtml += `<span title="${scenarist}">编　剧: ${scenarist}</span><br>`;
-                        },
-                        star: (star) => {
-                            infoHtml += `<span title="${star}">主　演: ${star}</span><br>`;
-                        },
-                        type: (type) => {
-                            infoHtml += `<span title="${type}">类　型: ${type}</span><br>`;
-                        },
-                        productionCountry: (productionCountry) => {
-                            infoHtml += `<span title="${productionCountry}">制片国家/地区: ${productionCountry}</span><br>`;
-                        },
-                        language: (language) => {
-                            infoHtml += `<span title="${language}">语　言: ${language}</span><br>`;
-                        },
-                        releaseDate: (releaseDate) => {
-                            infoHtml += `<span title="${releaseDate}">上映日期: ${releaseDate}</span><br>`;
-                        },
-                        filmLength: (filmLength) => {
-                            infoHtml += `<span title="${filmLength}">片　长: ${filmLength}</span><br>`;
-                        },
-                        alias: (alias) => {
-                            infoHtml += `<span title="${alias}">别　名: ${alias}</span><br>`;
-                        },
-                    };
-
-                    books?.formerName && infoObj['formerName'](books.formerName);
-                    books?.author && infoObj['author'](books.author);
-                    books?.translator && infoObj['translator'](books.translator);
-                    books?.press && infoObj['press'](books.press);
-                    books?.year && infoObj['year'](books.year);
-                    books?.scenarist && infoObj['scenarist'](books.scenarist);
-                    books?.star && infoObj['star'](books.star);
-                    books?.type && infoObj['type'](books.type);
-                    books?.productionCountry && infoObj['productionCountry'](books.productionCountry);
-                    books?.language && infoObj['language'](books.language);
-                    books?.releaseDate && infoObj['releaseDate'](books.releaseDate);
-                    books?.filmLength && infoObj['filmLength'](books.filmLength);
-                    books?.alias && infoObj['alias'](books.alias);
-
-                    // 阅读时间 & 进度
-                    let readDate = typeof books.readDate !== 'undefined' ? books.readDate : '';
-                    let readDateStyle = readDate ? 'initial;' : 'none';
-
-                    let readPercentage = typeof books.readPercentage !== 'undefined' ? books.readPercentage : '';
-                    let readPercentageStyle = readPercentage ? 'initial;' : 'none';
-
-                    // 处理模版
-                    cardHtml = $.__tools.batchTempReplacement(cardHtml, [
-                        ['cover', typeof books.cover !== 'undefined' ? books.cover : ''],
-                        ['name', typeof books.name !== 'undefined' ? books.name : ''],
-                        ['readDate', readDate],
-                        ['readDateStyle', readDateStyle],
-                        ['readPercentage', readPercentage],
-                        ['readPercentageStyle', readPercentageStyle],
-                        ['scoreHtml', scoreHtml],
-                        ['infoHtml', infoHtml],
-                    ]);
-                    html += cardHtml;
+                Object.entries(infoObj).forEach(([key, value]) => {
+                    if (book?.[key]) infoHtml += `<span title="${book?.[key]}">${value} ${book?.[key]}</span><br></br>`;
                 });
-                html += '</div>';
-            });
 
-            // 插入模版
-            let articleSuffixFlg = $('.articleSuffix-flg');
-            articleSuffixFlg.length ? articleSuffixFlg.before(html) : postBody.append(html);
-        }
-    })();
+                cardHtml = $.__tools.batchTempReplacement(cardHtml, [
+                    ['cover', book.cover || ''],
+                    ['name', book.name || ''],
+                    ['readDate', book?.readDate || ''],
+                    ['readDateStyle', book?.readDate ? 'initial;' : 'none'],
+                    ['readPercentage', book?.readPercentage || ''],
+                    ['readPercentageStyle', readPercentage ? 'initial;' : 'none'],
+                    ['scoreHtml', scoreHtml],
+                    ['infoHtml', infoHtml],
+                ]);
+                html += cardHtml;
+            });
+            html += '</div>';
+        });
+        let articleSuffixFlg = $('.articleSuffix-flg');
+        articleSuffixFlg.length ? articleSuffixFlg.before(html) : postBody.append(html);
+    }
 
     /**
      * 设置文章目录
      */
-    (() => {
-        articleDirectory();
-    })();
+    articleDirectory();
 }
