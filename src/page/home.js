@@ -101,25 +101,22 @@ export default function main() {
     }
 
     // 设置摘要文章
-    let desc = $('.c_b_p_desc');
-    let htmlCollection = desc
-        .map((i) => {
-            let obj = $(desc[i]),
-                img = obj.find('img.desc_img');
-            if (img.length && img.attr('src')) {
-                let src = img.attr('src');
-                img.hide();
-                obj.addClass('desc-width-60');
-                let parentDiv = obj.parent('div');
-                if (parentDiv.length) {
-                    parentDiv.addClass('desc-parent-minheight-150');
-                    return `<div class="c_b_p_desc_img"><div class="background-image-holder" style="background-image: url('${src}')"></div></div>`;
-                }
-            }
-            return '';
-        })
-        .get();
-    $(htmlCollection.join('')).insertAfter(desc);
+    const descElements = $('.c_b_p_desc');
+    descElements.each((i, element) => {
+        const $obj = $(element);
+        const $img = $obj.find('img.desc_img');
+        if ($img.length) {
+            const src = $img.attr('src');
+            $img.hide();
+            $obj.addClass('desc-width-60'); // 假设我们在CSS中定义了.desc-width-60类
+            $obj.parent('div').addClass('desc-parent-minheight-150'); // 假设我们在CSS中定义了.desc-parent-minheight-150类
+            const $newDiv = $('<div class="c_b_p_desc_img"><div></div></div>');
+            $newDiv.find('div').css({
+                background: `url('${src}') center center / contain no-repeat`,
+            });
+            $obj.after($newDiv);
+        }
+    });
 
     // 主页banner动效
     if ($.__config.animate.homeBanner.enable) {
