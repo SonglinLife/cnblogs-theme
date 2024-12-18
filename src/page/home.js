@@ -49,11 +49,12 @@ export default function main() {
 
     function topTitleContent(r) {
         if (r.status === 'success') {
-            const note = r?.note || r.data.content;
-            const poetry = `《${r.data.origin.title}》 - ${r.data.origin.dynasty} - ${r.data.origin.author}`;
-            let content = r?.content || poetry;
-            updateHitokotoDisplay(note);
-            $('#hitokotoAuthor').text(content).show();
+            const { note, content, data } = r;
+            const poetry = `《${data?.origin?.title}》 - ${data?.origin?.dynasty} - ${data?.origin?.author}`;
+            updateHitokotoDisplay(note || data.content);
+            $('#hitokotoAuthor')
+                .text(content || poetry)
+                .show();
         }
     }
 
