@@ -4140,6 +4140,14 @@ table#blogCalendar > tbody > tr > td > a {
     animation: skyAnim 3s -0.4s linear infinite;
 }
 
+.desc-width-60 {
+    width: 60%;
+}
+
+.desc-parent-minheight-150 {
+    min-height: 150px;
+}
+
 @keyframes starAnim1 {
     0% {
         transform: translate(5px, 30px) scale(0.3);
