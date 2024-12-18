@@ -2460,6 +2460,10 @@ div#tbCommentBodyPreview {
     font-family: Playball, cursive, kaiti, Arial;
 }
 
+.pageTitleText {
+  animation: pageTitleText 2s infinite;
+}
+
 @keyframes pageTitleText {
     0% {
         text-shadow: 2px 0 0 tomato;

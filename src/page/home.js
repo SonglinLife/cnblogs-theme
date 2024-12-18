@@ -1,4 +1,3 @@
-import postMeta from '../components/postMeta/postMeta';
 import { request } from '../utils/request';
 
 export default function main() {
@@ -9,12 +8,8 @@ export default function main() {
     if ($.__config.animate.infoName.enable) {
         const titleSpan = $('#homeTopTitle span');
         titleSpan.hover(
-            function () {
-                titleSpan.css({ animation: 'pageTitleText 2s infinite' });
-            },
-            function () {
-                titleSpan.css({ animation: '' });
-            }
+            () => titleSpan.addClass('pageTitleText'),
+            () => titleSpan.removeClass('pageTitleText')
         );
     }
 
@@ -90,15 +85,13 @@ export default function main() {
         }
     });
     function postMetaHtml(postDescText) {
-        let info = postMeta(postDescText);
-        return `
-        <span class="postMeta">
-            <i class="iconfont icon-schedule"></i>发表于 ${info.date}
-            <i class="iconfont icon-browse"></i>阅读：${info.vnum}
-            <i class="iconfont icon-interactive"></i>评论：${info.cnum}
-            <i class="iconfont icon-hot"></i>推荐：${info.tnum}
-        </span>
-    `;
+        const { date, vnum, cnum, tnum } = $.__tools.handlePostDesc(postDescText);
+        return ` <span class="postMeta">
+            <i class="iconfont icon-schedule"></i>发表于 ${date}
+            <i class="iconfont icon-browse"></i>阅读：${vnum}
+            <i class="iconfont icon-interactive"></i>评论：${cnum}
+            <i class="iconfont icon-hot"></i>推荐：${tnum}
+        </span>`;
     }
 
     // 设置摘要文章
