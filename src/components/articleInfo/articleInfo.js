@@ -89,9 +89,7 @@ export default function main() {
             let num = Math.floor(Math.random() * (iconfonts.length - i) + i);
             if (arr.indexOf(num) == -1) {
                 arr.push(num);
-                $('<svg class="icon"> <use xlink:href="#icon-' + iconfonts[num] + '"></use></svg>').prependTo(
-                    titleInfo[i]
-                );
+                $(`<svg class="icon"> <use xlink:href="#icon-${iconfonts[num]}"></use></svg>`).prependTo(titleInfo[i]);
             } else {
                 i--;
             }
