@@ -3095,8 +3095,6 @@ div#rightMenu .rightMenuItem {
     -o-transform: rotate(90deg);
 }
 
-#cnblogs_post_body table td,
-#cnblogs_post_body table th,
 .feedbackCon table td,
 .feedbackCon table th {
     height: 40px;
@@ -3113,7 +3111,6 @@ div#rightMenu .rightMenuItem {
     top: 2px;
 }
 
-.cnblogs-markdown .cnblogs_code_copy a,
 .rightBuryitSpan {
     top: 0;
 }
@@ -3126,7 +3123,6 @@ div#rightMenu .rightMenuItem {
     top: 3px;
 }
 
-#cnblogs_post_body table,
 .feedbackCon table {
     position: relative;
     overflow: hidden !important;
@@ -3148,29 +3144,24 @@ div#rightMenu .rightMenuItem {
     margin: 10px 0;
 }
 
-#cnblogs_post_body table thead,
 .feedbackCon table thead {
     color: #909399;
     font-weight: 500;
     font-size: 16px;
 }
 
-#cnblogs_post_body table tr,
 .feedbackCon table tr {
     border: 0;
 }
 
-#cnblogs_post_body table tr:nth-child(2n),
 .feedbackCon table tr:nth-child(2n) {
     background: #fafafa;
 }
 
-#cnblogs_post_body table tr:hover,
 .feedbackCon table tr:hover {
     background-color: #ecf5ff;
 }
 
-#cnblogs_post_body table th,
 .feedbackCon table th {
     border-bottom: 1px solid #ebeef5;
     border-right: 1px solid #ebeef5;
@@ -3181,7 +3172,6 @@ div#rightMenu .rightMenuItem {
     min-width: 100px;
 }
 
-#cnblogs_post_body table td,
 .feedbackCon table td {
     border-bottom: 1px solid #ebeef5;
     border-right: 1px solid #ebeef5;
@@ -3205,19 +3195,6 @@ div#rightMenu .rightMenuItem {
 
 #cnblogs_post_body ul li {
     margin-left: 18px;
-}
-
-.cnblogs_code,
-pre {
-    font-size: 14px !important;
-}
-
-.cnblogs_code,
-.cnblogs_code span,
-pre,
-.cnblogs_code pre {
-    font-family: 'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace !important;
-    font-weight: 400;
 }
 
 .header__span .dev__developer {
@@ -3307,38 +3284,14 @@ pre,
 }
 
 #sideToolbar,
-.cnblogs_code_copy img,
 .list .out .icontd {
     display: none;
 }
 
-.cnblogs_code_toolbar {
-    height: 0;
-}
-
-.cnblogs_code_copy a {
-    background-repeat: no-repeat;
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    width: 16px;
-    height: 16px;
-    position: absolute;
-}
 
 .code_img_closed,
 .code_img_opened {
     cursor: pointer;
-}
-
-.cnblogs_code_toolbar a:active,
-.cnblogs_code_toolbar a:hover,
-.cnblogs_code_toolbar a:link,
-.cnblogs_code_toolbar a:link img,
-.cnblogs_code_toolbar a:visited,
-.cnblogs_code_toolbar a:visited img {
-    background-color: transparent !important;
-    border: none !important;
 }
 
 #pageAnimationOffOn {
