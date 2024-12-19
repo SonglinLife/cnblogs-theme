@@ -29,9 +29,7 @@ export default function main() {
     (() => {
         if ($.__config.code.options.macStyle) {
             let codeBox = $('code-box');
-            $.each(codeBox, function (i) {
-                $(codeBox[i]).prepend('<div class="code-tools"></div>');
-            });
+            $.each(codeBox, (i) => $(codeBox[i]).prepend('<div class="code-tools"></div>'));
         } else {
             preList.css('border-radius', '4px');
         }
@@ -48,30 +46,21 @@ export default function main() {
             let copyHtml = `<button boxid="${boxId}" type="button" class="clipboard code-copay-btn" data-clipboard-action="copy" data-clipboard-target="#${boxId}pre" aria-label="复制代码" ><i class="iconfont icon-fuzhi"></i></button>`;
             code.prepend(copyHtml);
         });
-
         // 点击效果
         const handleClick = () => {
             const $this = $(this);
             const boxid = $this.attr('boxid');
             $this.find('i').removeClass('icon-fuzhi').addClass('icon-right');
             setTimeout(() => {
-                $('code-box button[boxid="' + boxid + '"] i')
-                    .removeClass('icon-right')
-                    .addClass('icon-fuzhi');
+                $(`code-box button[boxid="${boxid}"] i`).removeClass('icon-right').addClass('icon-fuzhi');
             }, 1500);
         };
         $('code-box .code-copay-btn').click(handleClick);
-
         // 显示/隐藏
         codeBox.on({
-            mouseover: () => {
-                $(this).find('.code-copay-btn').css({ opacity: 1, visibility: 'visible' });
-            },
-            mouseout: () => {
-                $(this).find('.code-copay-btn').css({ opacity: 0, visibility: 'hidden' });
-            },
+            mouseover: () => $(this).find('.code-copay-btn').css({ opacity: 1, visibility: 'visible' }),
+            mouseout: () => $(this).find('.code-copay-btn').css({ opacity: 0, visibility: 'hidden' }),
         });
-
         new ClipboardJS('.clipboard');
     })();
 
@@ -92,21 +81,14 @@ export default function main() {
     } else {
         preList.css('background', '#f5f5fa');
         $('code-box .code-tools').css('background', '#f5f5fa');
-        $('pre .hljs').css({
-            background: 'none',
-            border: '0',
-            'border-radius': '0',
-            padding: '0',
-        });
-        setCodeLine();
+        $('pre .hljs').css({ background: 'none', border: '0', 'border-radius': '0', padding: '0' });
+        $.__config.code.options.line && setCodeLine();
     }
 
     /**
      * 设置代码行号
      */
     function setCodeLine() {
-        if (!$.__config.code.options.line) return true;
-
         let preListLine = $('code-box pre code');
         $.each(preListLine, function (i) {
             let pre = $(preListLine[i]);
