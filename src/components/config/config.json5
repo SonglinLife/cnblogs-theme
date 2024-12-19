@@ -10,6 +10,7 @@
     // -- 基础信息 --
     info: {
         name: '',
+        author: '',
         startDate: '2021-01-01',
         avatar: '',
         blogIcon: '',

@@ -18,14 +18,13 @@ export default function main() {
         : $.__config.default.avatar;
 
     // 本文作者 & 本文链接
-    let articleAuthor = $('#articleAuthor');
-    let articleSource = $('#articleSource');
-    let author = articleAuthor.length ? articleAuthor.val() : $.__config.info.name,
-        source = articleSource.length ? articleSource.val() : $.__status.url,
-        homeUrl = articleSource.length ? articleSource.val() : $.__status.homeUrl,
-        origin = articleAuthor.length || articleSource.length ? '原' : '本';
+    const articleAuthor = $('#articleAuthor');
+    const articleSource = $('#articleSource');
+    const author = $.__config.info.author || articleAuthor?.val() || $.__config.info.name;
+    const source = articleSource?.val() || $.__status.url;
+    const homeUrl = articleSource?.val() || $.__status.homeUrl;
+    const origin = articleSource.length ? '原' : '本';
 
-    // 关于博主
     let aboutHtml =
         $.__config.articleSuffix.aboutHtml ||
         `评论和私信会在第一时间回复。或者<a href="https://msg.cnblogs.com/msg/send/${$.__status.user}" target="_blank">直接私信</a>我。`;

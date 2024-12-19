@@ -17,7 +17,8 @@ export default function main() {
     /**
      * 设置文章banner动效
      */
-    if ($.__config.animate.articleBanner.enable)
+
+    $.__config.animate.articleBanner.enable &&
         import(/* webpackChunkName: "nh-banner-animation" */ '../../style/nhBannerAnimation.css');
 
     /**

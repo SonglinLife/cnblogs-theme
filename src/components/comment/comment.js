@@ -18,7 +18,7 @@ export default function main() {
 
     let setComment = () => {
         let feedbackItem = $('.feedbackItem');
-        if (feedbackItem.length > 0) {
+        if (feedbackItem.length) {
             $.each(feedbackItem, (i) => {
                 let obj = $(feedbackItem[i]),
                     feedbackCon = obj.find('.feedbackCon'),
@@ -27,28 +27,23 @@ export default function main() {
                     avatarHtml = '',
                     idInfo = commentBody.length ? commentBody.attr('id').split('_') : undefined;
 
-                if (idInfo && idInfo.length > 0) {
+                if (idInfo && idInfo.length) {
                     let id = idInfo[idInfo.length - 1],
                         idTmp = id.toString().match(/\d/g);
 
                     if ($.isArray(idTmp)) id = idTmp.join('');
+                    let op = $(`#comment_${id}_avatar`),
+                        patch = op.length ? op.text().trim() : $.__config.default.avatar;
 
-                    let op = $('#comment_' + id + '_avatar'),
-                        patch = op.length > 0 ? op.text().trim() : $.__config.default.avatar;
-
-                    let ac = $('#a_comment_author_' + id),
+                    let ac = $(`#a_comment_author_${id}`),
                         ah = ac.length ? ac.attr('href') : 'javascropt:void(0);';
 
-                    avatarHtml =
-                        '<div class="feedbackAvatar"><a href="' +
-                        ah +
-                        '" target="_blank"><img src="' +
-                        patch +
-                        '"/></a></div>';
+                    avatarHtml = `<div class="feedbackAvatar"><a href="${ah}" target="_blank"><img src="${patch}"/></a></div>`;
                     obj.prepend(avatarHtml);
                 }
 
-                if (feedbackListSubtitle.length && feedbackListSubtitle.find('.louzhu').length)
+                feedbackListSubtitle.length &&
+                    feedbackListSubtitle.find('.louzhu').length &&
                     feedbackListSubtitle.addClass('feedbackListSubtitle-louzhu');
             });
             $(feedbackItem[0]).css('padding-top', '0');
@@ -84,7 +79,7 @@ export default function main() {
     };
 
     $.__timeIds.commentTId = window.setInterval(() => {
-        if ($('.feedbackItem').length > 0) {
+        if ($('.feedbackItem').length) {
             setComment();
             $.__tools.clearIntervalTimeId($.__timeIds.commentTId);
         }
