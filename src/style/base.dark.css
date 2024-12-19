@@ -250,18 +250,9 @@ div#rightMenu .rightMenuItem {
     border-bottom: 1px dashed #555;
 }
 
-span.cnblogs_code, #home code:not([class]) {
-    background-color: #282c34;
-    color: #F92672;
-}
 
 .list .inc .bottom, .list .inc .bottomleft, .list .inc .bottomright, .list .inc .left, .list .inc .right, .list .inc .top, .list .inc .topleft, .list .inc .topright, .list .out .bottom, .list .out .bottomleft, .list .out .bottomright, .list .out .conmts, .list .out .left, .list .out .right, .list .out .top, .list .out .topleft, .list .out .topright {
     background: unset
-}
-
-.postBody .cnblogs-markdown code:not(.language-env), .postBody .cnblogs-post-body code:not(.language-env) {
-    background-color: #282c34 !important;
-    color: #F92672;
 }
 
 .main-header {
@@ -271,10 +262,6 @@ span.cnblogs_code, #home code:not([class]) {
 #nav_next_page a:hover, .pager a:hover {
     background: #555;
 }
-
-/*.postBody h1, .postBody h2, .postBody h3 {*/
-/*    border-bottom: 1px solid #555 !important;*/
-/*}*/
 
 .postBody h1, .postBody h2, .postBody h3, .postBody h4, .postBody h5, .postBody h6{
     color: #ddd !important;
@@ -311,7 +298,7 @@ span.cnblogs_code, #home code:not([class]) {
     border-bottom: 1px solid #2a2a2a;
 }
 
-code-box, .feedbackItem pre, #cnblogs_post_body img, #EntryTag, #div_digg, #green_channel, .main-header, #btn_comment_submit {
+.feedbackItem pre, #cnblogs_post_body img, #EntryTag, #div_digg, #green_channel, .main-header, #btn_comment_submit {
     filter: brightness(0.8);
 }
 

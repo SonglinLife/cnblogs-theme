@@ -18,15 +18,11 @@ export default function main() {
             comImgList = $('.feedbackCon img'),
             data = [];
 
-        $.each(imgList, function (i) {
-            data.push(imgList[i]);
-        });
+        $.each(imgList, (i) => data.push(imgList[i]));
 
-        $.each(comImgList, function (i) {
-            data.push(comImgList[i]);
-        });
+        $.each(comImgList, (i) => data.push(comImgList[i]));
 
-        if (cpb.length > 0 && data.length > 0) {
+        if (cpb.length && data.length) {
             $.each(data, (i) => {
                 let tem = $(data[i]);
                 if (!tem.hasClass('code_img_closed') && !tem.hasClass('code_img_opened')) {
@@ -35,15 +31,10 @@ export default function main() {
                     let alt = tem.attr('alt') ?? '';
                     let style = tem.attr('style') ?? '';
                     tem.after(
-                        '<a data-fancybox="gallery" href="' +
-                            tem.attr('src') +
-                            '"><img ' +
-                            (width ? ' width="' + width + '" ' : '') +
-                            (height ? ' height="' + height + '" ' : '') +
-                            ` src="${tem.attr('src')}"` +
-                            ` alt="${alt}"` +
-                            ` style="${style}"` +
-                            '/></a>'
+                        `<a data-fancybox="gallery" href="${tem.attr('src')}">
+                        <img ${width ? ' width="' + width + '" ' : ''}
+                        ${height ? ' height="' + height + '" ' : ''}
+                        src="${tem.attr('src')}" alt="${alt}" style="${style}"/></a>`
                     );
                     tem.remove();
                 }
