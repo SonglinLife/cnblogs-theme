@@ -81,12 +81,15 @@ export default function main() {
                 $(this).removeClass('daySwitch');
                 loadDarkCss();
                 commentBackground('night');
+                window.enableCodeThemeTypeFollowSystem &&
+                    window.highlighter.setTheme(window.darkModeCodeHighlightTheme);
             } else {
                 // 日间
                 $.__tools.setCookie(cookieKey, 'day', exp);
                 $(this).addClass('daySwitch');
                 $('head link#baseDarkCss').remove();
                 commentBackground('day');
+                window.enableCodeThemeTypeFollowSystem && window.highlighter.setTheme(window.codeHighlightTheme);
             }
         });
     })();
@@ -99,7 +102,7 @@ export default function main() {
     function loadDarkCss() {
         if ($.__status.dayNightCssHref) {
             $('head').append(
-                '<link type="text/css" id="baseDarkCss" rel="stylesheet" href="' + $.__status.dayNightCssHref + '">'
+                `<link type="text/css" id="baseDarkCss" rel="stylesheet" href="${$.__status.dayNightCssHref}">`
             );
         } else {
             import(/* webpackChunkName: "day-night" */ /* webpackPrefetch: true */ '../../style/base.dark.css');
