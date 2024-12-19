@@ -14,39 +14,34 @@ export default function main() {
     let postBody = $('#cnblogs_post_body');
     let header = postBody.find(':header');
 
-    if (header.length > 0) {
-        let tagList = [];
-
-        $.each(header, function () {
-            tagList.push(parseInt($(this)[0].tagName.replace(/H/g, '')));
-        });
-
-        let uniqTagList = uniq(tagList).sort();
-
-        let html = '';
-        $.each(header, function () {
-            let obj = $(this);
-            let h = parseInt(obj[0].tagName.replace(/H/g, ''));
-
-            let hid = obj.attr('id');
-            let titleId = `tid-${$.__tools.randomString(6)}`;
-            obj.attr('tid', titleId);
-            if (!hid || /^[\W|\d]+.*/.test(hid)) {
-                if (hid) {
-                    let tocObj = $(`.toc a[href="#${hid}"]`);
-                    tocObj.length && tocObj.attr('href', `#${titleId}`);
-                }
-                hid = titleId;
-                obj.attr('id', hid);
-            }
-
-            let num = uniqTagList.indexOf(h);
-            let str = num === 0 || num === -1 ? '' : '&nbsp;&nbsp;&nbsp;&nbsp;'.repeat(num);
-            let text = str + obj.text().replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            html += `<li class="nav-item"><; class="nav-link" href="#${hid}" goto="${titleId}" onclick="return false;">${text}</a></li>`;
-        });
+    if (header.length) {
+        const tagList = header.map((index, element) => parseInt(element.tagName.replace(/H/g, ''))).get();
 
         let dirHtml = $.__tools.tempReplacement(articleDirectoryTemp, 'dirHtml', html);
+
+        const html = header
+            .map((index, element) => {
+                const obj = $(element);
+                const h = parseInt(obj[0].tagName.replace(/H/g, ''));
+                let hid = obj.attr('id');
+                const titleId = `tid-${$.__tools.randomString(6)}`;
+                obj.attr('tid', titleId);
+                if (!hid || /^[\W|\d]+.*/.test(hid)) {
+                    if (hid) {
+                        const tocObj = $(`.toc a[href="#${hid}"]`);
+                        tocObj.length && tocObj.attr('href', `#${titleId}`);
+                    }
+                    hid = titleId;
+                    obj.attr('id', hid);
+                }
+
+                const num = [...new Set(tagList)].sort().indexOf(h);
+                const str = num === 0 || num === -1 ? '' : '&nbsp;&nbsp;&nbsp;&nbsp;'.repeat(num);
+                const text = str + obj.text().replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return `<li class="nav-item"><a class="nav-link" href="#${hid}" goto="${titleId}" onclick="return false;">${text}</a></li>`;
+            })
+            .get()
+            .join('');
 
         postBody.append(dirHtml);
 
@@ -118,14 +113,5 @@ export default function main() {
             let titleH = $(`:header[tid="${$(this).attr('goto')}"]`);
             titleH.length && $.__tools.actScroll(titleH.offset().top + 3, 500);
         });
-    }
-
-    /**
-     * 数组去重
-     * @param array
-     * @returns {[]}
-     */
-    function uniq(array) {
-        return [...new Set(array)];
     }
 }
