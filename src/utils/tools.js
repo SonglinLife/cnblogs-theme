@@ -325,7 +325,12 @@ function handlePostDesc(postDescText) {
         /.*posted\s*@\s*([0-9\-:\s]{16}).*阅读\s*\((\d*)\).*评论\s*\((\d*)\).*/,
         /.*posted\s*@\s*([0-9\-:\s]{16}).*/,
     ];
-    const match = regexps.find((regexp) => postDescText.match(regexp));
+
+    const postDescTextClean = postDescText.replace(/[\r\n]/g, '');
+    const match = regexps.reduce((bestMatch, regexp) => {
+        const currentMatch = postDescTextClean.match(regexp);
+        return currentMatch && currentMatch.length > bestMatch.length ? currentMatch : bestMatch;
+    }, []);
     const [, date, vnum, cnum, tnum] = match;
     return {
         date: date || '1970-01-01 00:00',
