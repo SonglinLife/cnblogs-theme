@@ -503,36 +503,37 @@
 
 /* 9 */
 .custom-btn.btn-9 {
-    border: none;
-    transition: all 0.3s ease;
-    overflow: hidden;
+  border: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
-
 .custom-btn.btn-9:after {
-    position: absolute;
-    content: ' ';
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #1fd1f9;
-    background-image: linear-gradient(315deg, #1fd1f9 0%, #b621fe 74%);
-    transition: all 0.3s ease;
+  position: absolute;
+  content: " ";
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1fd1f9;
+  background-image: linear-gradient(315deg, #1fd1f9 0%, #b621fe 74%);
+  transition: all 0.3s ease;
 }
-
 .custom-btn.btn-9:hover {
-    background: transparent;
-    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5), -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
-        inset -4px -4px 6px 0 rgba(255, 255, 255, 0.5), inset 4px 4px 6px 0 rgba(116, 125, 136, 0.3);
-    color: #fff;
+  background: transparent;
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2),
+    inset -4px -4px 6px 0 rgba(255,255,255,.5),
+    inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+  color: #fff;
 }
-
 .custom-btn.btn-9:hover:after {
-    -webkit-transform: scale(2) rotate(180deg);
-    transform: scale(2) rotate(180deg);
-    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5), -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
-        inset -4px -4px 6px 0 rgba(255, 255, 255, 0.5), inset 4px 4px 6px 0 rgba(116, 125, 136, 0.3);
+  -webkit-transform: scale(2) rotate(180deg);
+  transform: scale(2) rotate(180deg);
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2),
+    inset -4px -4px 6px 0 rgba(255,255,255,.5),
+    inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
 }
 
 /* 10 */
@@ -623,75 +624,6 @@
         -webkit-transform: scale(50) rotate(45deg);
         opacity: 0;
     }
-}
-
-/* 12 */
-.custom-btn.btn-12 {
-    position: relative;
-    right: 24px;
-    bottom: 15px;
-    border: none;
-    box-shadow: none;
-    width: 110px;
-    height: 40px;
-    line-height: 42px;
-    -webkit-perspective: 230px;
-    perspective: 230px;
-}
-
-.custom-btn.btn-12 span {
-    background: rgb(0, 172, 238);
-    background: linear-gradient(0deg, rgba(0, 172, 238, 1) 0%, rgba(2, 126, 251, 1) 100%);
-    display: block;
-    position: absolute;
-    width: 110px;
-    height: 40px;
-    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-        4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    margin: 0;
-    text-align: center;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-.custom-btn.btn-12 span:nth-child(1) {
-    box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9, 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
-    -webkit-transform: rotateX(90deg);
-    -moz-transform: rotateX(90deg);
-    transform: rotateX(90deg);
-    -webkit-transform-origin: 50% 50% -20px;
-    -moz-transform-origin: 50% 50% -20px;
-    transform-origin: 50% 50% -20px;
-}
-
-.custom-btn.btn-12 span:nth-child(2) {
-    -webkit-transform: rotateX(0deg);
-    -moz-transform: rotateX(0deg);
-    transform: rotateX(0deg);
-    -webkit-transform-origin: 50% 50% -20px;
-    -moz-transform-origin: 50% 50% -20px;
-    transform-origin: 50% 50% -20px;
-}
-
-.custom-btn.btn-12:hover span:nth-child(1) {
-    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-        4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-    -webkit-transform: rotateX(0deg);
-    -moz-transform: rotateX(0deg);
-    transform: rotateX(0deg);
-}
-
-.custom-btn.btn-12:hover span:nth-child(2) {
-    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-        4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-    color: transparent;
-    -webkit-transform: rotateX(-81deg);
-    -moz-transform: rotateX(-81deg);
-    transform: rotateX(-81deg);
 }
 
 /* 13 */

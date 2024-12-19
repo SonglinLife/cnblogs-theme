@@ -18,7 +18,7 @@ export default function main() {
         {
             id: 'green_channel_follow',
             text: '关注博主',
-            className: 'custom-btn btn-12',
+            className: 'custom-btn btn-9',
         },
         {
             id: 'green_channel_favorite',
@@ -42,7 +42,9 @@ export default function main() {
             const element = $(`#${button.id}`);
             if (element.length) {
                 element.after(
-                    `<button class="${button.className}" onclick="${element.attr('onclick')}">${button.text}</button>`
+                    `<button class="${button.className}" onclick="${element.attr('onclick')}">
+                    <span>${button.text}</span>
+                    </button>`
                 );
                 $.__tools.clearIntervalTimeId($.__timeIds[`${button.id}TId`]);
             }
