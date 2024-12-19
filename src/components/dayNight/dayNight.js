@@ -18,55 +18,53 @@ export default function main() {
     $.__status.dayNightCssHref = '';
     const { auto, nightMode } = $.__config.switchDayNight;
 
-    /**
-     * 评论框背景
-     * @param status {string} 日夜模式
-     */
-    let commentBackground = (status) => {
+    // 切换评论框背景
+    const switchCommentBackground = (status) => {
         $.__config.articleContent.commentBackground.enable && $.__tools.setCommentBackground(status);
     };
 
-    /**
-     * 判断当前日/夜模式
-     */
-    function getAutoSwitch() {
+    const switchHighlighterTheme = (lighterCodeTheme) => {
+        window.enableCodeThemeTypeFollowSystem && window.highlighter.setTheme(lighterCodeTheme);
+    };
+
+    const getAutoSwitch = () => {
         if (auto.enable) return h >= auto.nightHour ? '' : h >= auto.dayHour ? 'daySwitch' : '';
         return 'daySwitch';
-    }
+    };
     const cookieValue = $.__tools.getCookie(cookieKey);
-    daySwitch = cookieValue === 'day' ? 'daySwitch' : cookieValue === 'night' ? '' : getAutoSwitch();
-    // 判断是否强制夜间
-    if (nightMode) daySwitch = '';
-    // 设置基础模版
+    daySwitch = nightMode ? '' : cookieValue === 'day' ? 'daySwitch' : cookieValue === 'night' ? '' : getAutoSwitch();
+
     $('body').prepend($.__tools.tempReplacement(dayNightTemp, 'daySwitch', daySwitch));
-    // 初始化样式
-    if (!daySwitch) loadDarkCss();
-    // 设置评论框背景
-    daySwitch ? commentBackground('day') : commentBackground('night');
+
+    if (daySwitch) {
+        switchCommentBackground('day');
+        switchHighlighterTheme(window.codeHighlightTheme);
+    } else {
+        loadDarkCss();
+        switchCommentBackground('night');
+        switchHighlighterTheme(window.darkModeCodeHighlightTheme);
+    }
 
     /**
      * 模式切换事件
      */
-    (() => {
-        $('#dayNightSwitch .onOff').click(function () {
-            if ($(this).hasClass('daySwitch')) {
-                // 夜间
-                $.__tools.setCookie(cookieKey, 'night', exp);
-                $(this).removeClass('daySwitch');
-                loadDarkCss();
-                commentBackground('night');
-                window.enableCodeThemeTypeFollowSystem &&
-                    window.highlighter.setTheme(window.darkModeCodeHighlightTheme);
-            } else {
-                // 日间
-                $.__tools.setCookie(cookieKey, 'day', exp);
-                $(this).addClass('daySwitch');
-                $('head link#baseDarkCss').remove();
-                commentBackground('day');
-                window.enableCodeThemeTypeFollowSystem && window.highlighter.setTheme(window.codeHighlightTheme);
-            }
-        });
-    })();
+    $('#dayNightSwitch .onOff').click(function () {
+        if ($(this).hasClass('daySwitch')) {
+            // 夜间
+            $.__tools.setCookie(cookieKey, 'night', exp);
+            $(this).removeClass('daySwitch');
+            loadDarkCss();
+            switchCommentBackground('night');
+            switchHighlighterTheme(window.darkModeCodeHighlightTheme);
+        } else {
+            // 日间
+            $.__tools.setCookie(cookieKey, 'day', exp);
+            $(this).addClass('daySwitch');
+            $('head link#baseDarkCss').remove();
+            switchCommentBackground('day');
+            switchHighlighterTheme(window.codeHighlightTheme);
+        }
+    });
 
     /**
      * 加载夜间模式样式文件
