@@ -9,13 +9,14 @@
 import dayNightTemp from '../../template/dayNight.html';
 
 export default function main() {
-    if (!$.__config.switchDayNight.enable) return true;
+    if (!$.__config.switchDayNight.enable) return;
 
     let h = parseInt(new Date().getHours()),
         cookieKey = 'cnblogs_config_isNight',
         exp = 4 * 3600,
         daySwitch;
-    $.__status.dayNightCssHref = ''; // 夜间模式css样式文件路径，用于记录webpack打包后路径
+    $.__status.dayNightCssHref = '';
+    const { auto, nightMode } = $.__config.switchDayNight;
 
     /**
      * 评论框背景
@@ -28,47 +29,20 @@ export default function main() {
     /**
      * 判断当前日/夜模式
      */
-    (() => {
-        switch ($.__tools.getCookie(cookieKey)) {
-            case 'day':
-                daySwitch = 'daySwitch';
-                break;
-            case 'night':
-                daySwitch = '';
-                break;
-            default:
-                daySwitch = $.__config.switchDayNight.auto.enable
-                    ? h >= $.__config.switchDayNight.auto.nightHour
-                        ? ''
-                        : h >= $.__config.switchDayNight.auto.dayHour
-                        ? 'daySwitch'
-                        : ''
-                    : 'daySwitch';
-                break;
-        }
-    })();
-
-    /**
-     * 判断是否强制夜间
-     */
-    if ($.__config.switchDayNight.nightMode) daySwitch = '';
-
-    /**
-     * 设置基础模版
-     */
+    function getAutoSwitch() {
+        if (auto.enable) return h >= auto.nightHour ? '' : h >= auto.dayHour ? 'daySwitch' : '';
+        return 'daySwitch';
+    }
+    const cookieValue = $.__tools.getCookie(cookieKey);
+    daySwitch = cookieValue === 'day' ? 'daySwitch' : cookieValue === 'night' ? '' : getAutoSwitch();
+    // 判断是否强制夜间
+    if (nightMode) daySwitch = '';
+    // 设置基础模版
     $('body').prepend($.__tools.tempReplacement(dayNightTemp, 'daySwitch', daySwitch));
-
-    /**
-     * 初始化样式
-     */
+    // 初始化样式
     if (!daySwitch) loadDarkCss();
-
-    /**
-     * 设置评论框背景
-     */
-    (() => {
-        daySwitch ? commentBackground('day') : commentBackground('night');
-    })();
+    // 设置评论框背景
+    daySwitch ? commentBackground('day') : commentBackground('night');
 
     /**
      * 模式切换事件
