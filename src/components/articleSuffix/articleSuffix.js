@@ -20,7 +20,7 @@ export default function main() {
     // 本文作者 & 本文链接
     const articleAuthor = $('#articleAuthor');
     const articleSource = $('#articleSource');
-    const author = $.__config.info.author || articleAuthor?.val() || $.__config.info.name;
+    const author = articleAuthor?.val() || $.__config.info.name;
     const source = articleSource?.val() || $.__status.url;
     const homeUrl = articleSource?.val() || $.__status.homeUrl;
     const origin = articleSource.length ? '原' : '本';
