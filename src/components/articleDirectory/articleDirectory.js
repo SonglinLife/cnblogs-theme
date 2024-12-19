@@ -16,9 +16,6 @@ export default function main() {
 
     if (header.length) {
         const tagList = header.map((index, element) => parseInt(element.tagName.replace(/H/g, ''))).get();
-
-        let dirHtml = $.__tools.tempReplacement(articleDirectoryTemp, 'dirHtml', html);
-
         const html = header
             .map((index, element) => {
                 const obj = $(element);
@@ -43,6 +40,7 @@ export default function main() {
             .get()
             .join('');
 
+        let dirHtml = $.__tools.tempReplacement(articleDirectoryTemp, 'dirHtml', html);
         postBody.append(dirHtml);
 
         body.attr('data-bs-spy', 'scroll');
