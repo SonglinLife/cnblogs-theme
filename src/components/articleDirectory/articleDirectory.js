@@ -29,12 +29,12 @@ export default function main() {
             let h = parseInt(obj[0].tagName.replace(/H/g, ''));
 
             let hid = obj.attr('id');
-            let titleId = 'tid-' + $.__tools.randomString(6);
+            let titleId = `tid-${$.__tools.randomString(6)}`;
             obj.attr('tid', titleId);
             if (!hid || /^[\W|\d]+.*/.test(hid)) {
                 if (hid) {
-                    let tocObj = $('.toc a[href="#' + hid + '"]');
-                    tocObj.length && tocObj.attr('href', '#' + titleId);
+                    let tocObj = $(`.toc a[href="#${hid}"]`);
+                    tocObj.length && tocObj.attr('href', `#${titleId}`);
                 }
                 hid = titleId;
                 obj.attr('id', hid);
@@ -43,14 +43,7 @@ export default function main() {
             let num = uniqTagList.indexOf(h);
             let str = num === 0 || num === -1 ? '' : '&nbsp;&nbsp;&nbsp;&nbsp;'.repeat(num);
             let text = str + obj.text().replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            html +=
-                '<li class="nav-item"><a class="nav-link" href="#' +
-                hid +
-                '" goto="' +
-                titleId +
-                '" onclick="return false;">' +
-                text +
-                '</a></li>';
+            html += `<li class="nav-item"><; class="nav-link" href="#${hid}" goto="${titleId}" onclick="return false;">${text}</a></li>`;
         });
 
         let dirHtml = $.__tools.tempReplacement(articleDirectoryTemp, 'dirHtml', html);
@@ -122,7 +115,7 @@ export default function main() {
         });
 
         $('#articleDirectory .nav-link').click(function () {
-            let titleH = $(':header[tid="' + $(this).attr('goto') + '"]');
+            let titleH = $(`:header[tid="${$(this).attr('goto')}"]`);
             titleH.length && $.__tools.actScroll(titleH.offset().top + 3, 500);
         });
     }
