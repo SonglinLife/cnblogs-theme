@@ -21,19 +21,13 @@ export default function main() {
 
         // 设置图片
         if ($.__status.pageType === 'home') {
-            topImg =
-                $.__config.banner.home.background.length > 0
-                    ? $.__config.banner.home.background
-                    : [
-                          'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_220917053600_wallhaven-6k3oox.webp',
-                      ];
+            topImg = $.__config.banner.home.background.length
+                ? $.__config.banner.home.background
+                : ['https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_220917053600_wallhaven-6k3oox.webp'];
         } else {
-            topImg =
-                $.__config.banner.article.background.length > 0
-                    ? $.__config.banner.article.background
-                    : [
-                          'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_220917053937_wallhaven-j5mz95.webp',
-                      ];
+            topImg = $.__config.banner.article.background.length
+                ? $.__config.banner.article.background
+                : ['https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_220917053937_wallhaven-j5mz95.webp'];
             height = '40vh';
             $('#homeTopTitle').hide();
             $('.scroll-down').hide();
@@ -68,7 +62,7 @@ export default function main() {
             else bgImg = topImg[0] || '';
 
             mainHeader.css({
-                background: "#222 url('" + encodeURI(bgImg) + "')  center center no-repeat",
+                background: `#222 url("${encodeURI(bgImg)}")  center center no-repeat`,
                 'background-size': 'cover',
             });
         }

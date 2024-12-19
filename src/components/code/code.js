@@ -15,10 +15,10 @@ export default function main() {
     (() => {
         $.each(preList, function (i) {
             let pre = $(preList[i]);
-            let boxId = 'code-' + $.__tools.randomString(6);
+            let boxId = `code-${$.__tools.randomString(6)}`;
 
             // 设置外部标签
-            pre.wrap('<code-box id="' + boxId + '"></code-box>');
+            pre.wrap(`<code-box id="${boxId}"></code-box>`);
             pre.attr('boxid', boxId);
         });
     })();
@@ -45,38 +45,30 @@ export default function main() {
         $.each(codeBox, function (i) {
             let code = $(codeBox[i]);
             let boxId = code.attr('id');
-            let copyHtml =
-                '<button boxid="' +
-                boxId +
-                '" type="button" class="clipboard code-copay-btn" data-clipboard-action="copy" data-clipboard-target="#' +
-                boxId +
-                ' pre" aria-label="复制代码" ><i class="iconfont icon-fuzhi"></i></button>';
+            let copyHtml = `<button boxid="${boxId}" type="button" class="clipboard code-copay-btn" data-clipboard-action="copy" data-clipboard-target="#${boxId}pre" aria-label="复制代码" ><i class="iconfont icon-fuzhi"></i></button>`;
             code.prepend(copyHtml);
         });
 
         // 点击效果
-        $('code-box .code-copay-btn').click(function () {
-            $(this).find('i').removeClass('icon-fuzhi').addClass('icon-right');
-            setTimeout(
-                "$('code-box button[boxid='" +
-                    $(this).attr('boxid') +
-                    "'] i').removeClass('icon-right').addClass('icon-fuzhi')",
-                1500
-            );
-        });
+        const handleClick = () => {
+            const $this = $(this);
+            const boxid = $this.attr('boxid');
+            $this.find('i').removeClass('icon-fuzhi').addClass('icon-right');
+            setTimeout(() => {
+                $('code-box button[boxid="' + boxid + '"] i')
+                    .removeClass('icon-right')
+                    .addClass('icon-fuzhi');
+            }, 1500);
+        };
+        $('code-box .code-copay-btn').click(handleClick);
+
         // 显示/隐藏
         codeBox.on({
-            mouseover: function () {
-                $(this).find('.code-copay-btn').css({
-                    opacity: 1,
-                    visibility: 'visible',
-                });
+            mouseover: () => {
+                $(this).find('.code-copay-btn').css({ opacity: 1, visibility: 'visible' });
             },
-            mouseout: function () {
-                $(this).find('.code-copay-btn').css({
-                    opacity: 0,
-                    visibility: 'hidden',
-                });
+            mouseout: () => {
+                $(this).find('.code-copay-btn').css({ opacity: 0, visibility: 'hidden' });
             },
         });
 
@@ -127,7 +119,7 @@ export default function main() {
             $.each(codeLine, (j) => {
                 if (codeLine[j].trim() || j < codeLine.length - 1) {
                     codeLine[j] !== '</code>' &&
-                        code.push('<code-line class="line-numbers-rows"></code-line>' + codeLine[j]);
+                        code.push(`<code-line class="line-numbers-rows"></code-line>${codeLine[j]}`);
                 }
             });
 
