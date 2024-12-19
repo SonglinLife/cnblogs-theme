@@ -18,7 +18,7 @@ export default function main() {
         {
             id: 'green_channel_follow',
             text: '关注博主',
-            className: 'custom-btn btn-9',
+            className: 'custom-btn btn-8',
         },
         {
             id: 'green_channel_favorite',
