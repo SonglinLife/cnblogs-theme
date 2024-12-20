@@ -18,7 +18,7 @@
     // -- 侧边栏 --
     sidebar: {
         navList: [],
-        customList: {},
+        customList: [],
         infoBackground: '',
         titleMsg: '欢迎访问本博客~',
         blogStatus: true,

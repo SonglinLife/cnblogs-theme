@@ -14,28 +14,21 @@ import main4 from './lib/main4';
 export default function main() {
     let mainObj;
 
-    /**
-     * 设置侧边栏渲染
-     */
+    // ------- 设置侧边栏 -------
     $('#sidebar_news').prepend(sidebarTemp);
     mainObj = main4();
 
     // ------- 设置导航 -------
-    let navHtml = $.__tools.tempReplacement(navTemp, 'user', $.__status.user);
-    $('.sidebar-footer').html(navHtml);
+    $('.sidebar-footer').html($.__tools.tempReplacement(navTemp, 'user', $.__status.user));
 
     // ------- 设置头像 -------
-    let blogAvatar = $.__config.info.avatar || $.__config.default.avatar;
-    $('#menuBlogAvatar').append(`<img class='img-responsive' alt='用户头像' src='${blogAvatar}'>`);
+    $('#menuBlogAvatar').append(`<img class='img-responsive' alt='用户头像' src='${$.__config.info.avatar || $.__config.default.avatar}'>`);
 
     // ------- 设置侧边栏信息 -------
     $('.sidebar-title-msg').text($.__config.sidebar.titleMsg);
 
-    /**
-     * 设置菜单个人信息背景图片
-     */
-    let mbg = $.__config.sidebar.infoBackground || $.__config.default.infoBackground;
-    $('.container .menu-wrap').css('background-image', `url('${mbg}')`);
+    // ------- 设置侧边栏背景 -------
+    $('.container .menu-wrap').css('background-image', `url('${$.__config.sidebar.infoBackground || $.__config.default.infoBackground}')`);
 
     /**
      * 定时拉取数据
@@ -95,50 +88,24 @@ export default function main() {
             }
         }, timeout);
 
-        // ------- 积分与排名 -------
-        $.__timeIds.scorerankTId = window.setInterval(() => {
-            listHdl($('#sidebar_scorerank ul li'), $('#sb-sidebarScorerank'), $.__timeIds.scorerankTId);
-        }, timeout);
+        const listHandlers = [
+            { selector: '#sidebar_scorerank ul li', container: '#sb-sidebarScorerank' },
+            { selector: '#sidebar_recentposts ul li', container: '#sb-sidebarRecentposts' },
+            { selector: '#sidebar_toptags ul li', container: '#sb-toptags' },
+            { selector: '#sidebar_postcategory ul li', container: '#sb-classify' },
+            { selector: '#sidebar_articlecategory ul li', container: '#sb-ArticleCategory' },
+            { selector: '#sidebar_postarchive ul li', container: '#sb-record' },
+            { selector: '#sidebar_articlearchive ul li', container: '#sb-articlearchive' },
+            { selector: '#TopViewPostsBlock ul li', container: '#sb-topview' },
+            { selector: '#TopDiggPostsBlock ul li', container: '#sb-topDiggPosts' },
+        ];
 
-        // ------- 最新随笔 -------
-        $.__timeIds.newEssayTId = window.setInterval(() => {
-            listHdl($('#sidebar_recentposts ul li'), $('#sb-sidebarRecentposts'), $.__timeIds.newEssayTId);
-        }, timeout);
-
-        // ------- 我的标签 -------
-        $.__timeIds.topTagsTId = window.setInterval(() => {
-            listHdl($('#sidebar_toptags ul li'), $('#sb-toptags'), $.__timeIds.topTagsTId);
-        }, timeout);
-
-        // ------- 随笔分类 -------
-        $.__timeIds.classifyTId = window.setInterval(() => {
-            listHdl($('#sidebar_postcategory ul li'), $('#sb-classify'), $.__timeIds.classifyTId);
-        }, timeout);
-
-        // ------- 文章分类 -------
-        $.__timeIds.articleCategoryTId = window.setInterval(() => {
-            listHdl($('#sidebar_articlecategory ul li'), $('#sb-ArticleCategory'), $.__timeIds.articleCategoryTId);
-        }, timeout);
-
-        // ------- 随笔档案 -------
-        $.__timeIds.recordTId = window.setInterval(() => {
-            listHdl($('#sidebar_postarchive ul li'), $('#sb-record'), $.__timeIds.recordTId);
-        }, timeout);
-
-        // ------- 文章档案 -------
-        $.__timeIds.articleTId = window.setInterval(() => {
-            listHdl($('#sidebar_articlearchive ul li'), $('#sb-articlearchive'), $.__timeIds.articleTId);
-        }, timeout);
-
-        // ------- 阅读排行 -------
-        $.__timeIds.topViewTId = window.setInterval(() => {
-            listHdl($('#TopViewPostsBlock ul li'), $('#sb-topview'), $.__timeIds.topViewTId);
-        }, timeout);
-
-        // ------- 推荐排行 -------
-        $.__timeIds.topDiggPostsTId = window.setInterval(() => {
-            listHdl($('#TopDiggPostsBlock ul li'), $('#sb-topDiggPosts'), $.__timeIds.topDiggPostsTId);
-        }, timeout);
+        listHandlers.forEach((handler) => {
+            const tid = handler.container.replace('#', '');
+            $.__timeIds[tid] = window.setInterval(() => {
+                listHdl($(handler.selector), $(handler.container), $.__timeIds[tid]);
+            }, timeout);
+        });
 
         // ------- 最新评论 -------
         $.__timeIds.commentsTId = window.setInterval(() => {
@@ -185,48 +152,41 @@ export default function main() {
         }, timeout);
 
         // ------- 自定义导航 -------
-        (() => {
-            if ($.__config.sidebar?.navList) {
-                const navList = $.__config.sidebar.navList;
-                let navHtml = '';
-                if (navList.length) {
-                    navHtml = '<ul>';
-                    navList.forEach((i) => {
-                        let iconClass = navList[i].length > 2 ? navList[i][2] : 'icon-qianzishenhe';
-                        navHtml += `<li><a href="${navList[i][1]}" class="sidebar-dropdown-box" target="_blank"><i class="iconfont  ${iconClass}"></i> ${navList[i][0]} </a></li>`;
-                    });
-                    navHtml += '</ul>';
-                    $('.customize-nav').append(navHtml).show();
-                }
-            }
-        })();
+        const customNavData = $.__config.sidebar.navList;
+        if (customNavData.length) {
+            const navHtml = customNavData
+                .map((item) => {
+                    const { name, url, icon = 'icon-dianzan' } = item;
+                    return `<li><a href="${url}" class="sidebar-dropdown-box" target="_blank"><i class="iconfont  ${icon}"></i> ${name} </a></li>`;
+                })
+                .join('');
+            $('.customize-nav').append(`<ul>${navHtml}</ul>`).show();
+        }
 
         // ------- 自定义列表 -------
-        (() => {
-            if ($.__config.sidebar?.customList) {
-                let customData = $.__config.sidebar.customList;
-                if (Object.keys(customData).length) {
-                    let res = '';
-                    $.each(customData, (title, list) => {
-                        let html = '<li class="ng-star-inserted sidebar-dropdown">';
-                        html += '<a href="javascript:void(0)" class="ng-star-inserted sidebar-dropdown-box">';
-                        html += `   <i class="iconfont  ${list.icon}"></i>`;
-                        html += `   <span class="sidebar-dropdown-title">${title}</span>`;
-                        html += '</a>';
-                        html += '<div class="sidebar-submenu"><ul>';
-                        $.each(list.data, (key, val) => {
-                            html += `<li><a href="${val[1]}" target="_blank">${val[0]}</a></li>`;
-                        });
-                        html += '</ul></div>';
-                        html += '</li>';
-                        res += html;
-                    });
-                    $('#customize-sidebar-menu ul').append(res);
-                    $('#customize-sidebar-menu').show();
-                    $('#customize-sidebar-menu .sidebar-dropdown').show();
-                }
-            }
-        })();
+        const customListData = $.__config.sidebar.customList;
+        if (customListData.length) {
+            let res = '';
+            const html = customListData
+                .map((item) => {
+                    return `<li class="ng-star-inserted sidebar-dropdown">
+                              <a href="javascript:void(0)" class="ng-star-inserted sidebar-dropdown-box">
+                                <i class="iconfont ${item.icon}"></i>
+                                <span class="sidebar-dropdown-title">${item.title}</span>
+                              </a>
+                              <div class="sidebar-submenu">
+                                <ul>
+                                  ${item.data.map(([text, link]) => `<li><a href="${link}" target="_blank">${text}</a></li>`).join('')}
+                                </ul>
+                              </div>
+                            </li>`;
+                })
+                .join('');
+            res += html;
+            $('#customize-sidebar-menu ul').append(res);
+            $('#customize-sidebar-menu').show();
+            $('#customize-sidebar-menu .sidebar-dropdown').show();
+        }
 
         // ------- 公共函数 -------
         function listHdl(old, nld, tid) {
@@ -254,110 +214,56 @@ export default function main() {
         }
     })();
 
-    /**
-     * 头像旋转动效
-     */
-    (() => {
-        if ($.__config.animate.avatar.enable) {
-            $('#menuBlogAvatar').addClass('img-rounded');
-            $('.author_avatar').addClass('img-rounded');
-            $('.feedbackAvatar').addClass('img-rounded');
-        }
-    })();
+    // ------- 设置头像动效 -------
+    if ($.__config.animate.avatar.enable) {
+        $('#menuBlogAvatar').addClass('img-rounded');
+        $('.author_avatar').addClass('img-rounded');
+        $('.feedbackAvatar').addClass('img-rounded');
+    }
 
-    /**
-     * 设置是否默认展开菜单栏
-     */
-    (() => {
-        if ($.__config.sidebar.submenu.pointsRank) {
-            $('#sb-sidebarScorerank').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-sidebarScorerank').show();
-        }
+    // ------- 设置菜单默认展开收缩 -------
+    const submenuConfig = $.__config.sidebar.submenu;
+    const submenuElements = {
+        pointsRank: '#sb-sidebarScorerank',
+        latestPosts: '#sb-sidebarRecentposts',
+        myTags: '#sb-toptags',
+        postsClassify: '#sb-classify',
+        articleClassify: '#sb-ArticleCategory',
+        readRank: '#sb-topview',
+        recommendRank: '#sb-topDiggPosts',
+        postsArchive: '#sb-record',
+        articleArchive: '#sb-articlearchive',
+        latestComment: '#sb-recentComments',
+        customList: '#customize-sidebar-menu .sidebar-submenu',
+    };
 
-        if ($.__config.sidebar.submenu.latestPosts) {
-            $('#sb-sidebarRecentposts').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-sidebarRecentposts').show();
+    Object.keys(submenuConfig).forEach((key) => {
+        if (submenuConfig[key]) {
+            const element = $(submenuElements[key]);
+            element.parent('li.sidebar-dropdown').addClass('active');
+            element.show();
         }
+    });
 
-        if ($.__config.sidebar.submenu.myTags) {
-            $('#sb-toptags').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-toptags').show();
+    // ------- 设置菜单点击展开收缩 -------
+    $('.sidebar-menu a.sidebar-dropdown-box').on('click', function () {
+        const obj = $(this);
+        const pObj = obj.parent('li.sidebar-dropdown');
+        const lObj = pObj.find('.sidebar-submenu');
+        if (lObj.length) {
+            pObj.toggleClass('active');
+            lObj.slideToggle(300, () => {
+                mainObj?.myOptiscrollInstance && mainObj.myOptiscrollInstance.update();
+            });
         }
+    });
 
-        if ($.__config.sidebar.submenu.postsClassify) {
-            $('#sb-classify').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-classify').show();
-        }
-
-        if ($.__config.sidebar.submenu.articleClassify) {
-            $('#sb-ArticleCategory').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-ArticleCategory').show();
-        }
-
-        if ($.__config.sidebar.submenu.readRank) {
-            $('#sb-topview').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-topview').show();
-        }
-
-        if ($.__config.sidebar.submenu.recommendRank) {
-            $('#sb-topDiggPosts').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-topDiggPosts').show();
-        }
-
-        if ($.__config.sidebar.submenu.postsArchive) {
-            $('#sb-record').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-record').show();
-        }
-
-        if ($.__config.sidebar.submenu.articleArchive) {
-            $('#sb-articlearchive').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-articlearchive').show();
-        }
-
-        if ($.__config.sidebar.submenu.latestComment) {
-            $('#sb-recentComments').parent('li.sidebar-dropdown').addClass('active');
-            $('#sb-recentComments').show();
-        }
-
-        if ($.__config.sidebar.submenu.customList) {
-            $('#customize-sidebar-menu .sidebar-submenu').parent('li.sidebar-dropdown').addClass('active');
-            $('#customize-sidebar-menu .sidebar-submenu').show();
-        }
-    })();
-
-    /**
-     * 设置菜单展开收缩
-     */
-    (() => {
-        $('.sidebar-menu a.sidebar-dropdown-box').on('click', function () {
-            let obj = $(this);
-            let pObj = obj.parent('li.sidebar-dropdown');
-            let lObj = pObj.find('.sidebar-submenu');
-            if (lObj.length > 0) {
-                if (pObj.hasClass('active')) {
-                    // 收起
-                    pObj.removeClass('active');
-                    lObj.slideUp(300);
-                } else {
-                    // 展开
-                    pObj.addClass('active');
-                    lObj.slideDown(300);
-                }
-                setTimeout(function () {
-                    mainObj?.myOptiscrollInstance && mainObj.myOptiscrollInstance.update();
-                }, 300);
+    // ------- 窗口大小监听 -------
+    $.__event.resize.handle.push(() => {
+        setTimeout(() => {
+            if ($('body').hasClass('show-menu') && mainObj?.myOptiscrollInstance) {
+                mainObj.myOptiscrollInstance.update();
             }
-        });
-    })();
-
-    /**
-     * 窗口大小变化处理
-     */
-    (() => {
-        $.__event.resize.handle.push(() => {
-            setTimeout(function () {
-                $('body').hasClass('show-menu') && mainObj?.myOptiscrollInstance && mainObj.myOptiscrollInstance.update();
-            }, 300);
-        });
-    })();
+        }, 300);
+    });
 }
