@@ -9,33 +9,29 @@
 
 export default {
     init() {
-        // 滚动监听
-        $.__event.scroll = {};
-        $.__event.scroll.handle = [];
-        $.__event.scroll.temScroll = 0; // 上一次页面滚动位置
-        $.__event.scroll.docScroll = $(document).scrollTop(); // 当前滚动位置
-        $.__event.scroll.homeScroll = $('#home').offset().top - 40; // 主体滚动
+        $.__event.scroll = {
+            handle: [],
+            temScroll: 0,
+            docScroll: $(document).scrollTop(),
+            homeScroll: $('#home').offset().top - 40,
+        };
+
         $(window).scroll(() => {
-            $.__event.scroll.docScroll = $(document).scrollTop();
-            $.__event.scroll.homeScroll = $('#home').offset().top - 40;
+            const { scroll } = $.__event;
+            scroll.docScroll = $(document).scrollTop();
+            scroll.homeScroll = $('#home').offset().top - 40;
             this.handle.scroll();
-            $.__event.scroll.temScroll = $.__event.scroll.docScroll;
+            scroll.temScroll = scroll.docScroll;
         });
-        // 窗口大小监听
-        $.__event.resize = {};
-        $.__event.resize.handle = [];
+        $.__event.resize = { handle: [] };
         $(window).resize(() => this.handle.resize());
     },
     handle: {
-        scroll: () => {
-            for (let i = 0; i < $.__event.scroll.handle.length; i++) {
-                $.__event.scroll.handle[i]();
-            }
+        scroll() {
+            $.__event.scroll.handle.forEach((fn) => fn());
         },
-        resize: () => {
-            for (let i = 0; i < $.__event.resize.handle.length; i++) {
-                $.__event.resize.handle[i]();
-            }
+        resize() {
+            $.__event.resize.handle.forEach((fn) => fn());
             $.__tools.setDomHomePosition();
         },
     },
