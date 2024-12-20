@@ -18,9 +18,7 @@ export default function main() {
 
     footerHtml = $.__tools.tempReplacement(footerHtml, 'footerText', footerText);
 
-    /**
-     * 设置音乐播放器
-     */
+    // 设置音乐播放器
     if (config.aplayer.enable) {
         Promise.all([$.__tools.dynamicLoadingJs($.__config.default.aplayer), $.__tools.dynamicLoadingJs($.__config.default.meting)])
             .then((r) => {
@@ -51,48 +49,44 @@ export default function main() {
             .catch((e) => console.error('aplayer|meting', e));
     }
 
-    /**
-     * 设置标语
-     */
+    // 设置标语
+    const re = [
+        ['textLeft', config.text.left],
+        ['iconFont', config.text.iconFont.icon],
+        ['iconColor', config.text.iconFont.color],
+        ['iconSize', config.text.iconFont.fontSize],
+        ['textRight', config.text.right],
+    ];
+
     if (config.text.left || config.text.right) {
-        let re = [
-            ['textLeft', config.text.left],
-            ['iconFont', config.text.iconFont.icon],
-            ['iconColor', config.text.iconFont.color],
-            ['iconSize', config.text.iconFont.fontSize],
-            ['textRight', config.text.right],
-            ['textShow', 'block'],
-        ];
-        footerHtml = $.__tools.batchTempReplacement(footerHtml, re);
+        re.push(['textShow', 'block']);
     } else {
-        footerHtml = $.__tools.tempReplacement(footerHtml, 'textShow', 'none');
+        re.push(['textShow', 'none']);
     }
 
-    /**
-     * 设置友情链接
-     */
-    if ($.__config.links.footer.length) {
-        let linksHtml = '友情链接：';
-        for (let i = 0; i < $.__config.links.footer.length; i++) {
-            linksHtml += `<a href="${$.__config.links.footer[i][1]}" target="_blank">${$.__config.links.footer[i][0]}</a>`;
-            if (i < $.__config.links.footer.length - 1) linksHtml += '<span style="margin: 0 3px;">/</span>';
-        }
+    footerHtml = $.__tools.batchTempReplacement(footerHtml, re);
+
+    // 设置友情链接
+    const footerLinksData = $.__config.links.footer;
+    if (footerLinksData.length) {
+        const linksHtml = footerLinksData
+            .map((link, index) => {
+                return `<a href="${link.url}" target="_blank">${link.name}</a>${index ? '<span style="margin: 0 3px;">/</span>' : ''}`;
+            })
+            .join('');
+
         footerHtml = $.__tools.batchTempReplacement(footerHtml, [
-            ['linksHtml', linksHtml],
+            ['linksHtml', `友情链接：${linksHtml}`],
             ['linkShow', 'block'],
         ]);
     } else {
         footerHtml = $.__tools.tempReplacement(footerHtml, 'linkShow', 'none');
     }
 
-    /**
-     * 添加页脚
-     */
+    // 添加页脚
     footer.html(footerHtml);
 
-    /**
-     * 页脚样式
-     */
+    // 页脚样式
     switch (parseInt(config.style)) {
         case 1:
             $('#footer').addClass('footer-t1').find('#footerStyle1').show().css('background', 'url(//images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114131838_footer.webp)  no-repeat 50%');
@@ -107,17 +101,13 @@ export default function main() {
             break;
     }
 
-    /**
-     * 设置运行时间
-     */
+    // 设置运行时间
     window.setInterval(() => {
         let runDate = $.__tools.getRunDate(($.__config.info.startDate ||= '2021-01-01'));
         $('#blogRunTimeSpan').text(`This blog has running : ${runDate.daysold}  d ${runDate.hrsold} h ${runDate.minsold} m ${runDate.seconds} s`);
     }, 500);
 
-    /**
-     * 定时网站统计
-     */
+    // 定时网站统计
     if ($.__config.umami?.url && $.__config.umami?.shareId) {
         const baseUrl = $.__config.umami.url;
         $.__timeIds.umamiTId = window.setInterval(() => {
