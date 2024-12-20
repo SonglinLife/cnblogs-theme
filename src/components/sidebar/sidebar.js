@@ -14,45 +14,34 @@ import main4 from './lib/main4';
 export default function main() {
     let mainObj;
 
-        /**
-         * 设置侧边栏渲染
-         */
-    (() => {
-        $('#sidebar_news').prepend(sidebarTemp);
-        mainObj = main4();
-    })();
-
     /**
-     * 设置菜单信息
+     * 设置侧边栏渲染
      */
-    (() => {
-        // ------- 设置导航 -------
-        let navHtml = $.__tools.tempReplacement(navTemp, 'user', $.__status.user);
-        $('.sidebar-footer').html(navHtml);
+    $('#sidebar_news').prepend(sidebarTemp);
+    mainObj = main4();
 
-        // ------- 设置头像 -------
-        let blogAvatar = $.__config.info.avatar ? $.__config.info.avatar : $.__config.default.avatar;
-        $('#menuBlogAvatar').append("<img class='img-responsive' alt='用户头像' src='" + blogAvatar + "'>");
+    // ------- 设置导航 -------
+    let navHtml = $.__tools.tempReplacement(navTemp, 'user', $.__status.user);
+    $('.sidebar-footer').html(navHtml);
 
-        // ------- 设置侧边栏信息 -------
-        $('.sidebar-title-msg').text($.__config.sidebar.titleMsg);
-    })();
+    // ------- 设置头像 -------
+    let blogAvatar = $.__config.info.avatar || $.__config.default.avatar;
+    $('#menuBlogAvatar').append(`<img class='img-responsive' alt='用户头像' src='${blogAvatar}'>`);
+
+    // ------- 设置侧边栏信息 -------
+    $('.sidebar-title-msg').text($.__config.sidebar.titleMsg);
 
     /**
      * 设置菜单个人信息背景图片
      */
-    (() => {
-        let mbg = $.__config.sidebar.infoBackground
-            ? $.__config.sidebar.infoBackground
-            : 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114135508_sidebar_bg_2.webp';
-        $('.container .menu-wrap').css('background-image', "url('" + mbg + "')");
-    })();
+    let mbg = $.__config.sidebar.infoBackground || $.__config.default.infoBackground;
+    $('.container .menu-wrap').css('background-image', `url('${mbg}')`);
 
     /**
      * 定时拉取数据
      */
     (() => {
-        let timeout = 1000;
+        const timeout = 1000;
         // ------- 用户个人信息 -------
         $.__timeIds.introduceTId = window.setInterval(() => {
             let introduceHtml = $('#profile_block').html(),
@@ -69,7 +58,7 @@ export default function main() {
             $.__timeIds.blogStatsTId = window.setInterval(() => {
                 let blogStats = $('.blogStats'),
                     menuBlogStats = $('.sidebar-stats');
-                if (blogStats.length > 0) {
+                if (blogStats.length) {
                     menuBlogStats.html($.__tools.htmlFiltrationScript(blogStats.html())).show();
                     blogStats.html('');
                     $.__tools.clearIntervalTimeId($.__timeIds.blogStatsTId);
@@ -83,8 +72,8 @@ export default function main() {
                 calendar = $('#blog-calendar'),
                 menuCalendar = $('#calendar-box');
 
-            if (calendarTable.length > 0 && menuCalendar.html() === '') {
-                let calendarHtml = '<div id="blog-calendar">' + calendar.html() + '</div>';
+            if (calendarTable.length && menuCalendar.html() === '') {
+                let calendarHtml = `<div id="blog-calendar">${calendar.html()}</div>`;
                 calendar.remove();
                 menuCalendar.html(calendarHtml).show();
                 $('#blog-calendar').css('visibility', 'visible');
@@ -179,13 +168,9 @@ export default function main() {
                         o.length > 0 && o.html(text);
                         html +=
                             '<li>' +
-                            (o.length > 0 ? o.prop('outerHTML') : "<a href='javascript:void(0);'>" + text + '</a>') +
-                            '<div class="sb-recent_comment_body">' +
-                            $(body[i]).text() +
-                            '</div>' +
-                            '<div class="sb-recent_comment_author">' +
-                            $(author[i]).text() +
-                            '</div></li>';
+                            (o.length ? o.prop('outerHTML') : `<a href='javascript:void(0);'>${text}</a>`) +
+                            `<div class="sb-recent_comment_body">${$(body[i]).text()}</div>` +
+                            `<div class="sb-recent_comment_author">${$(author[i]).text()}</div></li>`;
                     });
                 }
                 html += '</ul>';
@@ -202,20 +187,13 @@ export default function main() {
         // ------- 自定义导航 -------
         (() => {
             if ($.__config.sidebar?.navList) {
-                let navList = $.__config.sidebar.navList;
+                const navList = $.__config.sidebar.navList;
                 let navHtml = '';
-                if (navList.length > 0) {
+                if (navList.length) {
                     navHtml = '<ul>';
-                    $.each(navList, function (i) {
+                    navList.forEach((i) => {
                         let iconClass = navList[i].length > 2 ? navList[i][2] : 'icon-qianzishenhe';
-                        navHtml +=
-                            '<li><a href="' +
-                            navList[i][1] +
-                            '" class="sidebar-dropdown-box" target="_blank"><i class="iconfont ' +
-                            iconClass +
-                            '"></i>' +
-                            navList[i][0] +
-                            '</a></li>';
+                        navHtml += `<li><a href="${navList[i][1]}" class="sidebar-dropdown-box" target="_blank"><i class="iconfont  ${iconClass}"></i> ${navList[i][0]} </a></li>`;
                     });
                     navHtml += '</ul>';
                     $('.customize-nav').append(navHtml).show();
@@ -227,19 +205,18 @@ export default function main() {
         (() => {
             if ($.__config.sidebar?.customList) {
                 let customData = $.__config.sidebar.customList;
-                if (Object.keys(customData).length > 0) {
+                if (Object.keys(customData).length) {
                     let res = '';
                     $.each(customData, (title, list) => {
                         let html = '<li class="ng-star-inserted sidebar-dropdown">';
                         html += '<a href="javascript:void(0)" class="ng-star-inserted sidebar-dropdown-box">';
-                        html += '   <i class="iconfont ' + list.icon + '"></i>';
-                        html += '   <span class="sidebar-dropdown-title">' + title + '</span>';
+                        html += `   <i class="iconfont  ${list.icon}"></i>`;
+                        html += `   <span class="sidebar-dropdown-title">${title}</span>`;
                         html += '</a>';
                         html += '<div class="sidebar-submenu"><ul>';
                         $.each(list.data, (key, val) => {
-                            html += '<li><a href="' + val[1] + '" target="_blank">' + val[0] + '</a></li>';
+                            html += `<li><a href="${val[1]}" target="_blank">${val[0]}</a></li>`;
                         });
-
                         html += '</ul></div>';
                         html += '</li>';
                         res += html;
@@ -270,11 +247,7 @@ export default function main() {
                 if (ret.test(textArr[0])) textArr.splice(0, 1);
                 let text = textArr.join('.').trim();
                 o.length > 0 && o.html(text);
-                if (text.length > 0)
-                    html +=
-                        '<li>' +
-                        (o.length > 0 ? o.prop('outerHTML') : '<a href="javascript:void(0);">' + text + '</a>') +
-                        '</li>';
+                if (text.length > 0) html += '<li>' + (o.length > 0 ? o.prop('outerHTML') : '<a href="javascript:void(0);">' + text + '</a>') + '</li>';
             });
             html += '</ul>';
             return html;
@@ -371,9 +344,7 @@ export default function main() {
                     lObj.slideDown(300);
                 }
                 setTimeout(function () {
-                    if (mainObj && typeof mainObj.myOptiscrollInstance !== 'undefined') {
-                        mainObj.myOptiscrollInstance.update();
-                    }
+                    mainObj?.myOptiscrollInstance && mainObj.myOptiscrollInstance.update();
                 }, 300);
             }
         });
@@ -385,9 +356,7 @@ export default function main() {
     (() => {
         $.__event.resize.handle.push(() => {
             setTimeout(function () {
-                if ($('body').hasClass('show-menu') && mainObj && typeof mainObj.myOptiscrollInstance !== 'undefined') {
-                    mainObj.myOptiscrollInstance.update();
-                }
+                $('body').hasClass('show-menu') && mainObj?.myOptiscrollInstance && mainObj.myOptiscrollInstance.update();
             }, 300);
         });
     })();

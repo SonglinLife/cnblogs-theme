@@ -42,9 +42,7 @@ export default function main() {
                     obj.prepend(avatarHtml);
                 }
 
-                feedbackListSubtitle.length &&
-                    feedbackListSubtitle.find('.louzhu').length &&
-                    feedbackListSubtitle.addClass('feedbackListSubtitle-louzhu');
+                feedbackListSubtitle.length && feedbackListSubtitle.find('.louzhu').length && feedbackListSubtitle.addClass('feedbackListSubtitle-louzhu');
             });
             $(feedbackItem[0]).css('padding-top', '0');
             $(feedbackItem[feedbackItem.length - 1]).css('padding-bottom', '0');

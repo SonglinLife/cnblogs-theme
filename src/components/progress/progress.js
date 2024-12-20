@@ -13,11 +13,8 @@ export default function main() {
         .then((r) => {
             $('#blog-news').prepend('<div id="progressBar"></div>');
             let progressBar = ToProgress && new window.ToProgress($.__config.progressBar, '#progressBar');
-
             // 添加事件监听
-            $.__event.scroll.handle.push(() => {
-                progressBar.setProgress($.__tools.getScrollPercent());
-            });
+            $.__event.scroll.handle.push(() => progressBar.setProgress($.__tools.getScrollPercent()));
         })
         .catch((e) => console.log('toprogress.js', e));
 }

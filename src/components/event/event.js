@@ -24,9 +24,7 @@ export default {
         // 窗口大小监听
         $.__event.resize = {};
         $.__event.resize.handle = [];
-        $(window).resize(() => {
-            this.handle.resize();
-        });
+        $(window).resize(() => this.handle.resize());
     },
     handle: {
         scroll: () => {

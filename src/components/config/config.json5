@@ -512,9 +512,10 @@
     default: {
         autoupdate: 'false',
         version: 'v2.2.17',
+        avatar: 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114123823_default_avatar.webp',
+        infoBackground: 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114135508_sidebar_bg_2.webp',
         commentTyping: 'https://files.cnblogs.com/files/wangyang0210/commentTyping.js?t=1676464468',
         iconfont: 'https://at.alicdn.com/t/c/font_3628204_t6n3fw8b1zn.js',
-        avatar: 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114123823_default_avatar.webp',
         mojs: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/mo-js/0.288.2/mo.min.js',
         moment: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/moment.js/2.29.1/moment.min.js',
         gsap: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/gsap/3.9.1/gsap.min.js',

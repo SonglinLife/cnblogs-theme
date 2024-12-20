@@ -8,6 +8,8 @@
  */
 import rtMenuTemp from '../../template/rtMenu.html';
 
+// TODO 优化
+
 export default function main() {
     $('#blog-news').prepend(rtMenuTemp);
     const rightMenu = $('#rightMenu');
@@ -48,12 +50,8 @@ export default function main() {
         });
 
         rightMenu.find('.rightMenuItem').on({
-            mouseover: function () {
-                $(this).find('.rightMenuSpan').stop().fadeIn(300);
-            },
-            mouseout: function () {
-                $(this).find('.rightMenuSpan').stop().fadeOut(300);
-            },
+            mouseover: () => $(this).find('.rightMenuSpan').stop().fadeIn(300),
+            mouseout: () => $(this).find('.rightMenuSpan').stop().fadeOut(300),
         });
     })();
 
@@ -157,10 +155,8 @@ export default function main() {
     (() => {
         if ($.__config.rtMenu.reward.alipay || $.__config.rtMenu.reward.wechatpay) {
             $('#rightDashang').show();
-            $.__config.rtMenu.reward.alipay &&
-                $('#rightDashang .ds-alipay').show().find('img').attr('src', $.__config.rtMenu.reward.alipay);
-            $.__config.rtMenu.reward.wechatpay &&
-                $('#rightDashang .ds-wecat').show().find('img').attr('src', $.__config.rtMenu.reward.wechatpay);
+            $.__config.rtMenu.reward.alipay && $('#rightDashang .ds-alipay').show().find('img').attr('src', $.__config.rtMenu.reward.alipay);
+            $.__config.rtMenu.reward.wechatpay && $('#rightDashang .ds-wecat').show().find('img').attr('src', $.__config.rtMenu.reward.wechatpay);
         }
     })();
 
@@ -202,18 +198,7 @@ export default function main() {
                                     duration: 750,
                                     radius: { 0: 'rand(5, 25)' },
                                     shape: ['circle', 'rect', 'polygon'],
-                                    fill: [
-                                        '#1abc9c',
-                                        '#2ecc71',
-                                        '#00cec9',
-                                        '#3498db',
-                                        '#9b59b6',
-                                        '#fdcb6e',
-                                        '#f1c40f',
-                                        '#e67e22',
-                                        '#e74c3c',
-                                        '#e84393',
-                                    ],
+                                    fill: ['#1abc9c', '#2ecc71', '#00cec9', '#3498db', '#9b59b6', '#fdcb6e', '#f1c40f', '#e67e22', '#e74c3c', '#e84393'],
                                     degreeShift: 'rand(-90, 90)',
                                     delay: 'stagger(0, 40)',
                                 },
@@ -273,7 +258,6 @@ export default function main() {
                 let counter = 0;
                 const intervalId = setInterval(() => {
                     subObj.text(`${counter % 2 === 0 ? '提交中' : '更新中'}.${'.'.repeat(counter % 3)}`);
-
                     counter++;
                     if (counter >= 6) {
                         clearInterval(intervalId);
@@ -327,15 +311,8 @@ export default function main() {
             $('#update').click(function () {
                 window.open(localStorage.getItem('repoUrl'));
             });
-            console.log(
-                '\n  🎉%c新版本已经发布了,快点击下方链接查看吧~ \n',
-                'color: #fefefe;text-shadow: 0 0 0.5em #0ae642, 0 0 0.2em #5c5c5c;'
-            );
-            console.log(
-                '\n' + ' %c ' + localStorage.getItem('version') + ' %c ' + localStorage.getItem('repoUrl') + ' ' + '\n',
-                'color: #fadfa3; background: #030307; padding:5px 0;',
-                'background: #fadfa3; color:#000;padding:5px 0;'
-            );
+            console.log('\n  🎉%c新版本已经发布了,快点击下方链接查看吧~ \n', 'color: #fefefe;text-shadow: 0 0 0.5em #0ae642, 0 0 0.2em #5c5c5c;');
+            console.log('\n' + ' %c ' + localStorage.getItem('version') + ' %c ' + localStorage.getItem('repoUrl') + ' ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; color:#000;padding:5px 0;');
         }
     })();
 }
