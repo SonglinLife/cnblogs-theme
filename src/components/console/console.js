@@ -19,12 +19,10 @@ export default function main() {
         'background: #fadfa3; padding:5px 0;',
     ];
     window.console.log.apply(console, github);
-
-    // 输出用户配置信息
-    if ($.__config.consoleList.length) {
-        $.each($.__config.consoleList, (i) => {
-            let fl = $.__config.consoleList[i];
-            console.log('\n' + ' %c ' + fl[0] + ' %c ' + fl[1] + ' ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; color:#000;padding:5px 0;');
+    const consoleListData = $.__config.consoleList;
+    if (consoleListData.length) {
+        consoleListData.forEach((item) => {
+            console.log(`\n%c${item.name}%c${item.url}\n`, 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; color:#000;padding:5px 0;');
         });
     }
 }
