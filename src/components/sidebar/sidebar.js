@@ -176,7 +176,7 @@ export default function main() {
                               </a>
                               <div class="sidebar-submenu">
                                 <ul>
-                                  ${item.data.map(([text, link]) => `<li><a href="${link}" target="_blank">${text}</a></li>`).join('')}
+                                  ${item.data.map(({ text, link }) => `<li><a href="${link}" target="_blank">${text}</a></li>`).join('')}
                                 </ul>
                               </div>
                             </li>`;
@@ -218,7 +218,7 @@ export default function main() {
     if ($.__config.animate.avatar.enable) {
         $('#menuBlogAvatar').addClass('img-rounded');
         $('.author_avatar').addClass('img-rounded');
-        $('.feedbackAvatar').addClass('img-rounded');
+        $('.feedbackAvatar').addClass('img-rounded', true);
     }
 
     // ------- 设置菜单默认展开收缩 -------
