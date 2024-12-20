@@ -71,7 +71,6 @@ export default function main() {
                     let windowHeight = $(window).height();
                     downScroll = docHeight - windowHeight;
                 }
-
                 $.__tools.actScroll(downScroll, 900);
             } else {
                 $.__tools.actScroll(0, 900);
