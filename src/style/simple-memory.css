@@ -960,6 +960,11 @@ p.article-info-text > .postMeta br {
     border-radius: 3px;
 }
 
+.comment-sort {
+    align-items: center !important;
+    margin-top: 20px;
+}
+
 div#tbCommentBodyPreview {
     border: 0;
 }

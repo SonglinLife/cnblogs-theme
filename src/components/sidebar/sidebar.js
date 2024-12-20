@@ -176,7 +176,7 @@ export default function main() {
                               </a>
                               <div class="sidebar-submenu">
                                 <ul>
-                                  ${item.data.map(({ text, link }) => `<li><a href="${link}" target="_blank">${text}</a></li>`).join('')}
+                                  ${item.data.map(({ name, url }) => `<li><a href="${url}" target="_blank">${name}</a></li>`).join('')}
                                 </ul>
                               </div>
                             </li>`;
