@@ -85,7 +85,7 @@ export default function main() {
 
     $(document).ajaxSuccess(function (event, xhr, settings) {
         // 评论重新排序
-        if (settings.url.includes('GetComments.aspx')) {
+        if (settings.url.includes('comments-block')) {
             $.__tools.clearIntervalTimeId($.__timeIds.commentTId);
             setComment();
         }
