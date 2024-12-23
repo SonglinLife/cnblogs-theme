@@ -8,14 +8,11 @@
  */
 
 export default function main() {
-    let RelTitle = document.title,
-        hidden,
-        visibilityChange,
-        timer,
-        onblur = $.__config.title.onblur,
-        onblurTime = $.__config.title.onblurTime,
-        focus = $.__config.title.focus,
-        focusTime = $.__config.title.focusTime;
+
+  const RelTitle = document.title;
+  const config = $.__config.title;
+  let hidden, visibilityChange;
+
 
     if (typeof document.hidden !== 'undefined') {
         hidden = 'hidden';
@@ -37,8 +34,8 @@ export default function main() {
         if (timer) clearTimeout(timer);
 
         if (document[hidden] && onblurTime >= 0) {
-            timer = setTimeout(() => {
-                document.title = onblur + ' - ' + RelTitle.split(' - ')[0];
+          timer = setTimeout(() => {
+               document.title = `${config.onblur} - ${RelTitle.split(' - ')[0]}`;
             }, onblurTime);
         }
 

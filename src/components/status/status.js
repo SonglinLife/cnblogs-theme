@@ -8,16 +8,15 @@
  */
 
 let status = {
-    url: '',
+    url: window.location.href,
     user: '',
     pageType: '',
     articleId: '',
 };
 // 提取url信息
-status.url = window.location.href;
 let tmp = status.url.split('/');
 status.user = tmp[3];
-status.homeUrl = [tmp[0], tmp[1], tmp[2], tmp[3]].join('/');
+status.homeUrl = tmp.slice(0, 4).join('/');
 let topics = $('#topics').length;
 status.pageType = !topics
     ? 'home'
