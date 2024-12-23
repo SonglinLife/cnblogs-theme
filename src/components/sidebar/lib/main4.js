@@ -6,29 +6,24 @@
  * ----------------------------------------------
  * @describe: 侧边栏处理
  */
-import cla from './classie';
 await $.__tools.dynamicLoadingJs($.__config.default.snapsvg).catch((e) => console.error('snapsvg-cjs.js', e));
 await $.__tools.dynamicLoadingJs($.__config.default.optiscroll).catch((e) => console.log('optiscroll.js', e));
 await $.__tools.dynamicLoadingCss($.__config.default.optiscrollcss);
 export default function main() {
-    let bodyEl = document.body,
-        content = document.querySelector('.content-wrap'),
-        openbtn = document.getElementById('open-button'),
-        closebtn = document.getElementById('close-button'),
-        isOpen = false,
-        classie = cla(),
-        morphEl = document.getElementById('morph-shape'),
-        s = Snap(morphEl.querySelector('svg')),
-        path = s.select('path'),
-        initialPath = path.attr('d'),
-        isAnimating = false;
-
+    const bodyEl = document.body;
+    const content = document.querySelector('.content-wrap');
+    const openbtn = document.getElementById('open-button');
+    const closebtn = document.getElementById('close-button');
+    const morphEl = document.getElementById('morph-shape');
+    const s = Snap(morphEl.querySelector('svg'));
+    const path = s.select('path');
+    const initialPath = path.attr('d');
+    let isOpen = false;
+    let isAnimating = false;
     let myOptiscrollInstance;
 
     function init() {
         initEvents();
-
-        // 初始化滚动条
         myOptiscrollInstance = new Optiscroll(document.querySelector('#menuWrap'), {
             preventParentScroll: true,
             forceScrollbars: true,
@@ -38,33 +33,24 @@ export default function main() {
     function initEvents() {
         openbtn.addEventListener('click', toggleMenu);
         if (closebtn) closebtn.addEventListener('click', toggleMenu);
-
-        // close the menu element if the target it麓s not the menu element or one of its descendants..
-        content.addEventListener('click', function (ev) {
-            let target = ev.target;
-            if (isOpen && target !== openbtn) toggleMenu();
+        content.addEventListener('click', (ev) => {
+            if (isOpen && ev.target !== openbtn) toggleMenu();
         });
     }
 
     function toggleMenu() {
         $('.menu-wrap').show();
-
         if (isOpen) {
             $(bodyEl).removeClass('show-menu');
-
             $('#content-wrap').fadeOut(300);
             $(bodyEl).css('overflow', 'auto');
             $('#mainContent').off('touchmove');
-
             path.attr('d', initialPath);
             isAnimating = false;
         } else {
-            classie.add(bodyEl, 'show-menu');
-
+            $(bodyEl).addClass('show-menu');
             $('#content-wrap').show();
             $('body').css('overflow', 'hidden');
-
-            // 初始化滚动条到顶部位置
             myOptiscrollInstance.scrollTo(false, 'top');
         }
         isOpen = !isOpen;
@@ -73,6 +59,6 @@ export default function main() {
     init();
 
     return {
-        myOptiscrollInstance: myOptiscrollInstance,
+        myOptiscrollInstance,
     };
 }

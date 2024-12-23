@@ -154,35 +154,32 @@ export default function main() {
         // ------- 自定义导航 -------
         const customNavData = $.__config.sidebar.navList;
         if (customNavData.length) {
-            const navHtml = customNavData
-                .map((item) => {
-                    const { name, url, icon = 'icon-dianzan' } = item;
-                    return `<li><a href="${url}" class="sidebar-dropdown-box" target="_blank"><i class="iconfont  ${icon}"></i> ${name} </a></li>`;
-                })
-                .join('');
+            const navHtml = customNavData.map(({ name, url, icon = 'icon-dianzan' }) => `
+                <li>
+                    <a href="${url}" class="sidebar-dropdown-box" target="_blank">
+                        <i class="iconfont ${icon}"></i> ${name}
+                    </a>
+                </li>
+            `).join('');
             $('.customize-nav').append(`<ul>${navHtml}</ul>`).show();
         }
 
         // ------- 自定义列表 -------
         const customListData = $.__config.sidebar.customList;
         if (customListData.length) {
-            let res = '';
-            const html = customListData
-                .map((item) => {
-                    return `<li class="ng-star-inserted sidebar-dropdown">
-                              <a href="javascript:void(0)" class="ng-star-inserted sidebar-dropdown-box">
-                                <i class="iconfont ${item.icon}"></i>
-                                <span class="sidebar-dropdown-title">${item.title}</span>
-                              </a>
-                              <div class="sidebar-submenu">
-                                <ul>
-                                  ${item.data.map(({ name, url }) => `<li><a href="${url}" target="_blank">${name}</a></li>`).join('')}
-                                </ul>
-                              </div>
-                            </li>`;
-                })
-                .join('');
-            res += html;
+            const res = customListData.map(({ title, icon, data }) => `
+                <li class="ng-star-inserted sidebar-dropdown">
+                    <a href="javascript:void(0)" class="ng-star-inserted sidebar-dropdown-box">
+                        <i class="iconfont ${icon}"></i>
+                        <span class="sidebar-dropdown-title">${title}</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            ${data.map(({ name, url }) => `<li><a href="${url}" target="_blank">${name}</a></li>`).join('')}
+                        </ul>
+                    </div>
+                </li>
+            `).join('');
             $('#customize-sidebar-menu ul').append(res);
             $('#customize-sidebar-menu').show();
             $('#customize-sidebar-menu .sidebar-dropdown').show();
