@@ -50,16 +50,19 @@
 
     // -- 头图 --
     banner: {
-        text: false,
+        titleSelect: false,
         home: {
             background: [],
             title: [],
-            titleSource: 'jinrishici',
+            titleSource: 'one',
         },
         article: {
             background: [],
         },
     },
+
+    // -- fontIcon --
+    fontIconExtend: '',
 
     // -- Loading --
     loading: {
@@ -83,9 +86,6 @@
             renderBase: false,
         },
     },
-
-    // -- fontIcon --
-    fontIconExtend: '',
 
     // -- 进度条 --
     progressBar: {
@@ -118,9 +118,6 @@
         aplayer: {
             enable: false,
             options: {
-                // todo
-                lrcColor: '#00ab08',
-                lrcCurrentColor: '#FDD835',
                 id: '3778678',
                 api: '',
                 server: 'netease',
@@ -135,7 +132,7 @@
                 preload: 'auto',
                 volume: '0.7',
                 mutex: 'true',
-                lrcType: '0',
+                lrcType: '3',
                 listFolded: 'true',
                 listMaxHeight: '340px',
                 storageName: 'cnblogsTheme',
@@ -178,14 +175,8 @@
 
     // -- 动效 --
     animate: {
-        bannerImages: {
+       homeBannerTitle: {
             enable: false,
-            options: {
-                itemNum: 5,
-                current: 0,
-                sort: 1,
-                time: 30000,
-            },
         },
         homeBanner: {
             enable: false,
@@ -196,8 +187,17 @@
                 clearOffset: 0.3,
             },
         },
+        bannerImages: {
+            enable: false,
+            options: {
+                itemNum: 5,
+                current: 0,
+                sort: 1,
+                time: 30000,
+            },
+        },
         articleTitle: {
-            enable: true,
+            enable: false,
         },
         articleBanner: {
             enable: false,
@@ -265,9 +265,6 @@
                 enable: false,
                 options: {},
             },
-        },
-        infoName: {
-            enable: false,
         },
         avatar: {
             enable: false,

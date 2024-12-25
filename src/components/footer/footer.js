@@ -70,8 +70,8 @@ export default function main() {
     const footerLinksData = $.__config.links.footer;
     if (footerLinksData.length) {
         const linksHtml = footerLinksData
-            .map((link, index) => {
-                return `<a href="${link.url}" target="_blank">${link.name}</a>${index < footerLinksData.length - 1 ? '<span style="margin: 0 3px;">/</span>' : ''}`;
+          .map(({ text, link }, index) => {
+                return `<a href="${link}" target="_blank">${text}</a>${index < footerLinksData.length - 1 ? '<span style="margin: 0 3px;">/</span>' : ''}`;
             })
             .join('');
 

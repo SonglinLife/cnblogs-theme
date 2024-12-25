@@ -21,8 +21,8 @@ export default function main() {
     window.console.log.apply(console, github);
     const consoleListData = $.__config.consoleList;
     if (consoleListData.length) {
-        consoleListData.forEach((item) => {
-            console.log(`\n %c ${item.name} %c ${item.url}\n`, 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; color:#000;padding:5px 0;');
+        consoleListData.forEach(({text, link}) => {
+            console.log(`\n %c ${text} %c ${link}\n`, 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; color:#000;padding:5px 0;');
         });
     }
 }

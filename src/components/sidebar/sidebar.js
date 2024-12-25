@@ -154,10 +154,10 @@ export default function main() {
         // ------- 自定义导航 -------
         const customNavData = $.__config.sidebar.navList;
         if (customNavData.length) {
-            const navHtml = customNavData.map(({ name, url, icon = 'icon-dianzan' }) => `
+            const navHtml = customNavData.map(({ text, link, icon = 'icon-dianzan' }) => `
                 <li>
-                    <a href="${url}" class="sidebar-dropdown-box" target="_blank">
-                        <i class="iconfont ${icon}"></i> ${name}
+                    <a href="${link}" class="sidebar-dropdown-box" target="_blank">
+                        <i class="iconfont ${icon}"></i> ${text}
                     </a>
                 </li>
             `).join('');
@@ -175,7 +175,7 @@ export default function main() {
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
-                            ${data.map(({ name, url }) => `<li><a href="${url}" target="_blank">${name}</a></li>`).join('')}
+                            ${data.map(({ text, link }) => `<li><a href="${link}" target="_blank">${text}</a></li>`).join('')}
                         </ul>
                     </div>
                 </li>

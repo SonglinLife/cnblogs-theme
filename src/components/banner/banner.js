@@ -68,7 +68,7 @@ export default function main() {
         }
 
         // Banner文字是否可选
-        if (!$.__config.banner.text) $('.main-header-content.inner').addClass('textUnselect');
+        if (!$.__config.banner.titleSelect) $('.main-header-content.inner').addClass('textUnselect');
     })();
 
     // 添加事件监听

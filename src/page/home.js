@@ -5,7 +5,7 @@ export default function main() {
     $('#homeTopTitle span').text($.__config.info.name);
 
     // 博客名字动效
-    if ($.__config.animate.infoName.enable) {
+    if ($.__config.animate.homeBannerTitle.enable) {
         const titleSpan = $('#homeTopTitle span');
         titleSpan.hover(
             () => titleSpan.addClass('pageTitleText'),
