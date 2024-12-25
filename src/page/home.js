@@ -13,59 +13,14 @@ export default function main() {
         );
     }
 
-    // 主页的随机一言
-    let hitokoto = $('#hitokoto');
-    let configTitle = $.__config.banner.home.title;
-    const topTitleList = ['当你凝视深渊时，深渊也在凝视着你。', '有的人25岁就死了，只是到75岁才埋葬'];
-
-    const updateHitokotoDisplay = (content) => {
-        hitokoto.html(content).css('display', '-webkit-box');
-        $.__tools.setDomHomePosition();
-    };
-
-    if (Array.isArray(configTitle) && configTitle.length) {
-        let listIndex = $.__tools.randomNum(0, configTitle.length - 1);
-        updateHitokotoDisplay(configTitle[listIndex]);
-        return;
-    }
-    if (typeof configTitle === 'string' && configTitle !== '') {
-        updateHitokotoDisplay(configTitle);
-        return;
+  // 主页banner动效
+    if ($.__config.animate.homeBanner.enable) {
+        import(/* webpackChunkName: "circle-magic" */ '../vendor/circleMagic/circleMagic').then((module) => {
+            $('.main-header').circleMagic($.__config.animate.homeBanner.options);
+        });
     }
 
-    function fetchAndSetTitle(url) {
-        request(url)
-            .then(topTitleContent)
-            .catch(() => {
-                let listIndex = $.__tools.randomNum(0, topTitleList.length - 1);
-                updateHitokotoDisplay(topTitleList[listIndex]);
-            });
-    }
-
-    function topTitleContent(r) {
-        if (r.status === 'success') {
-            const { note, content, data } = r;
-            const poetry = `《${data?.origin?.title}》 - ${data?.origin?.dynasty} - ${data?.origin?.author}`;
-            updateHitokotoDisplay(note || data.content);
-            $('#hitokotoAuthor')
-                .text(content || poetry)
-                .show();
-        }
-    }
-
-    const titleSources = {
-        one: 'https://one.oyo.cool/',
-        jinrishici: 'https://v2.jinrishici.com/one.json',
-    };
-
-    if (titleSources.hasOwnProperty($.__config.banner.home.titleSource)) {
-        fetchAndSetTitle(titleSources[$.__config.banner.home.titleSource]);
-    } else {
-        let listIndex = $.__tools.randomNum(0, topTitleList.length - 1);
-        updateHitokotoDisplay(topTitleList[listIndex]);
-    }
-
-    // 头图点击滚动到内容位置
+   // 头图点击滚动到内容位置
     $('.scroll-down').click(function () {
         const endScroll = $('#home').offset().top + 10;
         $.__tools.actScroll(endScroll, 500);
@@ -112,10 +67,57 @@ export default function main() {
         }
     });
 
-    // 主页banner动效
-    if ($.__config.animate.homeBanner.enable) {
-        import(/* webpackChunkName: "circle-magic" */ '../vendor/circleMagic/circleMagic').then((module) => {
-            $('.main-header').circleMagic($.__config.animate.homeBanner.options);
-        });
+    // 主页的随机一言
+    let hitokoto = $('#hitokoto');
+    let configTitle = $.__config.banner.home.title;
+    const topTitleList = ['当你凝视深渊时，深渊也在凝视着你。', '有的人25岁就死了，只是到75岁才埋葬'];
+
+    const updateHitokotoDisplay = (content) => {
+        hitokoto.html(content).css('display', '-webkit-box');
+        $.__tools.setDomHomePosition();
+    };
+
+    function fetchAndSetTitle(url) {
+        request(url)
+            .then(topTitleContent)
+            .catch(() => {
+                const listIndex = $.__tools.randomNum(0, topTitleList.length - 1);
+                updateHitokotoDisplay(topTitleList[listIndex]);
+            });
+    }
+
+    function topTitleContent(r) {
+        if (r.status === 'success') {
+            const { note, content, data } = r;
+            const poetry = `《${data?.origin?.title}》 - ${data?.origin?.dynasty} - ${data?.origin?.author}`;
+            updateHitokotoDisplay(note || data.content);
+            $('#hitokotoAuthor')
+                .text(content || poetry)
+                .show();
+        }
+    }
+
+    const titleSources = {
+        one: 'https://one.oyo.cool/',
+        jinrishici: 'https://v2.jinrishici.com/one.json',
+    };
+
+
+  if (Array.isArray(configTitle)&&configTitle.length) {
+    updateHitokotoDisplay(configTitle[$.__tools.randomNum(0, configTitle.length - 1)]);
+    return
+  }
+
+  if (typeof configTitle === 'string') {
+    updateHitokotoDisplay(configTitle);
+    return
+  }
+
+   const titleSource = titleSources[$.__config.banner.home.titleSource];
+    if (titleSource) {
+      fetchAndSetTitle(titleSource);
+    } else {
+      const listIndex = $.__tools.randomNum(0, topTitleList.length - 1);
+      updateHitokotoDisplay(topTitleList[listIndex]);
     }
 }
