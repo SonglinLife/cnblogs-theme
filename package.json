@@ -1,66 +1,70 @@
 {
-    "name": "cnblogs-theme",
-    "version": "2.2.17",
-    "description": "<div align=\"center\">",
-    "main": "index.js",
-    "files": [
-        "src",
-        "dist"
+  "name": "cnblogs-theme",
+  "version": "2.2.17",
+  "description": "<div align=\"center\">",
+  "main": "index.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx webpack --config config/webpack.dev.js",
+    "build": "npx webpack --config config/webpack.prod.js && npx postcss ./src/style/simple-memory.css > ./dist/simple-memory.css",
+    "analyz": "npx webpack --config config/webpack.dev.js  && npx webpack-bundle-analyzer",
+    "docs:build": "vitepress build docs/v2",
+    "docs:preview": "vitepress preview docs/v2",
+    "docs:dev": "vitepress dev docs/v2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangyang0210/cnblogs-theme.git"
+  },
+  "keywords": [],
+  "author": "wangyang0210",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wangyang0210/cnblogs-theme/issues"
+  },
+  "homepage": "https://github.com/wangyang0210/cnblogs-theme#readme",
+  "devDependencies": {
+    "@popperjs/core": "^2.11.8",
+    "compression-webpack-plugin": "^10.0.0",
+    "css-loader": "^5.2.7",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "cssnano": "^6.1.2",
+    "cssnano-preset-advanced": "^5.3.10",
+    "exports-loader": "^2.0.0",
+    "filemanager-webpack-plugin": "^7.0.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "imports-loader": "^2.0.0",
+    "json5": "^2.2.3",
+    "mini-css-extract-plugin": "^1.6.2",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "toml": "^3.0.0",
+    "vitepress": "^1.5.0",
+    "webpack": "^5.97.1",
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.15.2",
+    "webpack-merge": "^5.10.0"
+  },
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ],
-    "directories": {
-        "doc": "docs"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "npx webpack --config config/webpack.dev.js",
-        "build": "npx webpack --config config/webpack.prod.js && npx postcss ./src/style/simple-memory.css > ./dist/simple-memory.css",
-        "analyz": "npx webpack --config config/webpack.dev.js  && npx webpack-bundle-analyzer"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/wangyang0210/cnblogs-theme.git"
-    },
-    "keywords": [],
-    "author": "wangyang0210",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/wangyang0210/cnblogs-theme/issues"
-    },
-    "homepage": "https://github.com/wangyang0210/cnblogs-theme#readme",
-    "devDependencies": {
-        "@popperjs/core": "^2.11.8",
-        "compression-webpack-plugin": "^10.0.0",
-        "css-loader": "^5.2.7",
-        "css-minimizer-webpack-plugin": "^5.0.1",
-        "cssnano": "^6.1.2",
-        "cssnano-preset-advanced": "^5.3.10",
-        "exports-loader": "^2.0.0",
-        "filemanager-webpack-plugin": "^7.0.0",
-        "html-loader": "^2.1.2",
-        "html-webpack-plugin": "^5.6.3",
-        "imports-loader": "^2.0.0",
-        "json5": "^2.2.3",
-        "mini-css-extract-plugin": "^1.6.2",
-        "postcss": "^8.4.49",
-        "postcss-cli": "^10.1.0",
-        "style-loader": "^2.0.0",
-        "toml": "^3.0.0",
-        "webpack": "^5.97.1",
-        "webpack-bundle-analyzer": "^4.10.2",
-        "webpack-cli": "^4.10.0",
-        "webpack-dev-server": "^4.15.2",
-        "webpack-merge": "^5.10.0"
-    },
-    "browserslist": {
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ],
-        "production": [
-            ">0.2%",
-            "not dead",
-            "nop op_mini all"
-        ]
-    }
+    "production": [
+      ">0.2%",
+      "not dead",
+      "nop op_mini all"
+    ]
+  }
 }
