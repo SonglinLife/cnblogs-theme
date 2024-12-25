@@ -11,7 +11,7 @@ export default function main() {
 
   const RelTitle = document.title;
   const config = $.__config.title;
-  let hidden, visibilityChange;
+  let hidden, visibilityChange, timer;
 
 
     if (typeof document.hidden !== 'undefined') {
@@ -33,20 +33,20 @@ export default function main() {
     let handleVisibilityChange = () => {
         if (timer) clearTimeout(timer);
 
-        if (document[hidden] && onblurTime >= 0) {
+        if (document[hidden] && config.onblurTime >= 0) {
           timer = setTimeout(() => {
                document.title = `${config.onblur} - ${RelTitle.split(' - ')[0]}`;
-            }, onblurTime);
+            }, config.onblurTime);
         }
 
-        if (!document[hidden] && focusTime >= 0) {
-            document.title = focus;
+        if (!document[hidden] && config.focusTime >= 0) {
+            document.title = config.focus;
             timer = setTimeout(() => {
                 document.title = RelTitle;
-            }, focusTime);
+            }, config.focusTime);
         }
 
-        if (!document[hidden] && focusTime < 0) {
+        if (!document[hidden] && config.focusTime < 0) {
             document.title = RelTitle;
         }
     };
