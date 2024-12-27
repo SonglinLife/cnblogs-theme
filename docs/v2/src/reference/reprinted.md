@@ -1,5 +1,5 @@
 # 转载文章
- 
+
 关于转载文章在 HTML 源码中加入如下代码来指定文章作者和来源：
 
 ```html
@@ -13,7 +13,7 @@
 
 ## 富文本编辑器
 
-![img](/images/reprinted/reprinted_01.png)
+![img](https://pic.imgdb.cn/item/676df60dd0e0a243d4eb1989.png)
 
 ## Markdown
 
