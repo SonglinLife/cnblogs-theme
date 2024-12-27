@@ -10,6 +10,7 @@ export default defineConfig({
   locales: {
     root: zhConfig,
   },
+   head: [['link', { rel: 'icon', href: 'https://pic.imgdb.cn/item/676dfbe9d0e0a243d4eb1a0c.png' }]],
   themeConfig: {
     logo: 'https://pic.imgdb.cn/item/676ba098d0e0a243d4e9d23d.png',
     search: {
