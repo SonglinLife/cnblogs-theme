@@ -7,6 +7,7 @@ export default {
       { text: "首页", link: "/" },
       { text: "指南", link: "/guide/install", activeMatch: "/guide/" },
       { text: "参考", link: "/reference/configs", activeMatch: "/reference/" },
+      { text: "更新历史", link: "/changelog/", activeMatch: "/changelog/" },
     ],
     sidebar: {
       '/guide/': [

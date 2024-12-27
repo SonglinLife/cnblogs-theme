@@ -66,5 +66,8 @@
       "not dead",
       "nop op_mini all"
     ]
+  },
+  "dependencies": {
+    "markdown-it-task-lists": "^2.1.1"
   }
 }

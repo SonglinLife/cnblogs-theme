@@ -37,3 +37,13 @@
         max-height: 300px !important;
     }
 }
+
+.task-list-item-checkbox:not(:checked) {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #8a4bea;
+    border-radius: 3px;
+    margin-right: 5px;
+    vertical-align: middle;
+}

@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import zhConfig from './locales/zh.config.js'
+import markdownItTaskLists from 'markdown-it-task-lists';
+
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -22,6 +24,9 @@ export default defineConfig({
     ]
   },
   markdown: {
-    lineNumbers: true
+    lineNumbers: true,
+    config: (md) => {
+        md.use(markdownItTaskLists)
+    }
   }
 })
