@@ -1155,30 +1155,6 @@ window.cnblogsConfig = {
 
 <!-- TODO 待调整 -->
 
-### typing - 评论框打字动效
-
--   类型：`Object`
--   默认值：
-
-```json5
-{
-    enable: false, // 是否开启
-    options: {
-        colorful: true,  // 是否多彩
-        shake: false, // 是否震动
-    }
-}
-```
-
-```javascript
-window.cnblogsConfig = {
-    animate: {
-        typing: {
-            enable: false
-        },
-    },
-}
-```
 
 ## articleDirectory - 文章目录
 
@@ -1257,6 +1233,41 @@ window.cnblogsConfig = {
 ```
 
 ## articleContent - 文章内容
+
+<!-- TODO 待调整 -->
+ <!-- articleContent: {
+            link: true,
+            iconfont: true,
+            diggit: true,
+            commentBackground: {
+                enable: true
+            }
+        }, -->
+
+### typing - 评论框打字动效
+
+-   类型：`Object`
+-   默认值：
+
+```json5
+{
+    enable: false, // 是否开启
+    options: {
+        colorful: true,  // 是否多彩
+        shake: false, // 是否震动
+    }
+}
+```
+
+```javascript
+window.cnblogsConfig = {
+    articleContent: {
+        commentTyping: {
+            enable: false
+        },
+    },
+}
+```
 
 ### prefixIcon - 文章标题前图标
 
