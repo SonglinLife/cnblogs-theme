@@ -1203,9 +1203,9 @@ window.cnblogsConfig = {
 }
 ```
 
-## articleComment - 文章评论
+## articleContent - 文章内容
 
-### background - 文章评论背景
+### commentBackground - 文章评论背景
 
 * 类型：`Object`
 * 默认值：
@@ -1224,25 +1224,13 @@ window.cnblogsConfig = {
 
 ```javascript
 window.cnblogsConfig = {
-    articleComment: {
-        background: {
+    articleContent: {
+        commentBackground: {
             enable: false,
         },
     },
 }
 ```
-
-## articleContent - 文章内容
-
-<!-- TODO 待调整 -->
- <!-- articleContent: {
-            link: true,
-            iconfont: true,
-            diggit: true,
-            commentBackground: {
-                enable: true
-            }
-        }, -->
 
 ### typing - 评论框打字动效
 
