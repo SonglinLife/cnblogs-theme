@@ -11,11 +11,7 @@ import suffixTemp from '../../template/articleSuffix.html';
 
 export default function main() {
     // 图片
-    let imgUrl = $.__config.articleSuffix.imgUrl
-        ? $.__config.articleSuffix.imgUrl
-        : $.__config.info.avatar
-        ? $.__config.info.avatar
-        : $.__config.default.avatar;
+    let imgUrl = $.__config.articleSuffix.imgUrl ? $.__config.articleSuffix.imgUrl : $.__config.info.avatar ? $.__config.info.avatar : $.__config.default.avatar;
 
     // 本文作者 & 本文链接
     const articleAuthor = $('#articleAuthor');
@@ -25,9 +21,7 @@ export default function main() {
     const homeUrl = articleSource?.val() || $.__status.homeUrl;
     const origin = articleSource.length ? '原' : '本';
 
-    let aboutHtml =
-        $.__config.articleSuffix.aboutHtml ||
-        `评论和私信会在第一时间回复。或者<a href="https://msg.cnblogs.com/msg/send/${$.__status.user}" target="_blank">直接私信</a>我。`;
+    let aboutHtml = $.__config.articleSuffix.aboutHtml || `评论和私信会在第一时间回复。或者<a href="https://msg.cnblogs.com/msg/send/${$.__status.user}" target="_blank">直接私信</a>我。`;
 
     // 版权声明
     let copyrightHtml =
@@ -53,7 +47,7 @@ export default function main() {
     $('#cnblogs_post_body').append(suffixHtml);
 
     // 版权声明 - COPY
-    const config = $.__config.articleSuffix.copyText;
+    const config = $.__config.articleSuffix.copyInfo;
     const { enable, length, copyright = copyrightHtml } = config;
 
     if (enable) {

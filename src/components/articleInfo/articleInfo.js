@@ -82,18 +82,23 @@ export default function main() {
      * 设置文章标题-iconfont
      */
     let titleInfo = $('#cnblogs_post_body').find(':header');
-    if ($.__config.articleContent.iconfont && titleInfo.length > 0) {
-        let iconfonts = $.__config.articleContent.iconfontArr;
-        titleInfo.html((i, c) => {
-            let arr = [];
-            let num = Math.floor(Math.random() * (iconfonts.length - i) + i);
-            if (arr.indexOf(num) == -1) {
-                arr.push(num);
-                $(`<svg class="icon"> <use xlink:href="#icon-${iconfonts[num]}"></use></svg>`).prependTo(titleInfo[i]);
-            } else {
-                i--;
-            }
-        });
+    if ($.__config.articleContent.prefixIcon.enable && titleInfo.length > 0) {
+        const iconfonts = $.__config.articleContent.prefixIcon.options.iconfontArr;
+        $.__tools
+            .dynamicLoadingJs($.__config.articleContent.prefixIcon.options.link)
+            .then((r) => {
+                titleInfo.html((i, c) => {
+                    let arr = [];
+                    let num = Math.floor(Math.random() * (iconfonts.length - i) + i);
+                    if (arr.indexOf(num) == -1) {
+                        arr.push(num);
+                        $(`<svg class="icon"> <use xlink:href="#icon-${iconfonts[num]}"></use></svg>`).prependTo(titleInfo[i]);
+                    } else {
+                        i--;
+                    }
+                });
+            })
+            .catch((e) => console.error('iconfont.js', e));
     }
 
     /**
@@ -139,8 +144,7 @@ export default function main() {
                 const n5 = document.querySelector('mbk') || '';
                 const n6 = document.querySelector('mst') || '';
                 const n7 = document.querySelector('mco') || '';
-                const { underline, circle, box, highlight, bracket, strikeThrough, crossedOff } =
-                    $.__config.articleContent.roughNotation.options;
+                const { underline, circle, box, highlight, bracket, strikeThrough, crossedOff } = $.__config.articleContent.roughNotation.options;
                 const a1 = annotate(n1, underline);
                 const a2 = annotate(n2, circle);
                 const a3 = annotate(n3, box);
@@ -153,10 +157,4 @@ export default function main() {
             }, 2000);
         });
     })();
-
-    /**
-     * 是否隐藏底部的编辑推荐和阅读排行
-     */
-    if ($.__config.articleContent.hide.recommendPosts) $('#under_post_card1').hide();
-    if ($.__config.articleContent.hide.readingRanking) $('#under_post_card2').hide();
 }

@@ -277,7 +277,7 @@
         aboutHtml: '',
         copyrightHtml: '',
         supportHtml: '',
-        copyText: {
+        copyInfo: {
             enable: false,
             length: 100,
             copyright: '',
@@ -318,28 +318,34 @@
                 night: 'rgba(0, 0, 0, 0) url("https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_230301073520_comment_bg_dark.png") no-repeat scroll 100% 31% / 35% padding-box border-box',
             },
         },
+        prefixIcon: {
+            enable: false,
+            options: {
+                link: 'https://at.alicdn.com/t/c/font_3628204_t6n3fw8b1zn.js',
+                iconfontArr: [
+                    'hebaodan','bingtanghulu','kesong','qianceng','fengmi','feiyuguantou',
+                    'shengjian','youtiao','yuzijiang','zhutongfan','doujiang','sanmingzhi',
+                    'paofu','shanbei','dangaojuan','futejia','huangyou','xiangchang','banji',
+                    'danta','qingning','lajiao','shizi','mojituo','pijiu','putaojiu','kouxiangtang',
+                    'xiangcaobingqilin','jiaozi','tilamisu','huoguo','hongshu','bingkuai','mianhuatang',
+                    'paobing','meishikafei','mantou','qishui','ganlan','jiroujuan','guodong','baozi',
+                    'pingguo','chengzi','qingjiao','jidan','xihongshi','mangguo','baocai','niunai',
+                    'mianbao','huluobu','zhangyu','pangxie','longxia','yangcong','rou','jitui','huage',
+                    'xianyu','mogu','qiezi','xilanhua','ningmeng','liulian','banli','sanwenyu','tudou',
+                    'xigua','nangua','huolongguo','fantuan','zhusun','shuiluobu','shanzhu','lanmei','shiliu',
+                    'yezi','tiangua','mihoutao','boluo','kaixinguo','hetao','xiaweiyiguo','huasheng','bigenguo',
+                    'kuihuazi','songzi','xiguazi','badanmu','yaoguo','danhuangsu','dangao','binggan','buding',
+                    'tangguo','qiaokeli','hongzao','candou','putaogan','manyuemei','taozi','xiangjiao','caomei',
+                    'niuyouguo','hamigua','chelizi','li','bale','kafei1','shutiao','zhenzhunaicha','xuegao','nailao',
+                    'kele','tiantong','hanbao','xiezishousi','baomihua','regou','makalong','tianfuluo','juzi','baixiangguo',
+                    'putao','shaomai','yumi','pipa','yangtao','youzi','lianwu','wuhuaguo','paomian','wandou','huanggua',
+                    'suantou','tiantianquan','shupian','huafubing','bangbangtang','shousi','lizhi','doufu','mocha','boluomi',
+                    'zhouzi','bingsha','suannai','pisa','haixing','haizhe','tongluoshao','nuomici','kuangquanshui','roujiamo',
+                    'cha','zhangyuxiaowanzi','chengzhi','yuancaitou','baicai',
+                ],
+            }
+        }
         diggit: false,
-        iconfontArr: [
-            'hebaodan','bingtanghulu','kesong','qianceng','fengmi','feiyuguantou',
-            'shengjian','youtiao','yuzijiang','zhutongfan','doujiang','sanmingzhi',
-            'paofu','shanbei','dangaojuan','futejia','huangyou','xiangchang','banji',
-            'danta','qingning','lajiao','shizi','mojituo','pijiu','putaojiu','kouxiangtang',
-            'xiangcaobingqilin','jiaozi','tilamisu','huoguo','hongshu','bingkuai','mianhuatang',
-            'paobing','meishikafei','mantou','qishui','ganlan','jiroujuan','guodong','baozi',
-            'pingguo','chengzi','qingjiao','jidan','xihongshi','mangguo','baocai','niunai',
-            'mianbao','huluobu','zhangyu','pangxie','longxia','yangcong','rou','jitui','huage',
-            'xianyu','mogu','qiezi','xilanhua','ningmeng','liulian','banli','sanwenyu','tudou',
-            'xigua','nangua','huolongguo','fantuan','zhusun','shuiluobu','shanzhu','lanmei','shiliu',
-            'yezi','tiangua','mihoutao','boluo','kaixinguo','hetao','xiaweiyiguo','huasheng','bigenguo',
-            'kuihuazi','songzi','xiguazi','badanmu','yaoguo','danhuangsu','dangao','binggan','buding',
-            'tangguo','qiaokeli','hongzao','candou','putaogan','manyuemei','taozi','xiangjiao','caomei',
-            'niuyouguo','hamigua','chelizi','li','bale','kafei1','shutiao','zhenzhunaicha','xuegao','nailao',
-            'kele','tiantong','hanbao','xiezishousi','baomihua','regou','makalong','tianfuluo','juzi','baixiangguo',
-            'putao','shaomai','yumi','pipa','yangtao','youzi','lianwu','wuhuaguo','paomian','wandou','huanggua',
-            'suantou','tiantianquan','shupian','huafubing','bangbangtang','shousi','lizhi','doufu','mocha','boluomi',
-            'zhouzi','bingsha','suannai','pisa','haixing','haizhe','tongluoshao','nuomici','kuangquanshui','roujiamo',
-            'cha','zhangyuxiaowanzi','chengzhi','yuancaitou','baicai',
-        ],
         roughNotation: {
             enable: false,
             options: {
@@ -357,11 +363,7 @@
                 strikeThrough: { type: 'strike-through', color: 'red' },
                 crossedOff: { type: 'crossed-off', color: 'red' },
             },
-        },
-        hide: {
-            recommendPosts: false,
-            readingRanking: false,
-        },
+        }
     },
 
     // -- 缺省配置 --
@@ -371,7 +373,6 @@
         avatar: 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114123823_default_avatar.webp',
         infoBackground: 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114135508_sidebar_bg_2.webp',
         commentTyping: 'https://files.cnblogs.com/files/wangyang0210/commentTyping.js?t=1676464468',
-        iconfont: 'https://at.alicdn.com/t/c/font_3628204_t6n3fw8b1zn.js',
         mojs: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/mo-js/0.288.2/mo.min.js',
         moment: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/moment.js/2.29.1/moment.min.js',
         gsap: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/gsap/3.9.1/gsap.min.js',

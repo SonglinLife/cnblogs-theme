@@ -1302,6 +1302,82 @@ window.cnblogsConfig = {
 }
 ```
 
+
+### diggit - 点赞效果
+
+* 类型：`Boolean`
+* 默认值：
+
+```json5
+{
+    diggit: false,
+}
+```
+
+文章点赞效果
+
+```javascript
+window.cnblogsConfig = {
+    articleContent: {
+         diggit: false,
+    },
+}
+```
+
+### roughNotation - 文章注释效果
+
+* 类型：`Object`
+* 默认值：
+
+```json5
+{
+    enable: false,
+    options: {
+        underline: { type: 'underline', color: 'blue' },
+        circle: { type: 'circle', color: 'red' },
+        box: { type: 'box', color: 'orange' },
+        highlight: { type: 'highlight', color: 'yellow', iterations: 1, multiline: true },
+        bracket: {
+            type: 'bracket',
+            color: 'red',
+            padding: [2, 10],
+            brackets: ['left', 'right'],
+            strokeWidth: 3,
+        },
+        strikeThrough: { type: 'strike-through', color: 'red' },
+        crossedOff: { type: 'crossed-off', color: 'red' },
+    },
+}
+```
+
+文章注释效果，具体效果可参考[roughnotation](https://roughnotation.com/)
+
+```javascript
+window.cnblogsConfig = {
+    articleContent: {
+        roughNotation: {
+            enable: false,
+            options: {
+                underline: { type: 'underline', color: 'blue' },
+                circle: { type: 'circle', color: 'red' },
+                box: { type: 'box', color: 'orange' },
+                highlight: { type: 'highlight', color: 'yellow', iterations: 1, multiline: true },
+                bracket: {
+                    type: 'bracket',
+                    color: 'red',
+                    padding: [2, 10],
+                    brackets: ['left', 'right'],
+                    strokeWidth: 3,
+                },
+                strikeThrough: { type: 'strike-through', color: 'red' },
+                crossedOff: { type: 'crossed-off', color: 'red' },
+            },
+        }
+    },
+}
+```
+
+
 ## articleSuffix - 文章后缀
 
 ### imgUrl - 左侧图片
