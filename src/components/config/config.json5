@@ -510,7 +510,7 @@
     // -- 缺省配置 --
     default: {
         autoupdate: 'false',
-        version: 'v2.2.17',
+        version: 'v2.2.18',
         avatar: 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114123823_default_avatar.webp',
         infoBackground: 'https://images.cnblogs.com/cnblogs_com/wangyang0210/1943283/o_221114135508_sidebar_bg_2.webp',
         commentTyping: 'https://files.cnblogs.com/files/wangyang0210/commentTyping.js?t=1676464468',
