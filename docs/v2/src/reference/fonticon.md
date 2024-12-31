@@ -9,8 +9,7 @@
 获取样式地址后按照下面示例方式添加到配置中
 
 ::: danger 注意
-1. v2.1.3 版本后内置图标库的 class 前缀使用 "simple-memory-" 防止硬编码的图标被异常覆盖。在配置项中的可配置图标：同名自定义图标优先级大于内置图标
-2. 拓展图标库不要修改 FontClass/ Symbol 前缀，使用默认的 "icon-"
+ 拓展图标库需要修改 FontClass/ Symbol 前缀，不能使用默认的 "icon-"
 :::
 
 ```javascript
@@ -27,8 +26,8 @@ window.cnblogsConfig = {
 window.cnblogsConfig = {
     sidebar: { // 列表数据 ['导航名称', '链接', 'icon']
         navList: [
-            ['我的博客1', 'https://www.cnblogs.com/bndong/', 'icon-xxx'],
-            ['我的博客2', 'https://www.cnblogs.com/bndong/', 'icon-xxx'],
+            ['我的博客1', 'https://www.cnblogs.com/bndong/', 'x-icon-xxx'],
+            ['我的博客2', 'https://www.cnblogs.com/bndong/', 'x-icon-xxx'],
         ],
     },
 }
