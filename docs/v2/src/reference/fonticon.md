@@ -26,8 +26,7 @@ window.cnblogsConfig = {
 window.cnblogsConfig = {
     sidebar: { // 列表数据 ['导航名称', '链接', 'icon']
         navList: [
-            ['我的博客1', 'https://www.cnblogs.com/bndong/', 'x-icon-xxx'],
-            ['我的博客2', 'https://www.cnblogs.com/bndong/', 'x-icon-xxx'],
+           {text: "随笔", link:'https://i.cnblogs.com/posts/edit', icon: 'x-icon-brush-fill'},
         ],
     },
 }
