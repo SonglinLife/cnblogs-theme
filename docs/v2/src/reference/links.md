@@ -1,6 +1,6 @@
 # 友链页
 
-样式参考：[https://www.cnblogs.com/bndong/p/14708992.html](https://www.cnblogs.com/bndong/p/14708992.html)
+样式参考：[友联预览](https://www.cnblogs.com/wangyang1225/p/18614782)
 
 ## 配置方式
 
@@ -32,19 +32,19 @@
 window.cnblogsConfig = [
   links: {
     page: [
-      {
-        "title": "友情链接", // 标题
-        "icon": "icon-weibiaoti22", // 标题图标
-        "style": "color: #a78bfa;", // 标题样式
-        "links": [
           {
-            name: 'BNDong', // 昵称
-            introduction: 'IT技术类博客', // 简介
-            avatar: 'https://blog.dbnuo.com/images/avatar.gif', // 头像
-            url: 'https://blog.dbnuo.com' // 友链地址
-          }
-        ]
-      }
+            title: '友情链接', // 标题
+            icon: 'icon-lianjie', // iconfont
+            style: 'color: #a78bfa;',
+            links: [
+                {
+                    name: '。思索', // 昵称
+                    introduction: 'IT技术类博客', // 简介
+                    avatar: 'https://pic.cnblogs.com/face/1334215/20180504110551.png', // 头像
+                    url: 'https://cnblogs.com/wangyang0210' // 友链地址
+                },
+            ]
+        },
     ]
   }
 ];
@@ -62,30 +62,18 @@ window.cnblogsConfig = {
 // 友链页配置
 window.cnblogsConfig.links.page = [
   {
-    "title": "友情链接",
-    "icon": "icon-weibiaoti22",
-    "style": "color: #a78bfa;",
-    "links": [
-      {
-        name: 'BNDong',
-        introduction: 'IT技术类博客',
-        avatar: 'https://blog.dbnuo.com/images/avatar.gif',
-        url: 'https://blog.dbnuo.com'
-      },
-            {
-        name: 'BNDong',
-        introduction: 'IT技术类博客',
-        avatar: 'https://blog.dbnuo.com/images/avatar.gif',
-        url: 'https://blog.dbnuo.com'
-      },
-      {
-        name: 'BNDong',
-        introduction: 'IT技术类博客',
-        avatar: 'https://blog.dbnuo.com/images/avatar.gif',
-        url: 'https://blog.dbnuo.com'
-      }
-    ]
-  }
+      title: '友情链接', // 标题
+      icon: 'icon-lianjie', // iconfont
+      style: 'color: #a78bfa;',
+      links: [
+          {
+              name: '。思索', // 昵称
+              introduction: 'IT技术类博客', // 简介
+              avatar: 'https://pic.cnblogs.com/face/1334215/20180504110551.png', // 头像
+              url: 'https://cnblogs.com/wangyang0210' // 友链地址
+          },
+      ]
+  },
 ];
 ```
 
