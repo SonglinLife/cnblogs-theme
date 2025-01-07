@@ -302,8 +302,8 @@
 
     // -- 文章内容效果 --
     articleContent: {
+        diggit: false,
         link: false,
-        iconfont: false,
         commentTyping: {
             enable: false,
             options: {
@@ -486,7 +486,6 @@
                 ],
             },
         },
-        diggit: false,
         roughNotation: {
             enable: false,
             options: {

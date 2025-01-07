@@ -1324,6 +1324,27 @@ window.cnblogsConfig = {
 }
 ```
 
+### link - 文章内部链接尾部icon
+
+* 类型：`Boolean`
+* 默认值：
+
+```json5
+{
+    link: false,
+}
+```
+
+文章链接尾部增加分享icon
+
+```javascript
+window.cnblogsConfig = {
+    articleContent: {
+         link: false,
+    },
+}
+```
+
 ### roughNotation - 文章注释效果
 
 * 类型：`Object`
