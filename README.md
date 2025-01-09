@@ -12,10 +12,10 @@
 [![GitHub issues](https://img.shields.io/github/issues/wangyang0210/cnblogs-theme.svg)](https://github.com/wangyang0210/cnblogs-theme/issues)
 [![GitHub contributors](https://img.shields.io/github/contributors/wangyang0210/cnblogs-theme.svg)](https://github.com/wangyang0210/cnblogs-theme/graphs/contributors)
 [![](https://data.jsdelivr.com/v1/package/gh/wangyang0210/cnblogs-theme/badge?style=rounded)](https://www.jsdelivr.com/package/gh/wangyang0210/cnblogs-theme)
-
 [![GitHub last commit](https://img.shields.io/github/last-commit/wangyang0210/cnblogs-theme.svg)](https://github.com/wangyang0210/cnblogs-theme/commits/v2)
 [![GitHub license](https://img.shields.io/badge/license-ISC-brightgreen)](https://github.com/wangyang0210/cnblogs-theme/blob/v2/LICENSE)
 [![compatibility](https://camo.githubusercontent.com/31ac3f0ce805dc34a29b615131caa26cbf4dc127/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f62726f777365722d2532306368726f6d6525323025374325323066697265666f782532302537432532306f706572612532302537432532307361666172692532302537432532306965253230253345253344253230392d6c69676874677265792e737667)](https://github.com/wangyang0210/cnblogs-theme)
+[![Deploy VitePress Site](https://github.com/wangyang0210/cnblogs-theme/actions/workflows/docs-site-deploy.yml/badge.svg?branch=v2)](https://github.com/wangyang0210/cnblogs-theme/actions/workflows/docs-site-deploy.yml)
 
 # Silence
 
@@ -27,7 +27,7 @@
 
 # Docs
 
-[永久地址](https://wangyang0210.github.io/cnblogs-theme/v2/#/)
+[永久地址](https://wangyang0210.github.io/cnblogs-theme/)
 
 > 推荐大家使用最新版本，新版本的发布往往代表着功能的完善和bug的修复！
 > <br>文档的源文件在 /docs 目录，大家有更完善的文档或建议可以 Pull Request 或 Issues 给我。
