@@ -231,6 +231,12 @@
             },
         },
         mouse: {
+            cursor: {
+                enable: false,
+                options: {
+                    url: '',
+                },
+            },
             bubble: {
                 enable: false,
                 options: {
