@@ -1059,12 +1059,27 @@ img 建议使用 base64 转码后的图片，素材建议透明背景素材
 
 ```json5
 {
+  cursor: {},
   bubble: {},
   mouse: {},
   mo: { },
   click: {},
 }
 ```
+
+#### cursor - 鼠标指针样式
+* 类型：`Object`
+* 默认值：
+```json5
+{
+  cursor: {
+    enable: false,
+    options: {
+        url: 'https://files.cnblogs.com/files/wangyang0210/normal.gif?t=1681261712',
+    },
+  },
+}
+
 #### bubble - 气泡动效
 
 * 类型：`Object`
